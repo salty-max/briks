@@ -53,15 +53,15 @@ function ThemeProvider({
   const cachedTheme = localStorage.getItem(storageKey);
   const cachedDarkMode = localStorage.getItem("dark-mode") as DarkMode | null;
   const systemPrefersDark = window.matchMedia(
-    "(prefers-color-scheme: dark)",
+    "(prefers-color-scheme: dark)"
   ).matches;
   const systemValue: DarkMode = systemPrefersDark ? "enabled" : "disabled";
 
   const [theme, setTheme] = React.useState<Theme | null>(
-    themesNames.includes(cachedTheme ?? "") ? cachedTheme : defaultTheme,
+    themesNames.includes(cachedTheme ?? "") ? cachedTheme : defaultTheme
   );
   const [darkMode, setDarkMode] = React.useState<DarkMode>(
-    cachedDarkMode ?? systemValue,
+    cachedDarkMode ?? systemValue
   );
 
   // Listen to system theme changes
@@ -99,7 +99,7 @@ function ThemeProvider({
         .join("\n");
 
       let styleElement = document.head.querySelector(
-        "style#dynamic-theme-vars",
+        "style#dynamic-theme-vars"
       );
       if (!styleElement) {
         styleElement = document.createElement("style");
@@ -128,7 +128,7 @@ function ThemeProvider({
         setDarkMode(newDarkMode);
       },
     }),
-    [theme, darkMode, storageKey],
+    [theme, darkMode, storageKey]
   );
 
   return (

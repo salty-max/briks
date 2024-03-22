@@ -45,7 +45,7 @@ jobs:
         run: pnpm run build --filter packages/*
 
       - name: Install dependencies
-        run: pnpm install --filter workshop
+        run: pnpm install --filter docs
 
       - name: Build Storybook (if required)
         run: pnpm run build-storybook
@@ -57,6 +57,6 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           exitOnceUploaded: true
           exitZeroOnChanges: true
-          storybookBaseDir: apps/workshop
-          storybookBuildDir: apps/workshop/storybook-static
+          storybookBaseDir: apps/docs
+          storybookBuildDir: apps/docs/storybook-static
           onlyChanged: true

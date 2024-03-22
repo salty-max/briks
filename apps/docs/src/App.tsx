@@ -1,4 +1,4 @@
-import { useTheme, Button, Text } from "@briks/ui";
+import { Button, Text, useTheme } from "@briks/ui";
 
 function App() {
   const { theme, setTheme, darkMode, toggleDarkMode } = useTheme();

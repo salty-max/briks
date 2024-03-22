@@ -3,6 +3,7 @@
 *.config.ts
 *.setup.ts
 *.setup.js
+*.cjs
 
 coverage/
 node_modules/
