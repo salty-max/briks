@@ -1,6 +1,6 @@
 import type { Preview } from "@storybook/react";
 
-import "@j3lly/ui/style";
+import "@briks/ui/style";
 
 const preview: Preview = {
   parameters: {

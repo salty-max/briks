@@ -1,5 +1,5 @@
 {
-  "name": "@j3lly/hooks",
+  "name": "@briks/hooks",
   "version": "0.0.1",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -25,8 +25,8 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@j3lly/eslint-config": "workspace:*",
-    "@j3lly/typescript-config": "workspace:*",
+    "@briks/eslint-config": "workspace:*",
+    "@briks/typescript-config": "workspace:*",
     "@types/eslint": "^8.56.5",
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.61",

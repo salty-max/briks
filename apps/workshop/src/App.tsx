@@ -1,4 +1,4 @@
-import { Button } from "@j3lly/ui";
+import { Button } from "@briks/ui";
 
 function App() {
   return (

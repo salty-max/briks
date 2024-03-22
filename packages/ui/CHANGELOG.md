@@ -1,4 +1,4 @@
-# @j3lly/ui
+# @briks/ui
 
 ## 0.0.1
 

@@ -1,5 +1,5 @@
 {
-  "name": "j3lly",
+  "name": "briks",
   "private": true,
   "scripts": {
     "build": "turbo build",
@@ -20,8 +20,8 @@
     "@chromatic-com/storybook": "^1.2.25",
     "@commitlint/config-conventional": "^19.1.0",
     "@commitlint/cli": "^19.2.1",
-    "@j3lly/eslint-config": "workspace:*",
-    "@j3lly/typescript-config": "workspace:*",
+    "@briks/eslint-config": "workspace:*",
+    "@briks/typescript-config": "workspace:*",
     "@storybook/cli": "^8.0.2",
     "chromatic": "^11.2.0",
     "eslint": "^8.57.0",

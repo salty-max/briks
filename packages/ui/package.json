@@ -1,5 +1,5 @@
 {
-  "name": "@j3lly/ui",
+  "name": "@briks/ui",
   "version": "0.0.1",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -36,8 +36,8 @@
     "tw-merge": "0.0.1-alpha.3"
   },
   "devDependencies": {
-    "@j3lly/eslint-config": "workspace:*",
-    "@j3lly/typescript-config": "workspace:*",
+    "@briks/eslint-config": "workspace:*",
+    "@briks/typescript-config": "workspace:*",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.2",
     "@testing-library/user-event": "^14.5.2",

@@ -1,4 +1,4 @@
-# @j3lly/hooks
+# @briks/hooks
 
 ## 0.0.1
 

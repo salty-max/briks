@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import type { TextProps } from "@j3lly/ui";
-import { Text } from "@j3lly/ui";
+import type { TextProps } from "@briks/ui";
+import { Text } from "@briks/ui";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -40,12 +40,12 @@ export const Variants: Story = {
     children: "Lorem ipsum solor sit amet",
   },
   render: (args) => (
-    <div className="grid space-y-4">
-      <Text {...args} variant="title" />
-      <Text {...args} variant="subtitle" />
-      <Text {...args} variant="cardTitle" />
+    <div className='grid space-y-4'>
+      <Text {...args} variant='title' />
+      <Text {...args} variant='subtitle' />
+      <Text {...args} variant='cardTitle' />
       <Text {...args} />
-      <Text {...args} variant="caption" />
+      <Text {...args} variant='caption' />
     </div>
   ),
 };

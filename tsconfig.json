@@ -1,3 +1,3 @@
 {
-  "extends": "@j3lly/typescript-config/base.json"
+  "extends": "@briks/typescript-config/base.json"
 }

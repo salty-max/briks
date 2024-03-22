@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
-import type { ButtonProps } from "@j3lly/ui";
-import { Button } from "@j3lly/ui";
+import type { ButtonProps } from "@briks/ui";
+import { Button } from "@briks/ui";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta: Meta<ButtonProps> = {
@@ -58,23 +58,23 @@ export const Variants: Story = {
     children: "Click me",
   },
   render: (args) => (
-    <div className="flex gap-x-2">
-      <Button {...args} variant="primary">
+    <div className='flex gap-x-2'>
+      <Button {...args} variant='primary'>
         Click me
       </Button>
-      <Button {...args} variant="destructive">
+      <Button {...args} variant='destructive'>
         Click me
       </Button>
-      <Button {...args} variant="outline">
+      <Button {...args} variant='outline'>
         Click me
       </Button>
-      <Button {...args} variant="secondary">
+      <Button {...args} variant='secondary'>
         Click me
       </Button>
-      <Button {...args} variant="ghost">
+      <Button {...args} variant='ghost'>
         Click me
       </Button>
-      <Button {...args} variant="link">
+      <Button {...args} variant='link'>
         Click me
       </Button>
     </div>
@@ -87,15 +87,15 @@ export const Variants: Story = {
 export const Sizes: Story = {
   args: {},
   render: (args) => (
-    <div className="flex space-x-4">
-      <Button {...args} size="lg">
+    <div className='flex space-x-4'>
+      <Button {...args} size='lg'>
         Click me
       </Button>
-      <Button {...args} size="default">
+      <Button {...args} size='default'>
         Click me
       </Button>
-      <Button {...args} icon="Bell" size="icon" />
-      <Button {...args} size="sm">
+      <Button {...args} icon='Bell' size='icon' />
+      <Button {...args} size='sm'>
         Click me
       </Button>
     </div>
