@@ -45,7 +45,7 @@ jobs:
         run: pnpm run build --filter packages/*
 
       - name: Install dependencies
-        run: pnpm install --filter @j3lly/docs
+        run: pnpm install --filter workshop
 
       - name: Build Storybook (if required)
         run: pnpm run build-storybook
