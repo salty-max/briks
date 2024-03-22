@@ -1,0 +1,9 @@
+{
+  "projectId": "Project:65fd7fbdd9ef596ae5a2382f",
+  "exitZeroOnChanges": true,
+  "exitOnceUploaded": true,
+  "storybookBaseDir": "apps/workshop",
+  "storybookBuildDir": "apps/workshop/storybook-static",
+  "onlyChanged": true,
+  "zip": true
+}

@@ -1,0 +1,5 @@
+
+> j3lly@ build-storybook /Users/max/Developer/j3lly
+> turbo build-storybook "--output-dir" "/var/folders/k3/0xg8_xsn5qd5f5k5hn7kkcg00000gn/T/chromatic--22786-XJhmSxyqUfd0"
+
+ ELIFECYCLE  Command failed with exit code 1.

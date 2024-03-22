@@ -24,8 +24,11 @@ coverage
 # Build Outputs
 .next/
 out/
-build
-dist
+build/
+dist/
+
+# Tests
+coverage/
 
 
 # Debug
