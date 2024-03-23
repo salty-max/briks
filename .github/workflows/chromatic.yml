@@ -57,6 +57,6 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           exitOnceUploaded: true
           exitZeroOnChanges: true
-          storybookBaseDir: apps/docs
-          storybookBuildDir: apps/docs/storybook-static
+          storybookBaseDir: .
+          storybookBuildDir: storybook-static
           onlyChanged: true
