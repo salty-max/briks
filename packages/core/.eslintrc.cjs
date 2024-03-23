@@ -9,5 +9,6 @@ module.exports = {
   rules: {
     "no-redeclare": "off",
     "no-undef": "off",
+    "no-unused-vars": "off",
   },
 };

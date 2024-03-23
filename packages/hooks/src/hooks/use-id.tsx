@@ -19,7 +19,7 @@ let count = 0;
  * @returns A unique ID string. It prefixes the generated or provided ID with `jelly-` unless a deterministic ID is provided.
  *                   Returns an empty string if unable to generate an ID (e.g., before React 18's useId is called on the client side).
  */
-export const useId = (deterministicId?: string): string => {
+function useId(deterministicId?: string): string {
   const [id, setId] = React.useState<string | undefined>(useReactId());
   // React versions older than 18 will have client-side ids only.
   useLayoutEffect(() => {
@@ -27,4 +27,6 @@ export const useId = (deterministicId?: string): string => {
   }, [deterministicId]);
 
   return deterministicId ?? (id ? `jelly-${id}` : "");
-};
+}
+
+export { useId };

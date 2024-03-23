@@ -1,13 +1,14 @@
 {
   "name": "@briks/hooks",
   "version": "0.0.0",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
     }
   },
@@ -21,6 +22,7 @@
     "clean": "rimraf .turbo node_modules dist"
   },
   "dependencies": {
+    "@briks/core": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

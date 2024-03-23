@@ -1,12 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { themes } from "./themes";
+import { Theme, themes } from "./themes";
+import briksConfig from "../../../briks.config.json";
 
 const themesNames = [
-  "none",
-  "zinc",
-  "slate",
-  "stone",
   "neutral",
   "gray",
   "orange",
@@ -18,19 +15,19 @@ const themesNames = [
   "violet",
 ];
 type ThemeTuple = typeof themesNames;
-type Theme = ThemeTuple[number];
+type ThemeName = ThemeTuple[number];
 type DarkMode = "enabled" | "disabled";
 
 interface ThemeProviderProps {
   children: React.ReactNode;
-  defaultTheme?: Theme | null;
+  defaultTheme?: ThemeName | null;
   storageKey?: string;
 }
 
 interface ThemeProviderState {
-  theme?: Theme | null;
+  theme?: ThemeName | null;
   darkMode: DarkMode;
-  setTheme: (theme: Theme) => void;
+  setTheme: (theme: ThemeName) => void;
   toggleDarkMode: () => void;
 }
 
@@ -46,10 +43,11 @@ const ThemeProviderContext =
 
 function ThemeProvider({
   children,
-  defaultTheme = null,
+  defaultTheme: defaultThemeProp = null,
   storageKey = "theme",
   ...props
 }: ThemeProviderProps) {
+  const configTheme = briksConfig.defaultTheme;
   const cachedTheme = localStorage.getItem(storageKey);
   const cachedDarkMode = localStorage.getItem("dark-mode") as DarkMode | null;
   const systemPrefersDark = window.matchMedia(
@@ -57,8 +55,15 @@ function ThemeProvider({
   ).matches;
   const systemValue: DarkMode = systemPrefersDark ? "enabled" : "disabled";
 
-  const [theme, setTheme] = React.useState<Theme | null>(
-    themesNames.includes(cachedTheme ?? "") ? cachedTheme : defaultTheme
+  const allThemes: Record<string, Theme> = {
+    ...themes,
+    ...briksConfig.customThemes,
+  };
+
+  const [theme, setTheme] = React.useState<ThemeName | null>(
+    themesNames.includes(cachedTheme ?? "")
+      ? cachedTheme
+      : configTheme ?? defaultThemeProp
   );
   const [darkMode, setDarkMode] = React.useState<DarkMode>(
     cachedDarkMode ?? systemValue
@@ -78,6 +83,10 @@ function ThemeProvider({
   }, []);
 
   React.useEffect(() => {
+    if (localStorage.getItem(storageKey) && !!configTheme) {
+      setTheme(configTheme);
+    }
+
     const root = window.document.documentElement;
 
     root.classList.remove("dark");
@@ -117,7 +126,7 @@ function ThemeProvider({
   const value = React.useMemo(
     () => ({
       theme,
-      setTheme: (newTheme: Theme) => {
+      setTheme: (newTheme: ThemeName) => {
         localStorage.setItem(storageKey, newTheme);
         setTheme(newTheme);
       },
@@ -147,4 +156,4 @@ const useTheme = () => {
 };
 
 export { ThemeProvider, useTheme, themesNames as themes };
-export type { Theme };
+export type { ThemeName as Theme };

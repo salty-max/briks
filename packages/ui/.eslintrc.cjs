@@ -10,6 +10,9 @@ module.exports = {
     jest: true,
   },
   rules: {
+    "no-inner-declarations": "off",
     "no-redeclare": "off",
+    "no-undef": "off",
+    "no-unused-vars": "off",
   },
 };

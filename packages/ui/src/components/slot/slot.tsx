@@ -18,7 +18,8 @@
  */
 
 import React from "react";
-import { composeRefs } from "../../shared/utils";
+import { composeRefs } from "@briks/hooks";
+
 import { mergeProps } from "./helpers";
 
 /**
@@ -28,7 +29,7 @@ import { mergeProps } from "./helpers";
  * @param props - The component props containing children.
  * @returns A fragment containing the children.
  */
-export function Slottable({
+function Slottable({
   children,
 }: {
   children: React.ReactNode;
@@ -36,8 +37,9 @@ export function Slottable({
   return <>{children}</>;
 }
 
-const isSlottable = (child: React.ReactNode): child is React.ReactElement =>
-  React.isValidElement(child) && child.type === Slottable;
+function isSlottable(child: React.ReactNode): child is React.ReactElement {
+  return React.isValidElement(child) && child.type === Slottable;
+}
 
 interface SlotCloneProps {
   children: React.ReactNode;
@@ -68,7 +70,7 @@ const SlotClone = React.forwardRef<any, SlotCloneProps>(
     return React.Children.count(children) > 1
       ? React.Children.only(null)
       : null;
-  },
+  }
 );
 SlotClone.displayName = "SlotClone";
 
@@ -126,5 +128,5 @@ const Slot = React.forwardRef<HTMLElement, SlotProps>((props, forwardedRef) => {
 });
 Slot.displayName = "Slot";
 
-export { Slot };
+export { Slot, Slottable };
 export type { SlotProps };

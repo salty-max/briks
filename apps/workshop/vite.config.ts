@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     port: 1664,
   },
-  resolve: {
-    preserveSymlinks: false,
-  },
+  // resolve: {
+  //   preserveSymlinks: false,
+  // },
 });

@@ -9,4 +9,7 @@ module.exports = {
   coverageReporters: ["json", "html"],
   testMatch: ["**/?(*.)+(spec|test).ts?(x)"],
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
+  moduleNameMapper: {
+    "\\.(css|less|scss|sass)$": "identity-obj-proxy",
+  },
 };

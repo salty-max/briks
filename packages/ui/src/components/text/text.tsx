@@ -1,6 +1,7 @@
 import type { VariantProps } from "class-variance-authority";
 import React from "react";
-import { cn } from "../../shared/utils";
+import { cn } from "@briks/core";
+
 import { textVariants } from "./helpers";
 
 interface TextProps
@@ -38,7 +39,7 @@ const Text = React.forwardRef<HTMLHeadingElement, TextProps>(
         {children}
       </Comp>
     );
-  },
+  }
 );
 Text.displayName = "Text";
 
