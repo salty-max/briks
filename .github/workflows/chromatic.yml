@@ -47,6 +47,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --filter docs
 
+      - name: Build Storybook (if required)
+        run: pnpm run build-storybook
+
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:
