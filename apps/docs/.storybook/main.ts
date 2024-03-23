@@ -33,6 +33,7 @@ const config: StorybookConfig = {
       resolve: {
         alias: {
           "@briks/ui/style": "../node_modules/@briks/ui/dist/index.css",
+          "@briks/ui": "../node_modules/@briks/ui",
         },
       },
       // Make sure to adjust or add configurations that match your setup
