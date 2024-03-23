@@ -7,7 +7,7 @@
  * is particularly useful in complex applications or libraries where different parts of the application
  * might need to share state in a controlled manner.
  */
-import React from "react";
+import React from 'react';
 
 /**
  * Creates a React context with an optional default value and a provider that only re-renders
@@ -21,19 +21,14 @@ import React from "react";
  */
 const createContext = <ContextValueType extends object | null>(
   rootComponentName: string,
-  defaultContext?: ContextValueType
+  defaultContext?: ContextValueType,
 ) => {
-  const Context = React.createContext<ContextValueType | undefined>(
-    defaultContext
-  );
+  const Context = React.createContext<ContextValueType | undefined>(defaultContext);
 
   function Provider(props: ContextValueType & { children: React.ReactNode }) {
     const { children, ...context } = props;
     // Only re-memoize when prop values change
-    const value = React.useMemo(
-      () => context,
-      Object.values(context)
-    ) as ContextValueType;
+    const value = React.useMemo(() => context, Object.values(context)) as ContextValueType;
 
     return <Context.Provider value={value}>{children}</Context.Provider>;
   }
@@ -45,9 +40,7 @@ const createContext = <ContextValueType extends object | null>(
     if (defaultContext !== undefined) return defaultContext;
 
     // If a defaultContext wasn't specified, it's a required context.
-    throw new Error(
-      `\`${consumerName}\` must be used within \`${rootComponentName}\` `
-    );
+    throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\` `);
   }
 
   Provider.displayName = `${rootComponentName}Provider`;
@@ -74,25 +67,19 @@ const composeContextScopes = (...scopes: CreateScope[]) => {
   if (scopes.length === 1) return baseScope;
 
   const createScope: CreateScope = () => {
-    const scopeHooks = scopes.map((createScope) => ({
+    const scopeHooks = scopes.map(createScope => ({
       useScope: createScope(),
       scopeName: createScope.scopeName,
     }));
 
     return function useComposedScopes(overrideScopes) {
-      const nextScopes = scopeHooks.reduce(
-        (nextScopes, { useScope, scopeName }) => {
-          const scopeProps = useScope(overrideScopes);
-          const currentScope = scopeProps[`__scope${scopeName}`];
-          return { ...nextScopes, ...currentScope };
-        },
-        {}
-      );
+      const nextScopes = scopeHooks.reduce((nextScopes, { useScope, scopeName }) => {
+        const scopeProps = useScope(overrideScopes);
+        const currentScope = scopeProps[`__scope${scopeName}`];
+        return { ...nextScopes, ...currentScope };
+      }, {});
 
-      return React.useMemo(
-        () => ({ [`__scope${baseScope.scopeName}`]: nextScopes }),
-        [nextScopes]
-      );
+      return React.useMemo(() => ({ [`__scope${baseScope.scopeName}`]: nextScopes }), [nextScopes]);
     };
   };
 
@@ -110,19 +97,14 @@ const composeContextScopes = (...scopes: CreateScope[]) => {
  * @param {CreateScope[]} [createContextScopeDeps] - An array of dependent context scopes to be composed with this scope.
  * @returns {[Function, Function]} A tuple containing a createContext function tailored for this scope and a function to compose multiple context scopes.
  */
-const createContextScope = (
-  scopeName: string,
-  createContextScopeDeps: CreateScope[] = []
-) => {
+const createContextScope = (scopeName: string, createContextScopeDeps: CreateScope[] = []) => {
   let defaultContexts: any[] = [];
 
   function createContext<ContextValueType extends object | null>(
     rootComponentName: string,
-    defaultContext?: ContextValueType
+    defaultContext?: ContextValueType,
   ) {
-    const BaseContext = React.createContext<ContextValueType | undefined>(
-      defaultContext
-    );
+    const BaseContext = React.createContext<ContextValueType | undefined>(defaultContext);
     const index = defaultContexts.length;
     defaultContexts = [...defaultContexts, defaultContext];
 
@@ -130,23 +112,17 @@ const createContextScope = (
       props: ContextValueType & {
         scope: Scope<ContextValueType>;
         children: React.ReactNode;
-      }
+      },
     ) {
       const { scope, children, ...context } = props;
       const Context = scope?.[scopeName][index] ?? BaseContext;
       // Only re-memoize when prop values change
-      const value = React.useMemo(
-        () => context,
-        Object.values(context)
-      ) as ContextValueType;
+      const value = React.useMemo(() => context, Object.values(context)) as ContextValueType;
 
       return <Context.Provider value={value}>{children}</Context.Provider>;
     }
 
-    function useContext(
-      consumerName: string,
-      scope: Scope<ContextValueType | undefined>
-    ) {
+    function useContext(consumerName: string, scope: Scope<ContextValueType | undefined>) {
       const Context = scope?.[scopeName]?.[index] ?? BaseContext;
       const context = React.useContext(Context);
 
@@ -154,9 +130,7 @@ const createContextScope = (
       if (defaultContext !== undefined) return defaultContext;
 
       // If a defaultContext wasn't specified, it's a required context.
-      throw new Error(
-        `\`${consumerName}\` must be used within \`${rootComponentName}\` `
-      );
+      throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\` `);
     }
 
     Provider.displayName = `${rootComponentName}Provider`;
@@ -164,8 +138,8 @@ const createContextScope = (
   }
 
   const createScope: CreateScope = () => {
-    const scopeContexts = defaultContexts.map((defaultContext) =>
-      React.createContext(defaultContext)
+    const scopeContexts = defaultContexts.map(defaultContext =>
+      React.createContext(defaultContext),
     );
 
     return function useScope(scope: Scope) {
@@ -174,16 +148,13 @@ const createContextScope = (
         () => ({
           [`__scope${scopeName}`]: { ...scope, [scopeName]: contexts },
         }),
-        [scope, contexts]
+        [scope, contexts],
       );
     };
   };
 
   createScope.scopeName = scopeName;
-  return [
-    createContext,
-    composeContextScopes(createScope, ...createContextScopeDeps),
-  ] as const;
+  return [createContext, composeContextScopes(createScope, ...createContextScopeDeps)] as const;
 };
 
 export { createContext, createContextScope };

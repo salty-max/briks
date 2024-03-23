@@ -1,22 +1,23 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
-import { Theme, themes } from "./themes";
-import briksConfig from "../../../briks.config.json";
+import React from 'react';
+
+import briksConfig from '../../../briks.config.json';
+import { Theme, themes } from './themes';
 
 const themesNames = [
-  "neutral",
-  "gray",
-  "orange",
-  "rose",
-  "red",
-  "blue",
-  "green",
-  "yellow",
-  "violet",
+  'neutral',
+  'gray',
+  'orange',
+  'rose',
+  'red',
+  'blue',
+  'green',
+  'yellow',
+  'violet',
 ];
 type ThemeTuple = typeof themesNames;
 type ThemeName = ThemeTuple[number];
-type DarkMode = "enabled" | "disabled";
+type DarkMode = 'enabled' | 'disabled';
 
 interface ThemeProviderProps {
   children: React.ReactNode;
@@ -33,27 +34,24 @@ interface ThemeProviderState {
 
 const initialState: ThemeProviderState = {
   theme: null,
-  darkMode: "disabled",
+  darkMode: 'disabled',
   setTheme: () => null,
   toggleDarkMode: () => null,
 };
 
-const ThemeProviderContext =
-  React.createContext<ThemeProviderState>(initialState);
+const ThemeProviderContext = React.createContext<ThemeProviderState>(initialState);
 
 function ThemeProvider({
   children,
   defaultTheme: defaultThemeProp = null,
-  storageKey = "theme",
+  storageKey = 'theme',
   ...props
 }: ThemeProviderProps) {
   const configTheme = briksConfig.defaultTheme;
   const cachedTheme = localStorage.getItem(storageKey);
-  const cachedDarkMode = localStorage.getItem("dark-mode") as DarkMode | null;
-  const systemPrefersDark = window.matchMedia(
-    "(prefers-color-scheme: dark)"
-  ).matches;
-  const systemValue: DarkMode = systemPrefersDark ? "enabled" : "disabled";
+  const cachedDarkMode = localStorage.getItem('dark-mode') as DarkMode | null;
+  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const systemValue: DarkMode = systemPrefersDark ? 'enabled' : 'disabled';
 
   const allThemes: Record<string, Theme> = {
     ...themes,
@@ -61,24 +59,20 @@ function ThemeProvider({
   };
 
   const [theme, setTheme] = React.useState<ThemeName | null>(
-    themesNames.includes(cachedTheme ?? "")
-      ? cachedTheme
-      : configTheme ?? defaultThemeProp
+    themesNames.includes(cachedTheme ?? '') ? cachedTheme : configTheme ?? defaultThemeProp,
   );
-  const [darkMode, setDarkMode] = React.useState<DarkMode>(
-    cachedDarkMode ?? systemValue
-  );
+  const [darkMode, setDarkMode] = React.useState<DarkMode>(cachedDarkMode ?? systemValue);
 
   // Listen to system theme changes
   React.useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (e: MediaQueryListEvent) => {
-      setDarkMode(e.matches ? "enabled" : "disabled");
+      setDarkMode(e.matches ? 'enabled' : 'disabled');
     };
-    mediaQuery.addEventListener("change", handleChange);
+    mediaQuery.addEventListener('change', handleChange);
 
     return () => {
-      mediaQuery.removeEventListener("change", handleChange);
+      mediaQuery.removeEventListener('change', handleChange);
     };
   }, []);
 
@@ -89,8 +83,8 @@ function ThemeProvider({
 
     const root = window.document.documentElement;
 
-    root.classList.remove("dark");
-    if (darkMode === "enabled") root.classList.add("dark");
+    root.classList.remove('dark');
+    if (darkMode === 'enabled') root.classList.add('dark');
 
     if (theme) {
       const selectedTheme = themes[theme];
@@ -101,18 +95,16 @@ function ThemeProvider({
 
       const rootCssText = Object.entries(lightVars)
         .map(([key, value]) => `--${key}: ${value};`)
-        .join("\n");
+        .join('\n');
 
       const darkCssText = Object.entries(darkVars)
         .map(([key, value]) => `--${key}: ${value};`)
-        .join("\n");
+        .join('\n');
 
-      let styleElement = document.head.querySelector(
-        "style#dynamic-theme-vars"
-      );
+      let styleElement = document.head.querySelector('style#dynamic-theme-vars');
       if (!styleElement) {
-        styleElement = document.createElement("style");
-        styleElement.id = "dynamic-theme-vars";
+        styleElement = document.createElement('style');
+        styleElement.id = 'dynamic-theme-vars';
         document.head.appendChild(styleElement);
       }
 
@@ -132,12 +124,12 @@ function ThemeProvider({
       },
       darkMode,
       toggleDarkMode: () => {
-        const newDarkMode = darkMode === "enabled" ? "disabled" : "enabled";
-        localStorage.setItem("dark-mode", newDarkMode);
+        const newDarkMode = darkMode === 'enabled' ? 'disabled' : 'enabled';
+        localStorage.setItem('dark-mode', newDarkMode);
         setDarkMode(newDarkMode);
       },
     }),
-    [theme, darkMode, storageKey]
+    [theme, darkMode, storageKey],
   );
 
   return (
@@ -150,10 +142,10 @@ function ThemeProvider({
 const useTheme = () => {
   const context = React.useContext(ThemeProviderContext);
   if (!context) {
-    throw new Error("useTheme must be used within a ThemeProvider");
+    throw new Error('useTheme must be used within a ThemeProvider');
   }
   return context;
 };
 
-export { ThemeProvider, useTheme, themesNames as themes };
+export { ThemeProvider, themesNames as themes, useTheme };
 export type { ThemeName as Theme };

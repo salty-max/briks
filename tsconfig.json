@@ -1,3 +1,10 @@
 {
-  "extends": "@briks/typescript-config/base.json"
+  "files": [],
+  "references": [
+    { "path": "./packages/core" },
+    { "path": "./packages/hooks" },
+    { "path": "./packages/ui" },
+    { "path": "./apps/docs" },
+    { "path": "./apps/workshop" }
+  ]
 }

@@ -1,31 +1,31 @@
-import React from "react";
-import type { Scope } from "@briks/core";
-import { createContextScope } from "@briks/core";
-import { useComposedRefs, useControllableState, useId } from "@briks/hooks";
+import { createContextScope } from '@briks/core';
+import { useComposedRefs, useControllableState, useId } from '@briks/hooks';
+import React from 'react';
 
-import type * as Jelly from "../primitive";
-import { createPopperScope } from "../popper";
-import * as PopperPrimitive from "../popper";
-import { Portal as PortalPrimitive } from "../portal";
-import * as VisuallyHiddenPrimitive from "../visually-hidden";
-import { Primitive, composeEventHandlers } from "../primitive";
-import { Presence } from "../presence";
-import { DismissableLayer } from "../dismissable-layer";
-import { Slottable } from "../../components";
+import { Slottable } from '../../components';
+import { DismissableLayer } from '../dismissable-layer';
+import { createPopperScope } from '../popper';
+import * as PopperPrimitive from '../popper';
+import { Portal as PortalPrimitive } from '../portal';
+import { Presence } from '../presence';
+import { composeEventHandlers, Primitive } from '../primitive';
+import * as VisuallyHiddenPrimitive from '../visually-hidden';
+
+import type * as Jelly from '../primitive';
+import type { Scope } from '@briks/core';
 
 type ScopedProps<P = {}> = P & {
   __scopeTooltip?: Scope;
 };
 
-const [createTooltipContext, createTooltipScope] = createContextScope(
-  "Tooltip",
-  [createPopperScope]
-);
+const [createTooltipContext, createTooltipScope] = createContextScope('Tooltip', [
+  createPopperScope,
+]);
 const usePopperScope = createPopperScope();
 
-const PROVIDER_NAME = "TooltipProvider";
+const PROVIDER_NAME = 'TooltipProvider';
 const DEFAULT_DELAY_DURATION = 700;
-const TOOLTIP_OPEN = "tooltip.open";
+const TOOLTIP_OPEN = 'tooltip.open';
 
 interface TooltipProviderContextValue {
   isOpenDelayed: boolean;
@@ -84,7 +84,7 @@ const TooltipProvider: React.FC<TooltipProviderProps> = ({
       delayDuration={delayDuration}
       disableHoverableContent={disableHoverableContent}
       isPointerInTransitRef={isPointerInTransitRef}
-      onPointerInTransitChange={React.useCallback((inTransit) => {
+      onPointerInTransitChange={React.useCallback(inTransit => {
         isPointerInTransitRef.current = inTransit;
       }, [])}
       onOpen={React.useCallback(() => {
@@ -105,12 +105,12 @@ const TooltipProvider: React.FC<TooltipProviderProps> = ({
 
 TooltipProvider.displayName = PROVIDER_NAME;
 
-const TOOLTIP_NAME = "Tooltip";
+const TOOLTIP_NAME = 'Tooltip';
 
 interface TooltipContextValue {
   contentId: string;
   open: boolean;
-  stateAttribute: "closed" | "delayed-open" | "instant-open";
+  stateAttribute: 'closed' | 'delayed-open' | 'instant-open';
   trigger: TooltipTriggerElement | null;
   disableHoverableContent: boolean;
   onOpen: () => void;
@@ -151,10 +151,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   disableHoverableContent: disableHoverableContentProp,
   onOpenChange,
 }: ScopedProps<TooltipProps>) => {
-  const providerContext = useTooltipProviderContext(
-    TOOLTIP_NAME,
-    __scopeTooltip
-  );
+  const providerContext = useTooltipProviderContext(TOOLTIP_NAME, __scopeTooltip);
   const popperScope = usePopperScope(__scopeTooltip);
   const [trigger, setTrigger] = React.useState<HTMLButtonElement | null>(null);
   const contentId = useId();
@@ -166,7 +163,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   const [open = false, setOpen] = useControllableState({
     prop: openProp,
     defaultProp: defaultOpen,
-    onChange: (open) => {
+    onChange: open => {
       if (open) {
         providerContext.onOpen();
 
@@ -180,13 +177,8 @@ const Tooltip: React.FC<TooltipProps> = ({
     },
   });
   const stateAttribute = React.useMemo(
-    () =>
-      open
-        ? wasOpenDelayedRef.current
-          ? "delayed-open"
-          : "instant-open"
-        : "closed",
-    [open]
+    () => (open ? (wasOpenDelayedRef.current ? 'delayed-open' : 'instant-open') : 'closed'),
+    [open],
   );
 
   const handleOpen = React.useCallback(() => {
@@ -242,34 +234,19 @@ const Tooltip: React.FC<TooltipProps> = ({
 };
 Tooltip.displayName = TOOLTIP_NAME;
 
-const TRIGGER_NAME = "TooltipTrigger";
+const TRIGGER_NAME = 'TooltipTrigger';
 
 type TooltipTriggerElement = React.ElementRef<typeof Primitive.button>;
-type PrimitiveButtonProps = Jelly.ComponentPropsWithoutRef<
-  typeof Primitive.button
->;
+type PrimitiveButtonProps = Jelly.ComponentPropsWithoutRef<typeof Primitive.button>;
 type TooltipTriggerProps = PrimitiveButtonProps;
 
-const TooltipTrigger = React.forwardRef<
-  TooltipTriggerElement,
-  TooltipTriggerProps
->(
-  (
-    { __scopeTooltip, ...triggerProps }: ScopedProps<TooltipTriggerProps>,
-    forwardedRef
-  ) => {
+const TooltipTrigger = React.forwardRef<TooltipTriggerElement, TooltipTriggerProps>(
+  ({ __scopeTooltip, ...triggerProps }: ScopedProps<TooltipTriggerProps>, forwardedRef) => {
     const context = useTooltipContext(TRIGGER_NAME, __scopeTooltip);
-    const providerContext = useTooltipProviderContext(
-      TRIGGER_NAME,
-      __scopeTooltip
-    );
+    const providerContext = useTooltipProviderContext(TRIGGER_NAME, __scopeTooltip);
     const popperScope = usePopperScope(__scopeTooltip);
     const ref = React.useRef<TooltipTriggerElement>(null);
-    const composedRefs = useComposedRefs(
-      forwardedRef,
-      ref,
-      context.onTriggerChange
-    );
+    const composedRefs = useComposedRefs(forwardedRef, ref, context.onTriggerChange);
     const isPointerDownRef = React.useRef(false);
     const hasPointerMoveOpenedRef = React.useRef(false);
 
@@ -278,8 +255,8 @@ const TooltipTrigger = React.forwardRef<
     }, []);
 
     React.useEffect(
-      () => () => document.removeEventListener("pointerup", handlePointerUp),
-      [handlePointerUp]
+      () => () => document.removeEventListener('pointerup', handlePointerUp),
+      [handlePointerUp],
     );
 
     return (
@@ -291,35 +268,26 @@ const TooltipTrigger = React.forwardRef<
           data-state={context.stateAttribute}
           {...triggerProps}
           ref={composedRefs}
-          onPointerMove={composeEventHandlers(
-            triggerProps.onPointerMove,
-            (event) => {
-              if (event.pointerType === "touch") return;
-              if (
-                !hasPointerMoveOpenedRef.current &&
-                !providerContext.isPointerInTransitRef.current
-              ) {
-                context.onTriggerEnter();
-                hasPointerMoveOpenedRef.current = true;
-              }
+          onPointerMove={composeEventHandlers(triggerProps.onPointerMove, event => {
+            if (event.pointerType === 'touch') return;
+            if (
+              !hasPointerMoveOpenedRef.current &&
+              !providerContext.isPointerInTransitRef.current
+            ) {
+              context.onTriggerEnter();
+              hasPointerMoveOpenedRef.current = true;
             }
-          )}
-          onPointerLeave={composeEventHandlers(
-            triggerProps.onPointerLeave,
-            () => {
-              context.onTriggerLeave();
-              hasPointerMoveOpenedRef.current = false;
-            }
-          )}
-          onPointerDown={composeEventHandlers(
-            triggerProps.onPointerDown,
-            () => {
-              isPointerDownRef.current = true;
-              document.addEventListener("pointerup", handlePointerUp, {
-                once: true,
-              });
-            }
-          )}
+          })}
+          onPointerLeave={composeEventHandlers(triggerProps.onPointerLeave, () => {
+            context.onTriggerLeave();
+            hasPointerMoveOpenedRef.current = false;
+          })}
+          onPointerDown={composeEventHandlers(triggerProps.onPointerDown, () => {
+            isPointerDownRef.current = true;
+            document.addEventListener('pointerup', handlePointerUp, {
+              once: true,
+            });
+          })}
           onFocus={composeEventHandlers(triggerProps.onFocus, () => {
             if (!isPointerDownRef.current) context.onOpen();
           })}
@@ -328,20 +296,19 @@ const TooltipTrigger = React.forwardRef<
         />
       </PopperPrimitive.Anchor>
     );
-  }
+  },
 );
 TooltipTrigger.displayName = TRIGGER_NAME;
 
-const PORTAL_NAME = "TooltipPortal";
+const PORTAL_NAME = 'TooltipPortal';
 
 interface PortalContextValue {
   forceMount?: true;
 }
 
-const [PortalProvider, usePortalContext] =
-  createTooltipContext<PortalContextValue>(PORTAL_NAME, {
-    forceMount: undefined,
-  });
+const [PortalProvider, usePortalContext] = createTooltipContext<PortalContextValue>(PORTAL_NAME, {
+  forceMount: undefined,
+});
 
 type PortalProps = React.ComponentPropsWithoutRef<typeof PortalPrimitive>;
 interface TooltipPortalProps {
@@ -349,7 +316,7 @@ interface TooltipPortalProps {
   /**
    * Specify a container element to portal the content into.
    */
-  container?: PortalProps["container"];
+  container?: PortalProps['container'];
   /**
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with React animation libraries.
@@ -377,7 +344,7 @@ const TooltipPortal: React.FC<TooltipPortalProps> = ({
 };
 TooltipPortal.displayName = PORTAL_NAME;
 
-const CONTENT_NAME = "TooltipContent";
+const CONTENT_NAME = 'TooltipContent';
 
 type TooltipContentElement = TooltipContentImplElement;
 interface TooltipContentProps extends TooltipContentImplProps {
@@ -388,32 +355,23 @@ interface TooltipContentProps extends TooltipContentImplProps {
   forceMount?: true;
 }
 
-const TooltipContent = React.forwardRef<
-  TooltipContentElement,
-  TooltipContentProps
->((props: ScopedProps<TooltipContentProps>, forwardedRef) => {
-  const portalContext = usePortalContext(CONTENT_NAME, props.__scopeTooltip);
-  const {
-    forceMount = portalContext.forceMount,
-    side = "top",
-    ...contentProps
-  } = props;
-  const context = useTooltipContext(CONTENT_NAME, props.__scopeTooltip);
+const TooltipContent = React.forwardRef<TooltipContentElement, TooltipContentProps>(
+  (props: ScopedProps<TooltipContentProps>, forwardedRef) => {
+    const portalContext = usePortalContext(CONTENT_NAME, props.__scopeTooltip);
+    const { forceMount = portalContext.forceMount, side = 'top', ...contentProps } = props;
+    const context = useTooltipContext(CONTENT_NAME, props.__scopeTooltip);
 
-  return (
-    <Presence present={forceMount || context.open}>
-      {context.disableHoverableContent ? (
-        <TooltipContentImpl side={side} {...contentProps} ref={forwardedRef} />
-      ) : (
-        <TooltipContentHoverable
-          side={side}
-          {...contentProps}
-          ref={forwardedRef}
-        />
-      )}
-    </Presence>
-  );
-});
+    return (
+      <Presence present={forceMount || context.open}>
+        {context.disableHoverableContent ? (
+          <TooltipContentImpl side={side} {...contentProps} ref={forwardedRef} />
+        ) : (
+          <TooltipContentHoverable side={side} {...contentProps} ref={forwardedRef} />
+        )}
+      </Presence>
+    );
+  },
+);
 
 interface Point {
   x: number;
@@ -429,14 +387,10 @@ const TooltipContentHoverable = React.forwardRef<
   TooltipContentHoverableProps
 >((props: ScopedProps<TooltipContentHoverableProps>, forwardedRef) => {
   const context = useTooltipContext(CONTENT_NAME, props.__scopeTooltip);
-  const providerContext = useTooltipProviderContext(
-    CONTENT_NAME,
-    props.__scopeTooltip
-  );
+  const providerContext = useTooltipProviderContext(CONTENT_NAME, props.__scopeTooltip);
   const ref = React.useRef<TooltipContentHoverableElement>(null);
   const composedRefs = useComposedRefs(forwardedRef, ref);
-  const [pointerGraceArea, setPointerGraceArea] =
-    React.useState<Polygon | null>(null);
+  const [pointerGraceArea, setPointerGraceArea] = React.useState<Polygon | null>(null);
   const { trigger, onClose } = context;
   const content = ref.current;
   const { onPointerInTransitChange } = providerContext;
@@ -453,37 +407,30 @@ const TooltipContentHoverable = React.forwardRef<
         x: event.clientX,
         y: event.clientY,
       };
-      const exitSide = getExitSideFromRect(
-        exitPoint,
-        currentTarget.getBoundingClientRect()
-      );
+      const exitSide = getExitSideFromRect(exitPoint, currentTarget.getBoundingClientRect());
       const paddedExitPoints = getPaddedExitPoints(exitPoint, exitSide);
-      const hoverTargetPoints = getPointsFromRect(
-        hoverTarget.getBoundingClientRect()
-      );
+      const hoverTargetPoints = getPointsFromRect(hoverTarget.getBoundingClientRect());
       const graceArea = getHull([...paddedExitPoints, ...hoverTargetPoints]);
 
       setPointerGraceArea(graceArea);
       onPointerInTransitChange(true);
     },
-    [onPointerInTransitChange]
+    [onPointerInTransitChange],
   );
 
   React.useEffect(() => () => handleRemoveGraceArea(), [handleRemoveGraceArea]);
 
   React.useEffect(() => {
     if (trigger && content) {
-      const handleTriggerLeave = (event: PointerEvent) =>
-        handleCreateGraceArea(event, content);
-      const handleContentLeave = (event: PointerEvent) =>
-        handleCreateGraceArea(event, trigger);
+      const handleTriggerLeave = (event: PointerEvent) => handleCreateGraceArea(event, content);
+      const handleContentLeave = (event: PointerEvent) => handleCreateGraceArea(event, trigger);
 
-      trigger.addEventListener("pointerleave", handleTriggerLeave);
-      content.addEventListener("pointerleave", handleContentLeave);
+      trigger.addEventListener('pointerleave', handleTriggerLeave);
+      content.addEventListener('pointerleave', handleContentLeave);
 
       return () => {
-        trigger.removeEventListener("pointerleave", handleTriggerLeave);
-        content.removeEventListener("pointerleave", handleContentLeave);
+        trigger.removeEventListener('pointerleave', handleTriggerLeave);
+        content.removeEventListener('pointerleave', handleContentLeave);
       };
     }
   }, [trigger, content, handleCreateGraceArea, handleRemoveGraceArea]);
@@ -496,12 +443,8 @@ const TooltipContentHoverable = React.forwardRef<
           x: event.clientX,
           y: event.clientY,
         };
-        const hasEnteredTarget =
-          trigger?.contains(target) || content?.contains(target);
-        const isPointerOutsideGraceArea = !isPointInPolygon(
-          pointerPosition,
-          pointerGraceArea
-        );
+        const hasEnteredTarget = trigger?.contains(target) || content?.contains(target);
+        const isPointerOutsideGraceArea = !isPointInPolygon(pointerPosition, pointerGraceArea);
 
         if (hasEnteredTarget) {
           handleRemoveGraceArea();
@@ -511,10 +454,9 @@ const TooltipContentHoverable = React.forwardRef<
         }
       };
 
-      document.addEventListener("pointermove", handleTrackPointerGrace);
+      document.addEventListener('pointermove', handleTrackPointerGrace);
 
-      return () =>
-        document.removeEventListener("pointermove", handleTrackPointerGrace);
+      return () => document.removeEventListener('pointermove', handleTrackPointerGrace);
     }
   }, [trigger, content, pointerGraceArea, onClose, handleRemoveGraceArea]);
 
@@ -524,46 +466,37 @@ const TooltipContentHoverable = React.forwardRef<
 const [VisuallyHiddenContentContextProvider, useVisuallyHiddenContentContext] =
   createTooltipContext(TOOLTIP_NAME, { isInside: false });
 
-type TooltipContentImplElement = React.ElementRef<
-  typeof PopperPrimitive.Content
->;
-type DismissableLayerProps = Jelly.ComponentPropsWithoutRef<
-  typeof DismissableLayer
->;
-type PopperContentProps = Jelly.ComponentPropsWithoutRef<
-  typeof PopperPrimitive.Content
->;
-interface TooltipContentImplProps extends Omit<PopperContentProps, "onPlaced"> {
+type TooltipContentImplElement = React.ElementRef<typeof PopperPrimitive.Content>;
+type DismissableLayerProps = Jelly.ComponentPropsWithoutRef<typeof DismissableLayer>;
+type PopperContentProps = Jelly.ComponentPropsWithoutRef<typeof PopperPrimitive.Content>;
+interface TooltipContentImplProps extends Omit<PopperContentProps, 'onPlaced'> {
   /**
    * A more descriptive label for accessibility purpose
    */
-  "aria-label"?: string;
+  'aria-label'?: string;
   /**
    * Event handler called when the escape key is down.
    * Can be prevented.
    */
-  onEscapeKeyDown?: DismissableLayerProps["onEscapeKeyDown"];
+  onEscapeKeyDown?: DismissableLayerProps['onEscapeKeyDown'];
   /**
    * Event handler called when the a `pointerdown` event happens outside of the `Tooltip`.
    * Can be prevented.
    */
-  onPointerDownOutside?: DismissableLayerProps["onPointerDownOutside"];
+  onPointerDownOutside?: DismissableLayerProps['onPointerDownOutside'];
 }
 
-const TooltipContentImpl = React.forwardRef<
-  TooltipContentImplElement,
-  TooltipContentImplProps
->(
+const TooltipContentImpl = React.forwardRef<TooltipContentImplElement, TooltipContentImplProps>(
   (
     {
       __scopeTooltip,
       children,
-      "aria-label": ariaLabel,
+      'aria-label': ariaLabel,
       onEscapeKeyDown,
       onPointerDownOutside,
       ...contentProps
     }: ScopedProps<TooltipContentImplProps>,
-    forwardedRef
+    forwardedRef,
   ) => {
     const context = useTooltipContext(CONTENT_NAME, __scopeTooltip);
     const popperScope = usePopperScope(__scopeTooltip);
@@ -584,10 +517,9 @@ const TooltipContentImpl = React.forwardRef<
           if (target?.contains(context.trigger)) onClose();
         };
 
-        window.addEventListener("scroll", handleScroll, { capture: true });
+        window.addEventListener('scroll', handleScroll, { capture: true });
 
-        return () =>
-          window.removeEventListener("scroll", handleScroll, { capture: true });
+        return () => window.removeEventListener('scroll', handleScroll, { capture: true });
       }
     }, [context.trigger, onClose]);
 
@@ -597,7 +529,7 @@ const TooltipContentImpl = React.forwardRef<
         disableOutsidePointerEvents={false}
         onEscapeKeyDown={onEscapeKeyDown}
         onPointerDownOutside={onPointerDownOutside}
-        onFocusOutside={(event) => event.preventDefault()}
+        onFocusOutside={event => event.preventDefault()}
         onDismiss={onClose}
       >
         <PopperPrimitive.Content
@@ -608,14 +540,11 @@ const TooltipContentImpl = React.forwardRef<
           style={{
             ...contentProps.style,
             ...{
-              "--tooltip-content-transform-origin":
-                "var(--popper-transform-origin)",
-              "--tooltip-content-available-width":
-                "var(--popper-available-width)",
-              "--tooltip-content-available-height":
-                "var(--popper-available-height)",
-              "--tooltip-trigger-width": "var(--popper-anchor-width)",
-              "--tooltip-trigger-height": "var(--popper-anchor-height)",
+              '--tooltip-content-transform-origin': 'var(--popper-transform-origin)',
+              '--tooltip-content-available-width': 'var(--popper-available-width)',
+              '--tooltip-content-available-height': 'var(--popper-available-height)',
+              '--tooltip-trigger-width': 'var(--popper-anchor-width)',
+              '--tooltip-trigger-height': 'var(--popper-anchor-height)',
             },
           }}
         >
@@ -628,44 +557,35 @@ const TooltipContentImpl = React.forwardRef<
         </PopperPrimitive.Content>
       </DismissableLayer>
     );
-  }
+  },
 );
 
 TooltipContent.displayName = CONTENT_NAME;
 
-const ARROW_NAME = "TooltipArrow";
+const ARROW_NAME = 'TooltipArrow';
 
 type TooltipArrowElement = React.ElementRef<typeof PopperPrimitive.Arrow>;
-type PopperArrowProps = Jelly.ComponentPropsWithoutRef<
-  typeof PopperPrimitive.Arrow
->;
+type PopperArrowProps = Jelly.ComponentPropsWithoutRef<typeof PopperPrimitive.Arrow>;
 type TooltipArrowProps = PopperArrowProps;
 
 const TooltipArrow = React.forwardRef<TooltipArrowElement, TooltipArrowProps>(
-  (
-    { __scopeTooltip, ...arrowProps }: ScopedProps<TooltipArrowProps>,
-    forwardedRef
-  ) => {
+  ({ __scopeTooltip, ...arrowProps }: ScopedProps<TooltipArrowProps>, forwardedRef) => {
     const popperScope = usePopperScope(__scopeTooltip);
     const visuallyHiddenContentContext = useVisuallyHiddenContentContext(
       ARROW_NAME,
-      __scopeTooltip
+      __scopeTooltip,
     );
 
     // if the arrow is inside the `VisuallyHidden`, we don't want to render it all to
     // prevent issues in positioning the arrow due to the duplicate
     return visuallyHiddenContentContext.isInside ? null : (
-      <PopperPrimitive.Arrow
-        {...popperScope}
-        {...arrowProps}
-        ref={forwardedRef}
-      />
+      <PopperPrimitive.Arrow {...popperScope} {...arrowProps} ref={forwardedRef} />
     );
-  }
+  },
 );
 TooltipArrow.displayName = ARROW_NAME;
 
-type Side = NonNullable<TooltipContentProps["side"]>;
+type Side = NonNullable<TooltipContentProps['side']>;
 
 const getExitSideFromRect = (point: Point, rect: DOMRect): Side => {
   const top = Math.abs(rect.top - point.y);
@@ -675,15 +595,15 @@ const getExitSideFromRect = (point: Point, rect: DOMRect): Side => {
 
   switch (Math.min(top, bottom, right, left)) {
     case left:
-      return "left";
+      return 'left';
     case right:
-      return "right";
+      return 'right';
     case top:
-      return "top";
+      return 'top';
     case bottom:
-      return "bottom";
+      return 'bottom';
     default:
-      throw new Error("Unreachable");
+      throw new Error('Unreachable');
   }
 };
 
@@ -691,32 +611,32 @@ const getPaddedExitPoints = (exitPoint: Point, exitSide: Side, padding = 5) => {
   const paddedExitPoints: Point[] = [];
 
   switch (exitSide) {
-    case "top":
+    case 'top':
       paddedExitPoints.push(
         { x: exitPoint.x - padding, y: exitPoint.y + padding },
-        { x: exitPoint.x + padding, y: exitPoint.y + padding }
+        { x: exitPoint.x + padding, y: exitPoint.y + padding },
       );
       break;
-    case "bottom":
+    case 'bottom':
       paddedExitPoints.push(
         { x: exitPoint.x - padding, y: exitPoint.y - padding },
-        { x: exitPoint.x + padding, y: exitPoint.y - padding }
+        { x: exitPoint.x + padding, y: exitPoint.y - padding },
       );
       break;
-    case "left":
+    case 'left':
       paddedExitPoints.push(
         { x: exitPoint.x + padding, y: exitPoint.y - padding },
-        { x: exitPoint.x + padding, y: exitPoint.y + padding }
+        { x: exitPoint.x + padding, y: exitPoint.y + padding },
       );
       break;
-    case "right":
+    case 'right':
       paddedExitPoints.push(
         { x: exitPoint.x - padding, y: exitPoint.y - padding },
-        { x: exitPoint.x - padding, y: exitPoint.y + padding }
+        { x: exitPoint.x - padding, y: exitPoint.y + padding },
       );
       break;
     default:
-      throw new Error("Unreachable");
+      throw new Error('Unreachable');
   }
 
   return paddedExitPoints;
@@ -744,8 +664,7 @@ const isPointInPolygon = (point: Point, polygon: Polygon) => {
     const xj = polygon[j].x;
     const yj = polygon[j].y;
 
-    const intersect =
-      yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
+    const intersect = yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
     if (intersect) inside = !inside;
   }
 
@@ -823,28 +742,28 @@ const Content = TooltipContent;
 const Arrow = TooltipArrow;
 
 export {
+  Arrow,
+  Content,
   createTooltipScope,
-  //
-  TooltipProvider,
-  Tooltip,
-  TooltipTrigger,
-  TooltipPortal,
-  TooltipContent,
-  TooltipArrow,
+  Portal,
   //
   Provider,
   Root,
+  Tooltip,
+  TooltipArrow,
+  TooltipContent,
+  TooltipPortal,
+  //
+  TooltipProvider,
+  TooltipTrigger,
   Trigger,
-  Portal,
-  Content,
-  Arrow,
 };
 
 export type {
-  TooltipProviderProps,
-  TooltipProps,
-  TooltipTriggerProps,
-  TooltipPortalProps,
-  TooltipContentProps,
   TooltipArrowProps,
+  TooltipContentProps,
+  TooltipPortalProps,
+  TooltipProps,
+  TooltipProviderProps,
+  TooltipTriggerProps,
 };

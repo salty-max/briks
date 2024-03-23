@@ -38,17 +38,14 @@ function runLoop() {
 
   // Group DOM writes here after the DOM reads (getBoundingClientRect)
   // as DOM writes will most likely happen with the callbacks.
-  changedRectsData.forEach((data) => {
-    data.callbacks.forEach((callback) => callback(data.rect));
+  changedRectsData.forEach(data => {
+    data.callbacks.forEach(callback => callback(data.rect));
   });
 
   rafId = requestAnimationFrame(runLoop);
 }
 
-function observeElementRect(
-  elementToObserve: Measurable,
-  callback: CallbackFn
-) {
+function observeElementRect(elementToObserve: Measurable, callback: CallbackFn) {
   const observedData = observedElements.get(elementToObserve);
 
   if (observedData === undefined) {

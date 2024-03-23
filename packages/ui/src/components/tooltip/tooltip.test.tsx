@@ -1,12 +1,6 @@
-import { axe } from "jest-axe";
-import {
-  render,
-  fireEvent,
-  cleanup,
-  RenderResult,
-  waitFor,
-  act,
-} from "@testing-library/react";
+import { act, cleanup, fireEvent, render, RenderResult, waitFor } from '@testing-library/react';
+import { axe } from 'jest-axe';
+
 import {
   Tooltip,
   TooltipArrow,
@@ -14,10 +8,10 @@ import {
   TooltipPortal,
   TooltipProvider,
   TooltipTrigger,
-} from "./tooltip";
+} from './tooltip';
 
-const TRIGGER_TEXT = "Trigger";
-const TOOLTIP_TEXT = "Tooltip";
+const TRIGGER_TEXT = 'Trigger';
+const TOOLTIP_TEXT = 'Tooltip';
 
 const TooltipTest = () => (
   <TooltipProvider>
@@ -33,8 +27,8 @@ const TooltipTest = () => (
   </TooltipProvider>
 );
 
-describe("Tooltip", () => {
-  describe("given a default Tooltip", () => {
+describe('Tooltip', () => {
+  describe('given a default Tooltip', () => {
     let rendered: RenderResult;
     let trigger: HTMLElement;
     let tooltip: HTMLElement;
@@ -48,40 +42,40 @@ describe("Tooltip", () => {
       cleanup();
     });
 
-    it("should have no accessibility violations in default state", async () => {
+    it('should have no accessibility violations in default state', async () => {
       expect(await axe(rendered.container)).toHaveNoViolations();
     });
 
-    describe("on hover of the trigger", () => {
+    describe('on hover of the trigger', () => {
       beforeEach(async () => {
         await act(() => {
           fireEvent.focus(trigger);
         });
       });
 
-      it("should display the tooltip content", async () => {
+      it('should display the tooltip content', async () => {
         await waitFor(
           () => {
-            tooltip = rendered.getByRole("tooltip");
+            tooltip = rendered.getByRole('tooltip');
             expect(tooltip).toBeInTheDocument();
           },
-          { timeout: 1000 }
+          { timeout: 1000 },
         );
       });
 
-      it("should have no accessibility violations when open", async () => {
+      it('should have no accessibility violations when open', async () => {
         expect(await axe(rendered.container)).toHaveNoViolations();
       });
 
-      describe("when moving away from the trigger", () => {
+      describe('when moving away from the trigger', () => {
         beforeEach(() => {
           fireEvent.mouseOut(trigger);
         });
 
-        it("should hide the tooltip content", async () => {
+        it('should hide the tooltip content', async () => {
           // This may require a slight delay depending on implementation,
           // as tooltips often have a delay before hiding after mouse out.
-          await new Promise((r) => setTimeout(r, 100)); // Adjust delay as necessary
+          await new Promise(r => setTimeout(r, 100)); // Adjust delay as necessary
           expect(tooltip).not.toBeInTheDocument();
         });
       });

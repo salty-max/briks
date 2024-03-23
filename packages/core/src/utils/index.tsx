@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
-import type { ClassValue } from "clsx";
-import clsx from "clsx";
-import React from "react";
-import { twMerge } from "tailwind-merge";
+import clsx from 'clsx';
+import React from 'react';
+import { twMerge } from 'tailwind-merge';
+
+import type { ClassValue } from 'clsx';
 
 /**
  * Combines class names using `clsx` and merges Tailwind CSS classes using `twMerge`.

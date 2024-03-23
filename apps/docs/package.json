@@ -6,11 +6,12 @@
   "type": "module",
   "scripts": {
     "dev": "storybook dev -p 6006",
+    "preview": "vite",
     "build": "storybook build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "build-storybook": "storybook build --webpack-stats-json",
+    "build-storybook": "storybook build",
     "chromatic": "chromatic",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "clean": "rimraf .turbo node_modules dist coverage",
     "prepare": "husky"
   },
   "dependencies": {
@@ -19,6 +20,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@briks/tailwind-config": "workspace:*",
     "@chromatic-com/storybook": "^1.2.25",
     "@storybook/addon-essentials": "^8.0.4",
     "@storybook/addon-interactions": "^8.0.4",
@@ -31,16 +33,11 @@
     "@storybook/test": "^8.0.4",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
-    "@typescript-eslint/eslint-plugin": "^7.2.0",
-    "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
     "chromatic": "^11.2.0",
-    "eslint": "^8.57.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.6",
-    "eslint-plugin-storybook": "^0.8.0",
     "postcss": "^8.4.38",
+    "rimraf": "^5.0.5",
     "storybook": "^8.0.4",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3",

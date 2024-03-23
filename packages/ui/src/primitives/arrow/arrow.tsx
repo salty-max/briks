@@ -1,8 +1,10 @@
-import React from "react";
-import type * as Briks from "../primitive";
-import { Primitive } from "../primitive";
+import React from 'react';
 
-const NAME = "Arrow";
+import { Primitive } from '../primitive';
+
+import type * as Briks from '../primitive';
+
+const NAME = 'Arrow';
 
 type ArrowElement = React.ElementRef<typeof Primitive.svg>;
 type PrimitiveSvgProps = Briks.ComponentPropsWithoutRef<typeof Primitive.svg>;
@@ -21,7 +23,7 @@ const Arrow = React.forwardRef<ArrowElement, ArrowProps>(
       {/* We use their children if they're slotting to replace the whole svg */}
       {arrowProps.asChild ? children : <polygon points='0,0 30,0 15,10' />}
     </Primitive.svg>
-  )
+  ),
 );
 Arrow.displayName = NAME;
 

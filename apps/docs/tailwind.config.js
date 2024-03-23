@@ -1,4 +1,3 @@
-/** @type {import('tailwindcss').Config} */
-export default {
-  extends: "@briks/ui/tailwind-config",
-};
+import sharedConfig from "@briks/tailwind-config/tailwind.config";
+
+export const presets = [sharedConfig];

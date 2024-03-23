@@ -23,12 +23,10 @@ export const mergeProps = (slotProps: AnyProps, childProps: AnyProps) => {
       }
     }
     // If it's `style`, merge them
-    else if (propName === "style") {
+    else if (propName === 'style') {
       overrideProps[propName] = { ...slotPropValue, ...childPropValue };
-    } else if (propName === "className") {
-      overrideProps[propName] = [slotPropValue, childPropValue]
-        .filter(Boolean)
-        .join(" ");
+    } else if (propName === 'className') {
+      overrideProps[propName] = [slotPropValue, childPropValue].filter(Boolean).join(' ');
     }
   }
 

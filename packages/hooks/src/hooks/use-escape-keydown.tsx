@@ -1,5 +1,6 @@
-import React from "react";
-import { useCallbackRef } from "./use-callback-ref";
+import React from 'react';
+
+import { useCallbackRef } from './use-callback-ref';
 
 /**
  * A React hook that listens for the 'Escape' keydown event on the provided document (or the global document by default)
@@ -11,21 +12,21 @@ import { useCallbackRef } from "./use-callback-ref";
  */
 function useEscapeKeydown(
   onEscapeKeyDownProp?: (event: KeyboardEvent) => void,
-  ownerDocument: Document = globalThis?.document
+  ownerDocument: Document = globalThis?.document,
 ) {
   const onEscapeKeyDown = useCallbackRef(onEscapeKeyDownProp);
 
   React.useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         onEscapeKeyDown(event);
       }
     }
 
-    ownerDocument.addEventListener("keydown", handleKeyDown, { capture: true });
+    ownerDocument.addEventListener('keydown', handleKeyDown, { capture: true });
 
     return () =>
-      ownerDocument.removeEventListener("keydown", handleKeyDown, {
+      ownerDocument.removeEventListener('keydown', handleKeyDown, {
         capture: true,
       });
   }, [onEscapeKeyDown, ownerDocument]);

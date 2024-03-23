@@ -17,10 +17,10 @@
  *    `Slot` component that its children should be used to replace the slot's default content.
  */
 
-import React from "react";
-import { composeRefs } from "@briks/hooks";
+import { composeRefs } from '@briks/hooks';
+import React from 'react';
 
-import { mergeProps } from "./helpers";
+import { mergeProps } from './helpers';
 
 /**
  * A component that simply renders its children. It's used as a marker
@@ -29,11 +29,7 @@ import { mergeProps } from "./helpers";
  * @param props - The component props containing children.
  * @returns A fragment containing the children.
  */
-function Slottable({
-  children,
-}: {
-  children: React.ReactNode;
-}): React.ReactElement {
+function Slottable({ children }: { children: React.ReactNode }): React.ReactElement {
   return <>{children}</>;
 }
 
@@ -53,26 +49,20 @@ interface SlotCloneProps {
  * @param forwardedRef - The ref to forward to the cloned element.
  * @returns The cloned element with merged props and forwarded ref, or `null` for invalid cases.
  */
-const SlotClone = React.forwardRef<any, SlotCloneProps>(
-  (props, forwardedRef) => {
-    const { children, ...slotProps } = props;
+const SlotClone = React.forwardRef<any, SlotCloneProps>((props, forwardedRef) => {
+  const { children, ...slotProps } = props;
 
-    if (React.isValidElement(children)) {
-      return React.cloneElement(children, {
-        ...mergeProps(slotProps, children.props),
-        // @ts-expect-error ts-migrate(2322) FIXME: Type 'any' is not assignable to type 'never'.
-        ref: forwardedRef
-          ? composeRefs(forwardedRef, (children as any).ref)
-          : (children as any).ref,
-      });
-    }
-
-    return React.Children.count(children) > 1
-      ? React.Children.only(null)
-      : null;
+  if (React.isValidElement(children)) {
+    return React.cloneElement(children, {
+      ...mergeProps(slotProps, children.props),
+      // @ts-expect-error ts-migrate(2322) FIXME: Type 'any' is not assignable to type 'never'.
+      ref: forwardedRef ? composeRefs(forwardedRef, (children as any).ref) : (children as any).ref,
+    });
   }
-);
-SlotClone.displayName = "SlotClone";
+
+  return React.Children.count(children) > 1 ? React.Children.only(null) : null;
+});
+SlotClone.displayName = 'SlotClone';
 
 interface SlotProps extends React.HTMLAttributes<HTMLElement> {
   children?: React.ReactNode;
@@ -96,7 +86,7 @@ const Slot = React.forwardRef<HTMLElement, SlotProps>((props, forwardedRef) => {
     // The new element to render is the one passed as a child of `Slottable`
     const newElement = slottable.props.children as React.ReactNode;
 
-    const newChildren = childrenArray.map((child) => {
+    const newChildren = childrenArray.map(child => {
       if (child === slottable) {
         // Because the new element will be the one rendered, we are only interested
         // in grabbibg its children (`newElement.props.children`)
@@ -126,7 +116,7 @@ const Slot = React.forwardRef<HTMLElement, SlotProps>((props, forwardedRef) => {
     </SlotClone>
   );
 });
-Slot.displayName = "Slot";
+Slot.displayName = 'Slot';
 
 export { Slot, Slottable };
 export type { SlotProps };

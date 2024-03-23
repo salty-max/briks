@@ -1,10 +1,11 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import type * as Jelly from "../primitive";
-import { Primitive } from "../primitive";
+import { Primitive } from '../primitive';
 
-const PORTAL_NAME = "Portal";
+import type * as Jelly from '../primitive';
+
+const PORTAL_NAME = 'Portal';
 
 type PortalElement = React.ElementRef<typeof Primitive.div>;
 type PrimitiveDivProps = Jelly.ComponentPropsWithoutRef<typeof Primitive.div>;
@@ -18,11 +19,8 @@ interface PortalProps extends PrimitiveDivProps {
 const Portal = React.forwardRef<PortalElement, PortalProps>(
   ({ container = globalThis?.document?.body, ...portalProps }, forwardedRef) =>
     container
-      ? ReactDOM.createPortal(
-          <Primitive.div {...portalProps} ref={forwardedRef} />,
-          container
-        )
-      : null
+      ? ReactDOM.createPortal(<Primitive.div {...portalProps} ref={forwardedRef} />, container)
+      : null,
 );
 Portal.displayName = PORTAL_NAME;
 

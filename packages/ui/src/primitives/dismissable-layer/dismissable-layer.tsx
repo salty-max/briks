@@ -18,28 +18,20 @@
  * layers and branches, ensuring proper event handling and state management across potentially
  * complex nested structures.
  */
-import React from "react";
-import {
-  useCallbackRef,
-  useComposedRefs,
-  useEscapeKeydown,
-} from "@briks/hooks";
+import { useCallbackRef, useComposedRefs, useEscapeKeydown } from '@briks/hooks';
+import React from 'react';
 
-import {
-  Primitive,
-  composeEventHandlers,
-  dispatchDiscreteCustomEvent,
-} from "../primitive";
+import { composeEventHandlers, dispatchDiscreteCustomEvent, Primitive } from '../primitive';
 
-import type * as Jelly from "../primitive";
+import type * as Jelly from '../primitive';
 
 type PointerDownOutsideEvent = CustomEvent<{ originalEvent: PointerEvent }>;
 type FocusOutsideEvent = CustomEvent<{ originalEvent: FocusEvent }>;
 
-const DISMISSABLE_LAYER_NAME = "DismissableLayer";
-const CONTEXT_UPDATE = "dismissableLayer.update";
-const POINTER_DOWN_OUTSIDE = "dismissableLayer.pointerDownOutside";
-const FOCUS_OUTSIDE = "dismissableLayer.focusOutside";
+const DISMISSABLE_LAYER_NAME = 'DismissableLayer';
+const CONTEXT_UPDATE = 'dismissableLayer.update';
+const POINTER_DOWN_OUTSIDE = 'dismissableLayer.pointerDownOutside';
+const FOCUS_OUTSIDE = 'dismissableLayer.focusOutside';
 
 let originalBodyPointerEvents: string;
 
@@ -79,9 +71,7 @@ interface DismissableLayerProps extends PrimitiveDivProps {
    * Specifically, when a `pointerdown` event happens outside or focus moves outside of it.
    * Can be prevented.
    */
-  onInteractOutside?: (
-    event: PointerDownOutsideEvent | FocusOutsideEvent
-  ) => void;
+  onInteractOutside?: (event: PointerDownOutsideEvent | FocusOutsideEvent) => void;
   /**
    * Handler called when the `DismissableLayer` should be dismissed
    */
@@ -103,10 +93,7 @@ interface DismissableLayerProps extends PrimitiveDivProps {
  * @param {() => void} [props.onDismiss] - Callback when the DismissableLayer should be dismissed.
  * @returns {React.ReactElement | null} The rendered DismissableLayer or `null` if not present.
  */
-const DismissableLayer = React.forwardRef<
-  DismissableLayerElement,
-  DismissableLayerProps
->(
+const DismissableLayer = React.forwardRef<DismissableLayerElement, DismissableLayerProps>(
   (
     {
       disableOutsidePointerEvents = false,
@@ -117,33 +104,27 @@ const DismissableLayer = React.forwardRef<
       onDismiss,
       ...layerProps
     },
-    forwardedRef
+    forwardedRef,
   ) => {
     const context = React.useContext(DismissableLayerContext);
-    const [node, setNode] = React.useState<DismissableLayerElement | null>(
-      null
-    );
+    const [node, setNode] = React.useState<DismissableLayerElement | null>(null);
     const ownerDocument = node?.ownerDocument ?? globalThis?.document;
     const [, force] = React.useState({});
-    const composedRefs = useComposedRefs(forwardedRef, (node) => setNode(node));
+    const composedRefs = useComposedRefs(forwardedRef, node => setNode(node));
     const layers = Array.from(context.layers);
     const [highestLayerWithOutsidePointerEventsDisabled] = [
       ...context.layersWithOutsidePointerEventsDisabled,
     ].slice(-1);
     const highestLayerWithOutsidePointerEventsDisabledIndex = layers.indexOf(
-      highestLayerWithOutsidePointerEventsDisabled
+      highestLayerWithOutsidePointerEventsDisabled,
     );
     const index = node ? layers.indexOf(node) : -1;
-    const isBodyPointerEventsDisabled =
-      context.layersWithOutsidePointerEventsDisabled.size > 0;
-    const isPointerEventsEnabled =
-      index >= highestLayerWithOutsidePointerEventsDisabledIndex;
+    const isBodyPointerEventsDisabled = context.layersWithOutsidePointerEventsDisabled.size > 0;
+    const isPointerEventsEnabled = index >= highestLayerWithOutsidePointerEventsDisabledIndex;
 
-    const pointerDownOutside = usePointerDownOutside((event) => {
+    const pointerDownOutside = usePointerDownOutside(event => {
       const target = event.target as HTMLElement;
-      const isPointerDownOnBranch = [...context.branches].some((branch) =>
-        branch.contains(target)
-      );
+      const isPointerDownOnBranch = [...context.branches].some(branch => branch.contains(target));
 
       if (!isPointerEventsEnabled || isPointerDownOnBranch) return;
 
@@ -155,11 +136,9 @@ const DismissableLayer = React.forwardRef<
       }
     }, ownerDocument);
 
-    const focusOutside = useFocusOutside((event) => {
+    const focusOutside = useFocusOutside(event => {
       const target = event.target as HTMLElement;
-      const isFocusInBranch = [...context.branches].some((branch) =>
-        branch.contains(target)
-      );
+      const isFocusInBranch = [...context.branches].some(branch => branch.contains(target));
 
       if (isFocusInBranch) return;
 
@@ -189,7 +168,7 @@ const DismissableLayer = React.forwardRef<
       if (disableOutsidePointerEvents) {
         if (context.layersWithOutsidePointerEventsDisabled.size === 0) {
           originalBodyPointerEvents = ownerDocument.body.style.pointerEvents;
-          ownerDocument.body.style.pointerEvents = "none";
+          ownerDocument.body.style.pointerEvents = 'none';
         }
 
         context.layersWithOutsidePointerEventsDisabled.add(node);
@@ -221,7 +200,7 @@ const DismissableLayer = React.forwardRef<
         context.layersWithOutsidePointerEventsDisabled.delete(node);
         dispatchUpdate();
       },
-      [node, context]
+      [node, context],
     );
 
     React.useEffect(() => {
@@ -238,30 +217,27 @@ const DismissableLayer = React.forwardRef<
         style={{
           pointerEvents: isBodyPointerEventsDisabled
             ? isPointerEventsEnabled
-              ? "auto"
-              : "none"
+              ? 'auto'
+              : 'none'
             : undefined,
           ...layerProps.style,
         }}
         onFocusCapture={composeEventHandlers(
           layerProps.onFocusCapture,
-          focusOutside.onFocusCapture
+          focusOutside.onFocusCapture,
         )}
-        onBlurCapture={composeEventHandlers(
-          layerProps.onBlurCapture,
-          focusOutside.onBlurCapture
-        )}
+        onBlurCapture={composeEventHandlers(layerProps.onBlurCapture, focusOutside.onBlurCapture)}
         onPointerDownCapture={composeEventHandlers(
           layerProps.onPointerDownCapture,
-          pointerDownOutside.onPointerDownCapture
+          pointerDownOutside.onPointerDownCapture,
         )}
       />
     );
-  }
+  },
 );
 DismissableLayer.displayName = DISMISSABLE_LAYER_NAME;
 
-const BRANCH_NAME = "DismissableLayerBranch";
+const BRANCH_NAME = 'DismissableLayerBranch';
 
 type DismissableLayerBranchElement = React.ElementRef<typeof Primitive.div>;
 type DismissableLayerBranchProps = PrimitiveDivProps;
@@ -303,11 +279,9 @@ DismissableLayerBranch.displayName = BRANCH_NAME;
 
 function usePointerDownOutside(
   onPointerDownOutside?: (event: PointerDownOutsideEvent) => void,
-  ownerDocument: Document = globalThis?.document
+  ownerDocument: Document = globalThis?.document,
 ) {
-  const handlePointerDownOutside = useCallbackRef(
-    onPointerDownOutside
-  ) as EventListener;
+  const handlePointerDownOutside = useCallbackRef(onPointerDownOutside) as EventListener;
   const isPointerInsideReactTreeRef = React.useRef(false);
   const handleClickRef = React.useRef(() => {});
 
@@ -321,7 +295,7 @@ function usePointerDownOutside(
             POINTER_DOWN_OUTSIDE,
             handlePointerDownOutside,
             eventDetail,
-            { discrete: true }
+            { discrete: true },
           );
         }
 
@@ -337,10 +311,10 @@ function usePointerDownOutside(
          * This is why we also continuously remove the previous listener, because we cannot be
          * certain that it was raised, and therefore cleaned-up.
          */
-        if (event.pointerType === "touch") {
-          ownerDocument.removeEventListener("click", handleClickRef.current);
+        if (event.pointerType === 'touch') {
+          ownerDocument.removeEventListener('click', handleClickRef.current);
           handleClickRef.current = handleAndDispatchPointerDownOutsideEvent;
-          ownerDocument.addEventListener("click", handleClickRef.current, {
+          ownerDocument.addEventListener('click', handleClickRef.current, {
             once: true,
           });
         } else {
@@ -348,7 +322,7 @@ function usePointerDownOutside(
         }
       } else {
         // We need to remove the event listener in case the outside click has been canceled.
-        ownerDocument.removeEventListener("click", handleClickRef.current);
+        ownerDocument.removeEventListener('click', handleClickRef.current);
       }
 
       isPointerInsideReactTreeRef.current = false;
@@ -368,13 +342,13 @@ function usePointerDownOutside(
      * });
      */
     const timerId = window.setTimeout(() => {
-      ownerDocument.addEventListener("pointerdown", handlePointerDown);
+      ownerDocument.addEventListener('pointerdown', handlePointerDown);
     }, 0);
 
     return () => {
       window.clearTimeout(timerId);
-      ownerDocument.removeEventListener("pointerdown", handlePointerDown);
-      ownerDocument.removeEventListener("click", handleClickRef.current);
+      ownerDocument.removeEventListener('pointerdown', handlePointerDown);
+      ownerDocument.removeEventListener('click', handleClickRef.current);
     };
   }, [ownerDocument, handlePointerDownOutside]);
 
@@ -386,7 +360,7 @@ function usePointerDownOutside(
 
 function useFocusOutside(
   onFocusOutside?: (event: FocusOutsideEvent) => void,
-  ownerDocument: Document = globalThis?.document
+  ownerDocument: Document = globalThis?.document,
 ) {
   const handleFocusOutside = useCallbackRef(onFocusOutside) as EventListener;
   const isFocusInsideReactTreeRef = React.useRef(false);
@@ -395,20 +369,15 @@ function useFocusOutside(
     function handleFocus(event: FocusEvent) {
       if (event.target && !isFocusInsideReactTreeRef.current) {
         const eventDetail = { originalEvent: event };
-        handleAndDispatchCustomEvent(
-          FOCUS_OUTSIDE,
-          handleFocusOutside,
-          eventDetail,
-          {
-            discrete: false,
-          }
-        );
+        handleAndDispatchCustomEvent(FOCUS_OUTSIDE, handleFocusOutside, eventDetail, {
+          discrete: false,
+        });
       }
     }
 
-    ownerDocument.addEventListener("focusin", handleFocus);
+    ownerDocument.addEventListener('focusin', handleFocus);
 
-    return () => ownerDocument.removeEventListener("focusin", handleFocus);
+    return () => ownerDocument.removeEventListener('focusin', handleFocus);
   }, [ownerDocument, handleFocusOutside]);
 
   return {
@@ -422,10 +391,7 @@ function dispatchUpdate() {
   document.dispatchEvent(event);
 }
 
-function handleAndDispatchCustomEvent<
-  E extends CustomEvent,
-  OriginalEvent extends Event,
->(
+function handleAndDispatchCustomEvent<E extends CustomEvent, OriginalEvent extends Event>(
   name: string,
   handler: ((event: E) => void) | undefined,
   detail: {
@@ -435,7 +401,7 @@ function handleAndDispatchCustomEvent<
     discrete,
   }: {
     discrete: boolean;
-  }
+  },
 ) {
   const { target } = detail.originalEvent;
   const event = new CustomEvent(name, {
@@ -458,6 +424,6 @@ function handleAndDispatchCustomEvent<
 const Root = DismissableLayer;
 const Branch = DismissableLayerBranch;
 
-export { DismissableLayer, DismissableLayerBranch, Root, Branch };
+export { Branch, DismissableLayer, DismissableLayerBranch, Root };
 
-export type { DismissableLayerProps, DismissableLayerBranchProps };
+export type { DismissableLayerBranchProps, DismissableLayerProps };

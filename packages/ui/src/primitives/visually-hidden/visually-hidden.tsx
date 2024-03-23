@@ -1,8 +1,10 @@
-import React from "react";
-import type * as Jelly from "../primitive";
-import { Primitive } from "../primitive";
+import React from 'react';
 
-const NAME = "VisuallyHidden";
+import { Primitive } from '../primitive';
+
+import type * as Jelly from '../primitive';
+
+const NAME = 'VisuallyHidden';
 
 type VisuallyHiddenElement = React.ElementRef<typeof Primitive.span>;
 type PrimitiveSpanProps = Jelly.ComponentPropsWithoutRef<typeof Primitive.span>;
@@ -19,32 +21,31 @@ type VisuallyHiddenProps = PrimitiveSpanProps;
  * @param {React.Ref<VisuallyHiddenElement>} forwardedRef - A ref to forward to the underlying span element.
  * @returns {React.ReactElement} A React element that renders a visually hidden span.
  */
-const VisuallyHidden = React.forwardRef<
-  VisuallyHiddenElement,
-  VisuallyHiddenProps
->(({ style, ...props }, forwardedRef) => (
-  <Primitive.span
-    {...props}
-    ref={forwardedRef}
-    style={{
-      position: "absolute",
-      border: 0,
-      width: 1,
-      height: 1,
-      padding: 0,
-      margin: -1,
-      overflow: "hidden",
-      clip: "rect(0, 0, 0, 0)",
-      whiteSpace: "nowrap",
-      wordWrap: "normal",
-      ...style,
-    }}
-  />
-));
+const VisuallyHidden = React.forwardRef<VisuallyHiddenElement, VisuallyHiddenProps>(
+  ({ style, ...props }, forwardedRef) => (
+    <Primitive.span
+      {...props}
+      ref={forwardedRef}
+      style={{
+        position: 'absolute',
+        border: 0,
+        width: 1,
+        height: 1,
+        padding: 0,
+        margin: -1,
+        overflow: 'hidden',
+        clip: 'rect(0, 0, 0, 0)',
+        whiteSpace: 'nowrap',
+        wordWrap: 'normal',
+        ...style,
+      }}
+    />
+  ),
+);
 VisuallyHidden.displayName = NAME;
 
 const Root = VisuallyHidden;
 
-export { VisuallyHidden, Root };
+export { Root, VisuallyHidden };
 
 export type { VisuallyHiddenProps };

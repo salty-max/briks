@@ -1,38 +1,32 @@
 {
-  "name": "briks",
   "private": true,
   "scripts": {
     "build": "turbo build",
-    "build:all": "turbo build --include-dependencies",
-    "dev": "turbo dev",
+    "build:ci": "turbo build --cache-dir=\".turbo\"",
+    "dev": "turbo dev --no-cache --continue --parallel",
+    "preview": "turbo preview --no-cache --continue --parallel",
     "lint": "turbo lint",
+    "lint:ci": "turbo lint --cache-dir=\".turbo\"",
     "test": "turbo test",
-    "chromatic": "turbo chromatic",
-    "build-storybook": "turbo build-storybook",
+    "test:ci": "turbo test concurrency=2 --cache-dir=\".turbo\"",
+    "test:coverage": "turbo test:coverage",
+    "check-types": "turbo check-types",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "clean": "turbo clean && rm -rf node_modules",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "turbo run build --filter=docs^... && changeset publish",
+    "release": "turbo build --filter=docs^... --filter=workshop^... && changeset publish",
     "prepare": "husky"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
-    "@chromatic-com/storybook": "^1.2.25",
-    "@commitlint/config-conventional": "^19.1.0",
     "@commitlint/cli": "^19.2.1",
-    "@briks/eslint-config": "workspace:*",
-    "@briks/typescript-config": "workspace:*",
-    "@storybook/cli": "^8.0.2",
-    "chromatic": "^11.2.0",
-    "eslint": "^8.57.0",
+    "@commitlint/config-conventional": "^19.1.0",
+    "autoprefixer": "^10.4.19",
+    "eslint-config-briks": "workspace:*",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
-    "prettier": "^3.2.5",
     "turbo": "latest"
   },
-  "packageManager": "pnpm@8.9.0",
-  "engines": {
-    "node": ">=18"
-  }
+  "packageManager": "pnpm@8.9.0"
 }

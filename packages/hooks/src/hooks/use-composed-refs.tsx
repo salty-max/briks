@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 type PossibleRef<T> = React.Ref<T> | undefined;
 
@@ -11,7 +11,7 @@ type PossibleRef<T> = React.Ref<T> | undefined;
  * @param value - The new value to set for the ref.
  */
 function setRef<T>(ref: PossibleRef<T>, value: T): void {
-  if (typeof ref === "function") {
+  if (typeof ref === 'function') {
     ref(value);
   } else if (ref !== null && ref !== undefined) {
     (ref as React.MutableRefObject<T>).current = value;
@@ -27,7 +27,7 @@ function setRef<T>(ref: PossibleRef<T>, value: T): void {
  */
 function composeRefs<T>(...refs: PossibleRef<T>[]): (node: T) => void {
   return (node: T) => {
-    refs.forEach((ref) => {
+    refs.forEach(ref => {
       setRef(ref, node);
     });
   };
@@ -45,4 +45,4 @@ function useComposedRefs<T>(...refs: PossibleRef<T>[]): (node: T) => void {
   return React.useCallback(composeRefs(...refs), refs);
 }
 
-export { useComposedRefs, composeRefs };
+export { composeRefs, useComposedRefs };

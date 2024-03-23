@@ -1,24 +1,20 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "React Library",
+  "extends": "./base.json",
   "compilerOptions": {
-    "target": "ES2016",
-    "module": "CommonJS",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true,
     "jsx": "react-jsx",
     "lib": [
-      "DOM",
-      "DOM.Iterable",
+      "dom",
+      "dom.iterable",
       "ESNext"
     ],
-    "resolveJsonModule": true
+    "module": "ESNext",
+    "target": "ESNext",
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "dist",
-    "node_modules"
-  ]
+  "ts-node": {
+    "compilerOptions": {
+      "module": "ESNext"
+    }
+  },
 }
