@@ -16,6 +16,7 @@
     "clean": "turbo clean && rm -rf node_modules",
     "changeset": "changeset",
     "version-packages": "changeset version",
+    "create-release": "node ./scripts/create-release.js",
     "release": "turbo build --filter=docs^... --filter=workshop^... && changeset publish",
     "prepare": "husky"
   },

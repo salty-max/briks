@@ -1,21 +1,17 @@
-name: Chromatic
+name: Release Workflow
 
 on:
   pull_request:
     branches:
-      - develop
-    types: [labeled, unlabeled, synchronize, opened, reopened, ready_for_review]
+      - main
+    types: [closed]
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  chromatic-publish:
-    if: >
-      github.event_name == 'pull_request' &&
-      contains(join(github.event.pull_request.labels.*.name, ','), 'ui-review')
-    name: 📚 Publish on Chromatic
+  release:
+    name: 🚀 Release
+    if: github.base_ref == 'develop'
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout Repo
@@ -50,7 +46,7 @@ jobs:
             turbo-${{ runner.os }}-${{ github.ref_name }}
 
       - name: 📦 Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
       - name: 👷🏻‍♀️ Build
         id: run-build
@@ -58,12 +54,12 @@ jobs:
         env:
           NODE_ENV: ${{ secrets.NODE_ENV }}
 
-      - name: 📚 Publish Storybook to Chromatic
-        uses: chromaui/action@v1
+      - name: Publish to npm
+        id: changesets
+        uses: changesets/action@v1
         with:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          storybookBuildDir: 'storybook-static'
-          workingDir: 'apps/docs'
-          zip: true
-          exitOnceUploaded: true
-          exitZeroOnChanges: true
+          publish: pnpm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
