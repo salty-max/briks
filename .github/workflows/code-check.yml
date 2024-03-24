@@ -45,6 +45,9 @@ jobs:
       - name: 🧽 Prettier
         run: pnpm run format-check
 
+      - name: 🔨 Build
+        run: pnpm run build:ci
+
       - name: 👮🏻 Lint
         run: pnpm run lint:ci
 
