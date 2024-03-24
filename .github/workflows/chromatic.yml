@@ -14,7 +14,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   chromatic-publish:
-    if: github.event.label.name == 'ui-review'
+    if: contains(github.event.pull_request.labels.*.name, 'chromatic')
     name: 📚 Publish on Chromatic
     runs-on: ubuntu-latest
     steps:
