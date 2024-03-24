@@ -24,7 +24,7 @@ const Text = React.forwardRef<HTMLHeadingElement, TextProps>(
         Comp = 'h3';
         break;
       case 'caption':
-        Comp = 'caption';
+        Comp = 'small';
         break;
       default:
         Comp = 'p';

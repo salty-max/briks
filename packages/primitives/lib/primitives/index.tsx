@@ -1,9 +1,11 @@
 export * as ArrowPrimitive from './arrow';
-export * as Collection from './collection';
+export * from './collection';
+export * as DialogPrimitive from './dialog';
 export * as DismissableLayer from './dismissable-layer';
+export * from './focus-scope';
 export * as PopperPrimitive from './popper';
 export * as PortalPrimitive from './portal';
-export * as Presence from './presence';
+export * from './presence';
 export * as Primitive from './primitive';
 export * from './slot';
 export * as ToastPrimitive from './toast';

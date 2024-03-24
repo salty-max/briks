@@ -55,6 +55,7 @@ module.exports = {
     'react/jsx-no-useless-fragment': 'off',
     'react/jsx-pascal-case': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'react/no-this-in-sfc': 'off',
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/require-default-props': 'off',
@@ -92,6 +93,7 @@ module.exports = {
     'testing-library/no-unnecessary-act': 'off',
     'testing-library/no-wait-for-side-effects': 'off',
     'testing-library/prefer-screen-queries': 'off',
+    'turbo/no-undeclared-env-vars': 'off',
   },
   ignorePatterns: [
     '.next',

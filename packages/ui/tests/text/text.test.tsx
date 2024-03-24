@@ -41,9 +41,9 @@ describe('Text', () => {
   });
 
   describe('with a caption variant', () => {
-    it('should render as a caption element', () => {
+    it('should render as a small element', () => {
       const { getByText } = render(<Text variant='caption'>Caption Text</Text>);
-      expect(getByText('Caption Text').tagName).toBe('CAPTION');
+      expect(getByText('Caption Text').tagName).toBe('SMALL');
     });
   });
 });
