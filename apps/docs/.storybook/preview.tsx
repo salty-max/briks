@@ -1,5 +1,6 @@
 import { withThemeByClassName } from '@storybook/addon-themes';
-import '@briks/ui/styles.css';
+import '@briks/ui/styles';
+import '../src/style.css';
 
 /** @type { import('@storybook/react').Preview } */
 const preview = {

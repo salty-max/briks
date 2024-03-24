@@ -4,7 +4,6 @@
     { "path": "./packages/core" },
     { "path": "./packages/hooks" },
     { "path": "./packages/ui" },
-    { "path": "./apps/docs" },
-    { "path": "./apps/workshop" }
+    { "path": "./apps/docs" }
   ]
 }

@@ -1,20 +1,38 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "React Library",
-  "extends": "./base.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
+    "target": "ES2020",
+    "useDefineForClassFields": true,
     "lib": [
       "dom",
       "dom.iterable",
-      "ESNext"
+      "ES2020"
     ],
     "module": "ESNext",
-    "target": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
   },
-  "ts-node": {
-    "compilerOptions": {
-      "module": "ESNext"
+  "include": [
+    "."
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "turbo"
+  ],
+  "references": [
+    {
+      "path": "./node.json"
     }
-  },
+  ]
 }

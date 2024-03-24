@@ -31,6 +31,9 @@ dist/
 # Tests
 coverage/
 
+# Storybook
+storybook-static/
+
 
 # Debug
 npm-debug.log*

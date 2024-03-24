@@ -5,5 +5,9 @@
   "license": "MIT",
   "devDependencies": {
     "ts-node": "^10.9.2"
-  }
+  },
+  "files": [
+    "node.json",
+    "react-library.json"
+  ]
 }

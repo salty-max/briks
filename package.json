@@ -4,7 +4,7 @@
     "build": "turbo build",
     "build:ci": "turbo build --cache-dir=\".turbo\"",
     "dev": "turbo dev --no-cache --continue --parallel",
-    "preview": "turbo preview --no-cache --continue --parallel",
+    "preview": "turbo preview",
     "lint": "turbo lint",
     "lint:ci": "turbo lint --cache-dir=\".turbo\"",
     "test": "turbo test",

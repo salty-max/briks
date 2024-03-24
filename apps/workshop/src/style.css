@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Open Sans';
+  font-display: swap;
+  src:
+    local('Open Sans'),
+    url('../assets/fonts/OpenSans.ttf') format('truetype-variations');
+}
+
+@font-face {
+  font-family: 'Nunito';
+  font-display: swap;
+  src:
+    local('Nunito'),
+    url('../assets/fonts/Nunito.ttf') format('truetype-variations');
+}
+
+@layer base {
+  :root {
+    --font-sans: 'Nunito';
+  }
+}

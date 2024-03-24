@@ -1,6 +1,0 @@
-{
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@briks/typescript-config/react-library.json",
-  "include": ["."],
-  "exclude": ["dist", "node_modules", "turbo"]
-}

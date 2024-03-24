@@ -1,3 +1,4 @@
-import sharedConfig from "@briks/tailwind-config/tailwind.config";
-
-export const presets = [sharedConfig];
+module.exports = {
+  extends: '@briks/ui/tailwind',
+  content: ['./src/stories/**/*.{js,jsx,ts,tsx}'],
+};
