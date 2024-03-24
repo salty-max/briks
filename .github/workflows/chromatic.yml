@@ -1,20 +1,20 @@
 name: Chromatic
 
 on:
-  push:
-    branches:
-      - 'feature/**'
-      - 'fix/**'
   pull_request:
     branches:
       - develop
-    types: [labeled]
+    types: [labeled, unlabeled, synchronize, opened, reopened, ready_for_review]
 
-concurrency: ${{ github.workflow }}-${{ github.ref }}
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   chromatic-publish:
-    if: contains(github.event.pull_request.labels.*.name, 'chromatic')
+    if: >
+      github.event_name == 'pull_request' &&
+      contains(join(github.event.pull_request.labels.*.name, ','), 'ui-review')
     name: 📚 Publish on Chromatic
     runs-on: ubuntu-latest
     steps:
