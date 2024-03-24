@@ -31,16 +31,18 @@
     "./tailwind": "./dist/tailwind.config.js"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vitest",
     "build": "tsc --p ./tsconfig.build.json && vite build",
     "lint": "eslint . --ext .tsx,.ts --max-warnings=0",
     "clean": "rimraf .turbo node_modules dist coverage",
-    "test": "vitest",
-    "test:coverage": "vitest --coverage",
-    "test:watch": "vitest --watch",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@briks/core": "workspace:*",
+    "@briks/hooks": "workspace:*",
+    "@briks/primitives": "workspace:*",
     "@floating-ui/react-dom": "^2.0.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",

@@ -1,8 +1,8 @@
+import { cn } from '@briks/core';
+import { Slot } from '@briks/primitives';
 import React from 'react';
 
-import { cn } from '../../core';
 import { Icon } from '../icon';
-import { Slot } from '../slot';
 import { buttonVariants } from './helpers';
 
 import type { VariantProps } from 'class-variance-authority';
@@ -43,7 +43,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           children
         ) : (
           <>
-            {loading ? <Icon className='animate-spin' name='LoaderCircle' /> : null}
+            {loading ? (
+              <Icon data-testid='button-loader' className='animate-spin' name='LoaderCircle' />
+            ) : null}
             {!loading && icon && iconPosition === 'left' ? (
               <Icon data-testid='button-icon-left' name={icon} />
             ) : null}

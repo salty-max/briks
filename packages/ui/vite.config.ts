@@ -44,24 +44,11 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'lib/index.tsx'),
       name: '@briks/ui',
-      formats: ['es', 'cjs', 'umd'],
+      formats: ['es', 'cjs'],
       fileName: format => `index.${format}.js`,
     },
     rollupOptions: {
       external: ['react', 'react-dom'],
-      // input: Object.fromEntries(
-      //   glob.sync('lib/**/*.{ts,tsx}').map(file => [
-      //     // The name of the entry point
-      //     // lib/nested/foo.ts -> nested/foo
-      //     relative('lib', file.slice(0, file.length - extname(file).length)),
-      //     // The absolute path to the entry file
-      //     fileURLToPath(new URL(file, import.meta.url)),
-      //   ]),
-      // ),
-      // output: {
-      //   assetFileNames: 'assets/[name][extname]',
-      //   entryFileNames: '[name].js',
-      // },
     },
   },
 });

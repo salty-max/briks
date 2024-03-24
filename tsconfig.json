@@ -1,4 +1,11 @@
 {
   "files": [],
-  "references": [{ "path": "./packages/ui" }, { "path": "./apps/docs" }]
+  "references": [
+    { "path": "./packages/core" },
+    { "path": "./packages/hooks" },
+    { "path": "./packages/primitives" },
+    { "path": "./packages/ui" },
+    { "path": "./apps/docs" },
+    { "path": "./apps/workshop" }
+  ]
 }

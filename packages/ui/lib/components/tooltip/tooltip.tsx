@@ -1,7 +1,6 @@
+import { cn } from '@briks/core';
+import { TooltipPrimitive } from '@briks/primitives';
 import React from 'react';
-
-import { cn } from '../../core';
-import { TooltipPrimitive } from '../../primitives';
 
 const TooltipProvider = TooltipPrimitive.Provider;
 const Tooltip = TooltipPrimitive.Root;

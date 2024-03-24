@@ -1,0 +1,12 @@
+*.d.ts
+*.config.js
+*.config.ts
+*.setup.ts
+*.setup.js
+*.cjs
+
+coverage/
+node_modules/
+dist/
+src/
+tests/

@@ -16,6 +16,9 @@ function App() {
         Toggle theme
       </Button>
       <Text>Current theme: {theme ? theme : 'neutral'}</Text>
+      <Button asChild>
+        <span data-testid='toto'>Toto</span>
+      </Button>
     </div>
   );
 }

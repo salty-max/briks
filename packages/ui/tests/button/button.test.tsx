@@ -1,59 +1,88 @@
-import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { cleanup, render, RenderResult } from '@testing-library/react';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
+import axe from '../axe-helper';
 import { Button } from '../../lib/components/button/button';
 
 describe('Button', () => {
-  it('renders correctly', () => {
-    const { container } = render(<Button>Click me</Button>);
+  let rendered: RenderResult;
 
-    expect(container.firstChild).toHaveClass('rounded-md');
-    expect(container.firstChild).toHaveClass('text-primary-foreground');
-    expect(container.firstChild).toHaveClass('bg-primary');
+  afterEach(() => {
+    cleanup();
   });
 
-  it('renders correctly with icon', () => {
-    const { container } = render(<Button icon='Check'>Click me</Button>);
+  describe('given a default Button', () => {
+    beforeEach(() => {
+      rendered = render(<Button>Click me</Button>);
+    });
 
-    expect(container.firstChild).toHaveClass('rounded-md');
-    expect(screen.getByTestId('button-icon-left')).toBeInTheDocument();
+    it('should render correctly', () => {
+      expect(rendered.getByRole('button')).toHaveTextContent('Click me');
+    });
+
+    it('should have no accessibility violations', async () => {
+      expect(await axe(rendered.container)).toHaveNoViolations();
+    });
   });
 
-  it('renders correctly with icon position', () => {
-    render(
-      <Button icon='Check' iconPosition='right'>
-        Click me
-      </Button>,
-    );
+  describe('with an icon on the left', () => {
+    beforeEach(() => {
+      rendered = render(<Button icon='Settings'>Settings</Button>);
+    });
 
-    expect(screen.getByTestId('button-icon-right')).toBeInTheDocument();
+    it('should render the icon on the left', () => {
+      const button = rendered.getByRole('button');
+      const icon = rendered.getByTestId('button-icon-left');
+      expect(button.firstChild).toEqual(icon);
+      expect(icon).toHaveClass('lucide-settings');
+    });
   });
 
-  it('renders correctly as child', () => {
-    render(
-      <Button asChild>
-        <a href='https://github.com/salty-max/jelly' target='_blank' rel='noreferrer'>
-          Click me
-        </a>
-      </Button>,
-    );
+  describe('with an icon on the right', () => {
+    beforeEach(() => {
+      rendered = render(
+        <Button icon='Settings' iconPosition='right'>
+          Settings
+        </Button>,
+      );
+    });
 
-    const anchorElement = screen.getByRole('link', { name: /click me/i });
-    expect(anchorElement).toBeInTheDocument();
-    expect(anchorElement).toHaveAttribute('href', 'https://github.com/salty-max/jelly');
-    expect(anchorElement).toHaveAttribute('target', '_blank');
-    expect(anchorElement).toHaveAttribute('rel', 'noreferrer');
+    it('should render the icon on the right', () => {
+      const button = rendered.getByRole('button');
+      const icon = rendered.getByTestId('button-icon-right');
+      expect(button.lastChild).toEqual(icon);
+      expect(icon).toHaveClass('lucide-settings');
+    });
   });
 
-  it('renders correctly with specific size', () => {
-    const { container } = render(<Button size='sm'>Click me</Button>);
+  describe('in a loading state', () => {
+    beforeEach(() => {
+      rendered = render(<Button loading>Loading</Button>);
+    });
 
-    expect(container.firstChild).toHaveClass('h-9');
+    it('should display a loader instead of children', () => {
+      const button = rendered.getByRole('button');
+      const icon = rendered.getByTestId('button-loader');
+      expect(button.firstChild).toEqual(icon);
+      expect(icon).toHaveClass('lucide-loader-circle');
+    });
   });
 
-  it('renders correctly with specific variant', () => {
-    const { container } = render(<Button variant='destructive'>Click me</Button>);
+  describe('with an asChild prop', () => {
+    beforeEach(() => {
+      rendered = render(
+        <>
+          <Button asChild>
+            <span data-testid='span-slot'>Slotted Content</span>
+          </Button>
+        </>,
+      );
+    });
 
-    expect(container.firstChild).toHaveClass('bg-destructive');
+    it('replaces content with Slottable content', () => {
+      const slot = rendered.getByTestId('span-slot');
+      expect(slot).toHaveTextContent('Slotted Content');
+      expect(slot).toHaveClass('bg-primary');
+    });
   });
 });

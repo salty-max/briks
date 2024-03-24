@@ -1,6 +1,6 @@
+import { cn } from '@briks/core';
 import React from 'react';
 
-import { cn } from '../../core';
 import { textVariants } from './helpers';
 
 import type { VariantProps } from 'class-variance-authority';
@@ -24,7 +24,7 @@ const Text = React.forwardRef<HTMLHeadingElement, TextProps>(
         Comp = 'h3';
         break;
       case 'caption':
-        Comp = 'small';
+        Comp = 'caption';
         break;
       default:
         Comp = 'p';
