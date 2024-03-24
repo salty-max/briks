@@ -1,0 +1,67 @@
+name: Chromatic
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+      - 'fix/**'
+  pull_request:
+    branches:
+      - develop
+    types: [labeled]
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  chromatic-publish:
+    if: github.event.label.name == 'ui-review'
+    name: 📚 Publish on Chromatic
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: 🧰 Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
+      - name: 🛠 Setup Node.js 20.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: 🧳 Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: ⚡ Turbo cache
+        id: turbo-cache
+        uses: actions/cache@v3
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-${{ github.ref_name }}
+
+      - name: 📦 Install dependencies
+        run: pnpm install
+
+      - name: 👷🏻‍♀️ Build
+        id: run-build
+        run: pnpm run build:ci
+
+      - name: 📚 Publish Storybook to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          storybookBuildDir: 'storybook-static'
+          workingDir: 'apps/docs'
+          zip: true
+          exitOnceUploaded: true
+          exitZeroOnChanges: true
