@@ -2,12 +2,8 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   darkMode: ['selector'],
-  mode: 'jit',
-  content: [
-    './src/**/*.{ts,tsx,html,stories.tsx}',
-    './lib/**/*.{ts,tsx,html,stories.tsx}',
-    './stories/**/*.{ts,tsx,html,stories.tsx}',
-  ],
+  prefix: 'bk-',
+  content: ['./playground/**/*.{ts,tsx,html,stories.tsx}', './lib/**/*.{ts,tsx,html,stories.tsx}'],
   theme: {
     fontFamily: {
       sans: ['var(--font-sans)', ...defaultTheme.fontFamily.sans],

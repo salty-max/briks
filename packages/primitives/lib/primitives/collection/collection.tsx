@@ -4,9 +4,9 @@ import React from 'react';
 
 import { Slot } from '../slot';
 
-import type * as Jelly from '../primitive';
+import type * as Briks from '../primitive';
 
-type SlotProps = Jelly.ComponentPropsWithoutRef<typeof Slot>;
+type SlotProps = Briks.ComponentPropsWithoutRef<typeof Slot>;
 type CollectionElement = HTMLElement;
 interface CollectionProps extends SlotProps {
   scope: any;

@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Primitive } from '../primitive';
 
-import type * as Jelly from '../primitive';
+import type * as Briks from '../primitive';
 
 const AUTOFOCUS_ON_MOUNT = 'focusScope.autoFocusOnMount';
 const AUTOFOCUS_ON_UNMOUNT = 'focusScope.autoFocusOnUnmount';
@@ -18,7 +18,7 @@ type FocusableTarget = HTMLElement | { focus(): void };
 const FOCUS_SCOPE_NAME = 'FocusScope';
 
 type FocusScopeElement = React.ElementRef<typeof Primitive.div>;
-type PrimitiveDivProps = Jelly.ComponentPropsWithoutRef<typeof Primitive.div>;
+type PrimitiveDivProps = Briks.ComponentPropsWithoutRef<typeof Primitive.div>;
 interface FocusScopeProps extends PrimitiveDivProps {
   /**
    * When `true`, tabbing from last item will focus first tabbable

@@ -32,6 +32,7 @@
   },
   "scripts": {
     "dev": "vitest",
+    "preview": "vite",
     "build": "tsc --p ./tsconfig.build.json && vite build",
     "lint": "eslint . --ext .tsx,.ts --max-warnings=0",
     "clean": "rimraf .turbo node_modules dist coverage",
@@ -55,6 +56,8 @@
   },
   "devDependencies": {
     "@briks/tailwind-config": "workspace:*",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
     "@testing-library/user-event": "^14.5.2",

@@ -11,7 +11,7 @@ import { Presence } from '../presence';
 import { composeEventHandlers, Primitive } from '../primitive';
 import { Slot } from '../slot';
 
-import type * as Jelly from '../primitive';
+import type * as Briks from '../primitive';
 
 /* -------------------------------------------------------------------------------------------------
  * Dialog
@@ -86,7 +86,7 @@ Dialog.displayName = DIALOG_NAME;
 const TRIGGER_NAME = 'DialogTrigger';
 
 type DialogTriggerElement = React.ElementRef<typeof Primitive.button>;
-type PrimitiveButtonProps = Jelly.ComponentPropsWithoutRef<typeof Primitive.button>;
+type PrimitiveButtonProps = Briks.ComponentPropsWithoutRef<typeof Primitive.button>;
 type DialogTriggerProps = PrimitiveButtonProps;
 
 const DialogTrigger = React.forwardRef<DialogTriggerElement, DialogTriggerProps>(
@@ -123,7 +123,7 @@ const [PortalProvider, usePortalContext] = createDialogContext<PortalContextValu
   forceMount: undefined,
 });
 
-type PortalProps = Jelly.ComponentPropsWithoutRef<typeof PortalPrimitive>;
+type PortalProps = Briks.ComponentPropsWithoutRef<typeof PortalPrimitive>;
 interface DialogPortalProps {
   children?: React.ReactNode;
   /**
@@ -189,7 +189,7 @@ const DialogOverlay = React.forwardRef<DialogOverlayElement, DialogOverlayProps>
 DialogOverlay.displayName = OVERLAY_NAME;
 
 type DialogOverlayImplElement = React.ElementRef<typeof Primitive.div>;
-type PrimitiveDivProps = Jelly.ComponentPropsWithoutRef<typeof Primitive.div>;
+type PrimitiveDivProps = Briks.ComponentPropsWithoutRef<typeof Primitive.div>;
 type DialogOverlayImplProps = PrimitiveDivProps;
 
 const DialogOverlayImpl = React.forwardRef<DialogOverlayImplElement, DialogOverlayImplProps>(
@@ -354,8 +354,8 @@ const DialogContentNonModal = React.forwardRef<DialogContentTypeElement, DialogC
 /* -----------------------------------------------------------------------------------------------*/
 
 type DialogContentImplElement = React.ElementRef<typeof DismissableLayer>;
-type DismissableLayerProps = Jelly.ComponentPropsWithoutRef<typeof DismissableLayer>;
-type FocusScopeProps = Jelly.ComponentPropsWithoutRef<typeof FocusScope>;
+type DismissableLayerProps = Briks.ComponentPropsWithoutRef<typeof DismissableLayer>;
+type FocusScopeProps = Briks.ComponentPropsWithoutRef<typeof FocusScope>;
 interface DialogContentImplProps extends Omit<DismissableLayerProps, 'onDismiss'> {
   /**
    * When `true`, focus cannot escape the `Content` via keyboard,
@@ -432,7 +432,7 @@ const DialogContentImpl = React.forwardRef<DialogContentImplElement, DialogConte
 const TITLE_NAME = 'DialogTitle';
 
 type DialogTitleElement = React.ElementRef<typeof Primitive.h2>;
-type PrimitiveHeading2Props = Jelly.ComponentPropsWithoutRef<typeof Primitive.h2>;
+type PrimitiveHeading2Props = Briks.ComponentPropsWithoutRef<typeof Primitive.h2>;
 type DialogTitleProps = PrimitiveHeading2Props;
 
 const DialogTitle = React.forwardRef<DialogTitleElement, DialogTitleProps>(
@@ -450,7 +450,7 @@ DialogTitle.displayName = TITLE_NAME;
 const DESCRIPTION_NAME = 'DialogDescription';
 
 type DialogDescriptionElement = React.ElementRef<typeof Primitive.p>;
-type PrimitiveParagraphProps = Jelly.ComponentPropsWithoutRef<typeof Primitive.p>;
+type PrimitiveParagraphProps = Briks.ComponentPropsWithoutRef<typeof Primitive.p>;
 type DialogDescriptionProps = PrimitiveParagraphProps;
 
 const DialogDescription = React.forwardRef<DialogDescriptionElement, DialogDescriptionProps>(

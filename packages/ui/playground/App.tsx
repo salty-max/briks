@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,17 +20,22 @@ import {
   DialogTrigger,
   Icon,
   Text,
+  Tooltip,
+  TooltipContent,
+  TooltipPortal,
+  TooltipTrigger,
   useTheme,
-} from '@briks/ui';
+} from '../lib/components';
 
 function App() {
   const { theme, setTheme, darkMode, toggleDarkMode } = useTheme();
+  const [open, setOpen] = React.useState(false);
 
   return (
-    <div className='flex gap-4 p-4'>
+    <div className='bk-flex bk-gap-2 bk-p-4'>
       <Button icon={darkMode ? 'Moon' : 'Sun'} size='icon' onClick={() => toggleDarkMode()} />
       <Button
-        icon='Palette'
+        loading
         onClick={() => {
           console.log('coucou');
           setTheme(theme === 'violet' ? 'neutral' : 'violet');
@@ -38,9 +44,6 @@ function App() {
         Toggle theme
       </Button>
       <Text>Current theme: {theme ? theme : 'neutral'}</Text>
-      <Button asChild>
-        <span data-testid='toto'>Toto</span>
-      </Button>
       <AlertDialog>
         <AlertDialogTrigger asChild>
           <Button variant='outline'>Show Dialog</Button>
@@ -68,34 +71,44 @@ function App() {
         <DialogTrigger asChild>
           <Button variant='outline'>Share</Button>
         </DialogTrigger>
-        <DialogContent className='sm:max-w-md'>
+        <DialogContent className='sm:bk-max-w-md'>
           <DialogHeader>
             <DialogTitle>Share link</DialogTitle>
             <DialogDescription>
               Anyone who has this link will be able to view this.
             </DialogDescription>
           </DialogHeader>
-          <div className='flex items-center space-x-2'>
-            <div className='grid flex-1 gap-2'>
-              <label htmlFor='link' className='sr-only'>
+          <div className='bk-flex bk-items-center bk-space-x-2'>
+            <div className='bk-grid bk-flex-1 bk-gap-2'>
+              <label htmlFor='link' className='bk-sr-only'>
                 Link
               </label>
               <input id='link' defaultValue='https://ui.shadcn.com/docs/installation' readOnly />
             </div>
-            <Button type='submit' size='sm' className='px-3'>
-              <span className='sr-only'>Copy</span>
-              <Icon name='Copy' className='h-4 w-4' />
+            <Button type='submit' size='sm' className='bk-px-3'>
+              <span className='bk-sr-only'>Copy</span>
+              <Icon name='Copy' className='bk-h-4 bk-w-4' />
             </Button>
           </div>
-          <DialogFooter className='sm:justify-start'>
+          <DialogFooter className='sm:bk-justify-start'>
             <DialogClose asChild>
-              <Button type='button' variant='destructive'>
+              <Button type='button' variant='secondary'>
                 Close
               </Button>
             </DialogClose>
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      <Tooltip delayDuration={300} open={open} onOpenChange={setOpen}>
+        <TooltipTrigger asChild>
+          <Text>{`I'm controlled, look I'm ${open ? 'open' : 'closed'}`}</Text>
+        </TooltipTrigger>
+        <TooltipPortal>
+          <TooltipContent align='center' side='bottom' sideOffset={5}>
+            Nicely done!
+          </TooltipContent>
+        </TooltipPortal>
+      </Tooltip>
     </div>
   );
 }

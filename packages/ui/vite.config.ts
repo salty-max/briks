@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 import { libInjectCss } from 'vite-plugin-lib-inject-css';
 import copy from 'rollup-plugin-copy';
+import tailwindcss from 'tailwindcss';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -49,6 +50,17 @@ export default defineConfig({
     },
     rollupOptions: {
       external: ['react', 'react-dom'],
+      plugins: [
+        copy({
+          targets: [{ src: 'lib/assets/fonts/*', dest: 'dist/fonts' }],
+          hook: 'writeBundle',
+        }),
+      ],
+    },
+  },
+  css: {
+    postcss: {
+      plugins: [tailwindcss],
     },
   },
 });

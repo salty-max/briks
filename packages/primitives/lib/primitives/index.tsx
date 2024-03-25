@@ -1,3 +1,4 @@
+export * as AlertDialogPrimitive from './alert-dialog';
 export * as ArrowPrimitive from './arrow';
 export * from './collection';
 export * as DialogPrimitive from './dialog';

@@ -44,7 +44,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ) : (
           <>
             {loading ? (
-              <Icon data-testid='button-loader' className='animate-spin' name='LoaderCircle' />
+              <Icon data-testid='button-loader' className='bk-animate-spin' name='LoaderCircle' />
             ) : null}
             {!loading && icon && iconPosition === 'left' ? (
               <Icon data-testid='button-icon-left' name={icon} />

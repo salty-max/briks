@@ -3,6 +3,7 @@
   "scripts": {
     "build": "turbo build",
     "build:ci": "turbo build --cache-dir=\".turbo\"",
+    "build:pkg": "turbo build --filter=docs^... --filter=workshop^...",
     "dev": "turbo dev --no-cache --continue --parallel",
     "preview": "turbo preview",
     "lint": "turbo lint",

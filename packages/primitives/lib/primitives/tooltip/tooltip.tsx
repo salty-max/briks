@@ -11,7 +11,7 @@ import { composeEventHandlers, Primitive } from '../primitive';
 import { Slottable } from '../slot';
 import * as VisuallyHiddenPrimitive from '../visually-hidden';
 
-import type * as Jelly from '../primitive';
+import type * as Briks from '../primitive';
 import type { Scope } from '@briks/core';
 
 type ScopedProps<P = {}> = P & {
@@ -237,7 +237,7 @@ Tooltip.displayName = TOOLTIP_NAME;
 const TRIGGER_NAME = 'TooltipTrigger';
 
 type TooltipTriggerElement = React.ElementRef<typeof Primitive.button>;
-type PrimitiveButtonProps = Jelly.ComponentPropsWithoutRef<typeof Primitive.button>;
+type PrimitiveButtonProps = Briks.ComponentPropsWithoutRef<typeof Primitive.button>;
 type TooltipTriggerProps = PrimitiveButtonProps;
 
 const TooltipTrigger = React.forwardRef<TooltipTriggerElement, TooltipTriggerProps>(
@@ -467,8 +467,8 @@ const [VisuallyHiddenContentContextProvider, useVisuallyHiddenContentContext] =
   createTooltipContext(TOOLTIP_NAME, { isInside: false });
 
 type TooltipContentImplElement = React.ElementRef<typeof PopperPrimitive.Content>;
-type DismissableLayerProps = Jelly.ComponentPropsWithoutRef<typeof DismissableLayer>;
-type PopperContentProps = Jelly.ComponentPropsWithoutRef<typeof PopperPrimitive.Content>;
+type DismissableLayerProps = Briks.ComponentPropsWithoutRef<typeof DismissableLayer>;
+type PopperContentProps = Briks.ComponentPropsWithoutRef<typeof PopperPrimitive.Content>;
 interface TooltipContentImplProps extends Omit<PopperContentProps, 'onPlaced'> {
   /**
    * A more descriptive label for accessibility purpose
@@ -565,7 +565,7 @@ TooltipContent.displayName = CONTENT_NAME;
 const ARROW_NAME = 'TooltipArrow';
 
 type TooltipArrowElement = React.ElementRef<typeof PopperPrimitive.Arrow>;
-type PopperArrowProps = Jelly.ComponentPropsWithoutRef<typeof PopperPrimitive.Arrow>;
+type PopperArrowProps = Briks.ComponentPropsWithoutRef<typeof PopperPrimitive.Arrow>;
 type TooltipArrowProps = PopperArrowProps;
 
 const TooltipArrow = React.forwardRef<TooltipArrowElement, TooltipArrowProps>(

@@ -15,7 +15,7 @@ import { Presence } from '../presence';
 import { composeEventHandlers, dispatchDiscreteCustomEvent, Primitive } from '../primitive';
 import { VisuallyHidden } from '../visually-hidden';
 
-import type * as Jelly from '../primitive';
+import type * as Briks from '../primitive';
 import type { Scope } from '@briks/core';
 
 /* -------------------------------------------------------------------------------------------------
@@ -136,7 +136,7 @@ const VIEWPORT_PAUSE = 'toast.viewportPause';
 const VIEWPORT_RESUME = 'toast.viewportResume';
 
 type ToastViewportElement = React.ElementRef<typeof Primitive.div>;
-// type PrimitiveOrderedListProps = Jelly.ComponentPropsWithoutRef<typeof Primitive.ol>;
+// type PrimitiveOrderedListProps = Briks.ComponentPropsWithoutRef<typeof Primitive.ol>;
 interface ToastViewportProps extends PrimitiveDivProps {
   /**
    * The keys to use as the keyboard shortcut that will move focus to the toast viewport.
@@ -353,7 +353,7 @@ ToastViewport.displayName = VIEWPORT_NAME;
 const FOCUS_PROXY_NAME = 'ToastFocusProxy';
 
 type FocusProxyElement = React.ElementRef<typeof VisuallyHidden>;
-type VisuallyHiddenProps = Jelly.ComponentPropsWithoutRef<typeof VisuallyHidden>;
+type VisuallyHiddenProps = Briks.ComponentPropsWithoutRef<typeof VisuallyHidden>;
 interface FocusProxyProps extends VisuallyHiddenProps {
   onFocusFromOutsideViewport: () => void;
 }
@@ -478,12 +478,12 @@ const [ToastInteractiveProvider, useToastInteractiveContext] = createToastContex
 });
 
 type ToastImplElement = React.ElementRef<typeof Primitive.div>;
-type DismissableLayerProps = Jelly.ComponentPropsWithoutRef<typeof DismissableLayer.Root>;
+type DismissableLayerProps = Briks.ComponentPropsWithoutRef<typeof DismissableLayer.Root>;
 interface ToastImplPrivateProps {
   open: boolean;
   onClose: () => void;
 }
-// type PrimitiveListItemProps = Jelly.ComponentPropsWithoutRef<typeof Primitive.li>;
+// type PrimitiveListItemProps = Briks.ComponentPropsWithoutRef<typeof Primitive.li>;
 interface ToastImplProps extends ToastImplPrivateProps, PrimitiveDivProps {
   type?: 'foreground' | 'background';
   /**
@@ -785,7 +785,7 @@ const ToastAnnounce: React.FC<ToastAnnounceProps> = ({
 const TITLE_NAME = 'ToastTitle';
 
 type ToastTitleElement = React.ElementRef<typeof Primitive.div>;
-type PrimitiveDivProps = Jelly.ComponentPropsWithoutRef<typeof Primitive.div>;
+type PrimitiveDivProps = Briks.ComponentPropsWithoutRef<typeof Primitive.div>;
 type ToastTitleProps = PrimitiveDivProps;
 
 const ToastTitle = React.forwardRef<ToastTitleElement, ToastTitleProps>(
@@ -861,7 +861,7 @@ ToastAction.displayName = ACTION_NAME;
 const CLOSE_NAME = 'ToastClose';
 
 type ToastCloseElement = React.ElementRef<typeof Primitive.button>;
-type PrimitiveButtonProps = Jelly.ComponentPropsWithoutRef<typeof Primitive.button>;
+type PrimitiveButtonProps = Briks.ComponentPropsWithoutRef<typeof Primitive.button>;
 type ToastCloseProps = PrimitiveButtonProps;
 
 const ToastClose = React.forwardRef<ToastCloseElement, ToastCloseProps>(
@@ -916,11 +916,11 @@ const getAnnounceTextContent = (container: HTMLElement) => {
     if (node.nodeType === node.TEXT_NODE && node.textContent) textContent.push(node.textContent);
     if (isHTMLElement(node)) {
       const isHidden = node.ariaHidden || node.hidden || node.style.display === 'none';
-      const isExcluded = node.dataset.jellyToastAnnounceExclude === '';
+      const isExcluded = node.dataset.briksToastAnnounceExclude === '';
 
       if (!isHidden) {
         if (isExcluded) {
-          const altText = node.dataset.jellyToastAnnounceAlt;
+          const altText = node.dataset.briksToastAnnounceAlt;
           if (altText) textContent.push(altText);
         } else {
           textContent.push(...getAnnounceTextContent(node));

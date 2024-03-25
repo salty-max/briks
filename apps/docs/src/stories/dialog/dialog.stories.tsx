@@ -13,6 +13,8 @@ import {
   Icon,
 } from '@briks/ui';
 
+import './style.css';
+
 const meta: Meta = {
   title: 'Atoms/Dialog',
   parameters: {
@@ -38,18 +40,61 @@ export const Basic: Story = () => (
           Make changes to your profile here. Click save when you&apos;re done.
         </DialogDescription>
       </DialogHeader>
-      <div className='grid gap-4 py-4'>
-        <div className='grid grid-cols-4 items-center gap-4'>
-          <label htmlFor='name' className='text-right'>
+      <div
+        style={{
+          display: 'grid',
+          gap: '1rem',
+          paddingTop: '1rem',
+          paddingBottom: '1rem',
+        }}
+      >
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+            alignItems: 'center',
+            gap: '1rem',
+          }}
+        >
+          <label
+            htmlFor='name'
+            style={{
+              textAlign: 'right',
+            }}
+          >
             Name
           </label>
-          <input id='name' defaultValue='Pedro Duarte' className='col-span-3' />
+          <input
+            id='name'
+            defaultValue='Pedro Duarte'
+            style={{
+              gridColumn: 'span 3 / span 3',
+            }}
+          />
         </div>
-        <div className='grid grid-cols-4 items-center gap-4'>
-          <label htmlFor='username' className='text-right'>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+            alignItems: 'center',
+            gap: '1rem',
+          }}
+        >
+          <label
+            htmlFor='username'
+            style={{
+              textAlign: 'right',
+            }}
+          >
             Username
           </label>
-          <input id='username' defaultValue='@peduarte' className='col-span-3' />
+          <input
+            id='username'
+            defaultValue='@peduarte'
+            style={{
+              gridColumn: 'span 3 / span 3',
+            }}
+          />
         </div>
       </div>
       <DialogFooter>
@@ -69,16 +114,41 @@ export const WithCustomCloseButton: Story = () => (
         <DialogTitle>Share link</DialogTitle>
         <DialogDescription>Anyone who has this link will be able to view this.</DialogDescription>
       </DialogHeader>
-      <div className='flex items-center space-x-2'>
-        <div className='grid flex-1 gap-2'>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+        }}
+      >
+        <div
+          style={{
+            display: 'grid',
+            flex: 1,
+            gap: '0.5rem',
+          }}
+        >
           <label htmlFor='link' className='sr-only'>
             Link
           </label>
           <input id='link' defaultValue='https://ui.shadcn.com/docs/installation' readOnly />
         </div>
-        <Button type='submit' size='sm' className='px-3'>
+        <Button
+          type='submit'
+          size='sm'
+          style={{
+            paddingLeft: '0.75rem',
+            paddingRight: '0.75rem',
+          }}
+        >
           <span className='sr-only'>Copy</span>
-          <Icon name='Copy' className='h-4 w-4' />
+          <Icon
+            name='Copy'
+            style={{
+              width: '1rem',
+              height: '1rem',
+            }}
+          />
         </Button>
       </div>
       <DialogFooter className='sm:justify-start'>

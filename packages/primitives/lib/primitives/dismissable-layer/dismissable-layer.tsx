@@ -23,7 +23,7 @@ import React from 'react';
 
 import { composeEventHandlers, dispatchDiscreteCustomEvent, Primitive } from '../primitive';
 
-import type * as Jelly from '../primitive';
+import type * as Briks from '../primitive';
 
 type PointerDownOutsideEvent = CustomEvent<{ originalEvent: PointerEvent }>;
 type FocusOutsideEvent = CustomEvent<{ originalEvent: FocusEvent }>;
@@ -42,7 +42,7 @@ const DismissableLayerContext = React.createContext({
 });
 
 type DismissableLayerElement = React.ElementRef<typeof Primitive.div>;
-type PrimitiveDivProps = Jelly.ComponentPropsWithoutRef<typeof Primitive.div>;
+type PrimitiveDivProps = Briks.ComponentPropsWithoutRef<typeof Primitive.div>;
 
 interface DismissableLayerProps extends PrimitiveDivProps {
   /**

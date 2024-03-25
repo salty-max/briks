@@ -68,11 +68,11 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply bk-border-border;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bk-bg-background bk-text-foreground;
     /* font-feature-settings: "rlig" 1, "calt" 1; */
     font-synthesis-weight: none;
     text-rendering: optimizeLegibility;
@@ -85,14 +85,14 @@
   }
 
   .step:before {
-    @apply font-mono absolute inline-flex h-9 w-9 items-center justify-center rounded-full border-4 border-background bg-muted text-center -indent-px text-base font-medium;
-    @apply ml-[-50px] mt-[-4px];
+    @apply bk-font-mono bk-absolute bk-inline-flex bk-h-9 bk-w-9 bk-items-center bk-justify-center bk-rounded-full bk-border-4 bk-border-background bk-bg-muted bk-text-center bk--indent-px bk-text-base bk-font-medium;
+    @apply bk-ml-[-50px] bk-mt-[-4px];
     content: counter(step);
   }
 }
 
 @media (max-width: 640px) {
   .container {
-    @apply px-4;
+    @apply bk-px-4;
   }
 }

@@ -18,7 +18,7 @@ const DialogOverlay = React.forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      'fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+      'bk-fixed bk-inset-0 bk-z-50 bk-bg-black/80  data-[state=open]:bk-animate-in data-[state=closed]:bk-animate-out data-[state=closed]:bk-fade-out-0 data-[state=open]:bk-fade-in-0',
       className,
     )}
     {...props}
@@ -35,15 +35,15 @@ const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        'fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg',
+        'bk-fixed bk-left-[50%] bk-top-[50%] bk-z-50 bk-grid bk-w-full bk-max-w-lg bk-translate-x-[-50%] bk-translate-y-[-50%] bk-gap-4 bk-border bk-bg-background bk-p-6 bk-shadow-lg bk-duration-200 data-[state=open]:bk-animate-in data-[state=closed]:bk-animate-out data-[state=closed]:bk-fade-out-0 data-[state=open]:bk-fade-in-0 data-[state=closed]:bk-zoom-out-95 data-[state=open]:bk-zoom-in-95 data-[state=closed]:bk-slide-out-to-left-1/2 data-[state=closed]:bk-slide-out-to-top-[48%] data-[state=open]:bk-slide-in-from-left-1/2 data-[state=open]:bk-slide-in-from-top-[48%] sm:bk-rounded-lg',
         className,
       )}
       {...props}
     >
       {children}
-      <DialogPrimitive.Close className='absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground'>
-        <Icon name='X' className='h-4 w-4' />
-        <span className='sr-only'>Close</span>
+      <DialogPrimitive.Close className='bk-absolute bk-right-4 bk-top-4 bk-rounded-sm bk-opacity-70 bk-ring-offset-background bk-transition-opacity hover:bk-opacity-100 focus:bk-outline-none focus:bk-ring-2 focus:bk-ring-ring focus:bk-ring-offset-2 disabled:bk-pointer-events-none data-[state=open]:bk-bg-accent data-[state=open]:bk-text-muted-foreground'>
+        <Icon name='X' className='bk-h-4 bk-w-4' />
+        <span className='bk-sr-only'>Close</span>
       </DialogPrimitive.Close>
     </DialogPrimitive.Content>
   </DialogPortal>
@@ -51,13 +51,19 @@ const DialogContent = React.forwardRef<
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
 const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn('flex flex-col space-y-1.5 text-center sm:text-left', className)} {...props} />
+  <div
+    className={cn('bk-flex bk-flex-col bk-space-y-1.5 bk-text-center sm:bk-text-left', className)}
+    {...props}
+  />
 );
 DialogHeader.displayName = 'DialogHeader';
 
 const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn('flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2', className)}
+    className={cn(
+      'bk-flex bk-flex-col-reverse sm:bk-flex-row sm:bk-justify-end sm:bk-space-x-2',
+      className,
+    )}
     {...props}
   />
 );
@@ -69,7 +75,7 @@ const DialogTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Title
     ref={ref}
-    className={cn('text-lg font-semibold leading-none tracking-tight', className)}
+    className={cn('bk-text-lg bk-font-semibold bk-leading-none bk-tracking-tight', className)}
     {...props}
   />
 ));
@@ -81,7 +87,7 @@ const DialogDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Description
     ref={ref}
-    className={cn('text-sm text-muted-foreground', className)}
+    className={cn('bk-text-sm bk-text-muted-foreground', className)}
     {...props}
   />
 ));

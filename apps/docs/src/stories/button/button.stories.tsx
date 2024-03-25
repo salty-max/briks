@@ -52,7 +52,12 @@ export const Variants: Story = {
     children: 'Click me',
   },
   render: args => (
-    <div className='flex gap-x-2'>
+    <div
+      style={{
+        display: 'grid',
+        gap: '1rem',
+      }}
+    >
       <Button {...args} variant='primary'>
         Click me
       </Button>
@@ -81,7 +86,12 @@ export const Variants: Story = {
 export const Sizes: Story = {
   args: {},
   render: args => (
-    <div className='flex space-x-4'>
+    <div
+      style={{
+        display: 'grid',
+        gap: '1rem',
+      }}
+    >
       <Button {...args} size='lg'>
         Click me
       </Button>

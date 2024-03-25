@@ -52,7 +52,7 @@ type Primitives = {
  * Dynamically constructs a collection of Primitive components from NODES,
  * each component supporting forwarding refs and an optional `asChild` prop
  * to render as a `Slot` instead of its default node. Additionally, it registers
- * a flag in the window object to indicate the use of Jelly UI primitives.
+ * a flag in the window object to indicate the use of Briks UI primitives.
  *
  * @type {Primitives} A collection of dynamically created Primitive components
  *                    keyed by their node names from NODES. Each component is
@@ -80,7 +80,7 @@ const Primitive = NODES.reduce((primitive, node) => {
       const Comp = asChild ? Slot : node;
 
       React.useEffect(() => {
-        (window as any)[Symbol.for('jelly-ui')] = true;
+        (window as any)[Symbol.for('@briks/ui')] = true;
       });
 
       // @ts-expect-error ts(2322)

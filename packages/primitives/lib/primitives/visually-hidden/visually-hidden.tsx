@@ -2,12 +2,12 @@ import React from 'react';
 
 import { Primitive } from '../primitive';
 
-import type * as Jelly from '../primitive';
+import type * as Briks from '../primitive';
 
 const NAME = 'VisuallyHidden';
 
 type VisuallyHiddenElement = React.ElementRef<typeof Primitive.span>;
-type PrimitiveSpanProps = Jelly.ComponentPropsWithoutRef<typeof Primitive.span>;
+type PrimitiveSpanProps = Briks.ComponentPropsWithoutRef<typeof Primitive.span>;
 type VisuallyHiddenProps = PrimitiveSpanProps;
 
 /**

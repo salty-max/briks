@@ -17,7 +17,7 @@ let count = 0;
  * of generating a new ID. This is useful for cases where a stable and predictable ID is required.
  *
  * @param deterministicId - An optional deterministic ID. If provided, this ID will be used instead of generating a new one.
- * @returns A unique ID string. It prefixes the generated or provided ID with `jelly-` unless a deterministic ID is provided.
+ * @returns A unique ID string. It prefixes the generated or provided ID with `briks-` unless a deterministic ID is provided.
  *                   Returns an empty string if unable to generate an ID (e.g., before React 18's useId is called on the client side).
  */
 function useId(deterministicId?: string): string {
@@ -27,7 +27,7 @@ function useId(deterministicId?: string): string {
     if (!deterministicId) setId(reactId => reactId ?? String(count++));
   }, [deterministicId]);
 
-  return deterministicId ?? (id ? `jelly-${id}` : '');
+  return deterministicId ?? (id ? `briks-${id}` : '');
 }
 
 export { useId };
