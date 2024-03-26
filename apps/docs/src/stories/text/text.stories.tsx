@@ -41,12 +41,7 @@ export const Variants: Story = {
     children: 'Lorem ipsum solor sit amet',
   },
   render: args => (
-    <div
-      style={{
-        display: 'grid',
-        gap: '1rem',
-      }}
-    >
+    <div className='grid gap-4'>
       <Text {...args} variant='title' />
       <Text {...args} variant='subtitle' />
       <Text {...args} variant='cardTitle' />

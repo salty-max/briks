@@ -1,4 +1,9 @@
-@font-face {
+@import 'tailwindcss/base';
+@import '@briks/ui/styles';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* @font-face {
   font-family: 'Open Sans';
   font-display: swap;
   src:
@@ -15,9 +20,5 @@
 }
 
 :root {
-  --font-sans: 'Nunito';
-}
-
-body {
-  font-family: var(--font-sans);
-}
+  --font-sans: 'Nunito', sans-serif;
+} */
