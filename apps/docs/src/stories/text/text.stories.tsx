@@ -1,25 +1,26 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import type { TextProps } from "@briks/ui";
-import { Text } from "@briks/ui";
+import { Text } from '@briks/ui';
+
+import type { TextProps } from '@briks/ui';
+import type { Meta, StoryObj } from '@storybook/react';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "Atoms/Text",
+  title: 'Atoms/Text',
   component: Text,
   parameters: {
-    componentSubtitle: "Text component is divided in semantic variants.",
-    layout: "centered",
+    componentSubtitle: 'Text component is divided in semantic variants.',
+    layout: 'centered',
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   args: {
-    children: "Lorem ipsum dolor sit amet",
+    children: 'Lorem ipsum dolor sit amet',
   },
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {
     variant: {
-      control: "select",
-      options: ["default", "title", "subtitle", "cardTitle", "caption"],
+      control: 'select',
+      options: ['default', 'title', 'subtitle', 'cardTitle', 'caption'],
     },
   },
 } satisfies Meta<TextProps>;
@@ -37,10 +38,10 @@ export const Standard: Story = {
  */
 export const Variants: Story = {
   args: {
-    children: "Lorem ipsum solor sit amet",
+    children: 'Lorem ipsum solor sit amet',
   },
-  render: (args) => (
-    <div className='grid space-y-4'>
+  render: args => (
+    <div className='grid gap-4'>
       <Text {...args} variant='title' />
       <Text {...args} variant='subtitle' />
       <Text {...args} variant='cardTitle' />
