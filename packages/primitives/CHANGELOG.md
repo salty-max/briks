@@ -1,5 +1,14 @@
 # @briks/primitives
 
+## 0.1.1
+
+### Patch Changes
+
+- Test ci
+- Updated dependencies
+  - @briks/core@0.1.1
+  - @briks/hooks@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "@briks/primitives",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Primitives for the @briks/ui library",
   "author": "Maxime Blanc <max@jellycat.fr>",
   "homepage": "https://github.com/salty-max/briks/blob/main/packages/ui#readme",
