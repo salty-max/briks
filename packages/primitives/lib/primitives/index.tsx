@@ -1,5 +1,6 @@
 export * as AlertDialogPrimitive from './alert-dialog';
 export * as ArrowPrimitive from './arrow';
+export * as CheckboxPrimitive from './checkbox';
 export * from './collection';
 export * as DialogPrimitive from './dialog';
 export * as DismissableLayer from './dismissable-layer';
@@ -9,6 +10,8 @@ export * as PopperPrimitive from './popper';
 export * as PortalPrimitive from './portal';
 export * from './presence';
 export * as Primitive from './primitive';
+export * from './radio';
+export * as RovingFocusGroup from './roving-focus-group';
 export * from './slot';
 export * as ToastPrimitive from './toast';
 export * as TooltipPrimitive from './tooltip/tooltip';

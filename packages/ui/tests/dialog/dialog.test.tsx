@@ -1,6 +1,6 @@
 import { RenderResult, cleanup, fireEvent, render } from '@testing-library/react';
 import { Mock, MockInstance, expect, vi, describe, beforeEach, afterEach, it } from 'vitest';
-import axe from '../../tests/axe-helper';
+import axe from '../axe-helper';
 import {
   Dialog,
   DialogContent,

@@ -19,6 +19,9 @@ import {
   DialogTitle,
   DialogTrigger,
   Icon,
+  Label,
+  RadioGroup,
+  RadioGroupItem,
   Text,
   Tooltip,
   TooltipContent,
@@ -32,10 +35,10 @@ function App() {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <div className='bk-flex bk-gap-2 bk-p-4'>
+    <div className='flex gap-2 p-4'>
       <Button icon={darkMode ? 'Moon' : 'Sun'} size='icon' onClick={() => toggleDarkMode()} />
       <Button
-        loading
+        icon='Palette'
         onClick={() => {
           console.log('coucou');
           setTheme(theme === 'violet' ? 'neutral' : 'violet');
@@ -71,26 +74,26 @@ function App() {
         <DialogTrigger asChild>
           <Button variant='outline'>Share</Button>
         </DialogTrigger>
-        <DialogContent className='sm:bk-max-w-md'>
+        <DialogContent className='sm:max-w-md'>
           <DialogHeader>
             <DialogTitle>Share link</DialogTitle>
             <DialogDescription>
               Anyone who has this link will be able to view this.
             </DialogDescription>
           </DialogHeader>
-          <div className='bk-flex bk-items-center bk-space-x-2'>
-            <div className='bk-grid bk-flex-1 bk-gap-2'>
-              <label htmlFor='link' className='bk-sr-only'>
+          <div className='flex items-center space-x-2'>
+            <div className='grid flex-1 gap-2'>
+              <label htmlFor='link' className='sr-only'>
                 Link
               </label>
               <input id='link' defaultValue='https://ui.shadcn.com/docs/installation' readOnly />
             </div>
-            <Button type='submit' size='sm' className='bk-px-3'>
-              <span className='bk-sr-only'>Copy</span>
-              <Icon name='Copy' className='bk-h-4 bk-w-4' />
+            <Button type='submit' size='sm' className='px-3'>
+              <span className='sr-only'>Copy</span>
+              <Icon name='Copy' className='h-4 w-4' />
             </Button>
           </div>
-          <DialogFooter className='sm:bk-justify-start'>
+          <DialogFooter className='sm:justify-start'>
             <DialogClose asChild>
               <Button type='button' variant='secondary'>
                 Close
@@ -109,6 +112,20 @@ function App() {
           </TooltipContent>
         </TooltipPortal>
       </Tooltip>
+      <RadioGroup defaultValue='comfortable' className='grid space-y-0.5'>
+        <div className='flex items-center space-x-2'>
+          <RadioGroupItem value='default' id='r1' />
+          <Label htmlFor='r1'>Default</Label>
+        </div>
+        <div className='flex items-center space-x-2'>
+          <RadioGroupItem value='comfortable' id='r2' />
+          <Label htmlFor='r2'>Comfortable</Label>
+        </div>
+        <div className='flex items-center space-x-2'>
+          <RadioGroupItem value='compact' id='r3' />
+          <Label htmlFor='r3'>Compact</Label>
+        </div>
+      </RadioGroup>
     </div>
   );
 }
