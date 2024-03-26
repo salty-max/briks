@@ -4,6 +4,7 @@ export * from './collection';
 export * as DialogPrimitive from './dialog';
 export * as DismissableLayer from './dismissable-layer';
 export * from './focus-scope';
+export * from './label';
 export * as PopperPrimitive from './popper';
 export * as PortalPrimitive from './portal';
 export * from './presence';

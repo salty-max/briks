@@ -53,6 +53,7 @@ module.exports = {
     'react/display-name': 'off',
     'react/function-component-definition': 'off',
     'react/jsx-filename-extension': 'off',
+    'react/jsx-no-constructed-context-values': 'off',
     'react/jsx-no-useless-fragment': 'off',
     'react/jsx-pascal-case': 'off',
     'react/jsx-props-no-spreading': 'off',
