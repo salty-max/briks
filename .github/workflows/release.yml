@@ -10,7 +10,6 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   release:
     name: 🚀 Release
-    if: github.base_ref == 'develop'
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout Repo
