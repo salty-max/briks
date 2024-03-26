@@ -1,62 +1,69 @@
-name: "Chromatic"
+name: Chromatic
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
+    branches:
+      - develop
+    types: [labeled, unlabeled, synchronize, opened, reopened, ready_for_review]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  chromatic-deployment:
+  chromatic-publish:
+    if: >
+      github.event_name == 'pull_request' &&
+      contains(join(github.event.pull_request.labels.*.name, ','), 'ui-review')
+    name: 📚 Publish on Chromatic
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: ⬇️ Checkout Repo
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
+      - name: 🧰 Install pnpm
+        uses: pnpm/action-setup@v2
         with:
-          node-version: 20
-
-      - uses: pnpm/action-setup@v2.2.4
-        name: Install pnpm
-        id: pnpm-install
-        with:
-          version: 8.15.5
+          version: 8
           run_install: false
 
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        run: |
-          echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
-      - uses: actions/cache@v3
-        name: Setup pnpm cache
+      - name: 🛠 Setup Node.js 20.x
+        uses: actions/setup-node@v2
         with:
-          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: 🧳 Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: ⚡ Turbo cache
+        id: turbo-cache
+        uses: actions/cache@v3
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ github.ref_name }}-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+            turbo-${{ runner.os }}-${{ github.ref_name }}
 
-      - name: Install dependencies
-        run: pnpm install
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      - name: Build packages
-        run: pnpm run build --filter packages/*
+      - name: 👷🏻‍♀️ Build
+        id: run-build
+        run: pnpm run build:ci
+        env:
+          NODE_ENV: ${{ secrets.NODE_ENV }}
 
-      - name: Install dependencies
-        run: pnpm install --filter docs
-
-      - name: Build Storybook (if required)
-        run: pnpm run build-storybook
-
-      - name: Publish to Chromatic
+      - name: 📚 Publish Storybook to Chromatic
         uses: chromaui/action@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          storybookBuildDir: 'storybook-static'
+          workingDir: 'apps/docs'
+          zip: true
           exitOnceUploaded: true
           exitZeroOnChanges: true
-          storybookBaseDir: apps/docs
-          storybookBuildDir: apps/docs/storybook-static
-          onlyChanged: true

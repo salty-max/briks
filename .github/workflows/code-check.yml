@@ -1,114 +1,58 @@
-name: Code check
+name: code-check
 
 on:
-  pull_request:
-    branches: ["*"]
+  push:
+    branches-ignore:
+      - main
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    name: pnpm lint
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      - uses: pnpm/action-setup@v2.2.4
-        name: Install pnpm
-        id: pnpm-install
-        with:
-          version: 8.15.5
-          run_install: false
-
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        run: |
-          echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
-      - uses: actions/cache@v3
-        name: Setup pnpm cache
-        with:
-          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-      - name: Install dependencies
-        run: pnpm install
-
-      - run: pnpm lint
-
-  test:
-    runs-on: ubuntu-latest
-    name: pnpm test
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      - uses: pnpm/action-setup@v2.2.4
-        name: Install pnpm
-        id: pnpm-install
-        with:
-          version: 8.15.5
-          run_install: false
-
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        run: |
-          echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
-      - uses: actions/cache@v3
-        name: Setup pnpm cache
-        with:
-          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-      - name: Install dependencies
-        run: pnpm install
-
-      - run: pnpm test
-
   build:
+    name: 👷🏻‍♀️ Build
     runs-on: ubuntu-latest
-    name: pnpm typecheck
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v3
 
-      - name: Install Node.js
+      - name: 🧰 Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
+      - name: 🛠️ Setup Node.js 20.x
         uses: actions/setup-node@v3
         with:
           node-version: 20
+          cache: pnpm
 
-      - uses: pnpm/action-setup@v2.2.4
-        name: Install pnpm
-        id: pnpm-install
-        with:
-          version: 8.15.5
-          run_install: false
-
-      - name: Get pnpm store directory
-        id: pnpm-cache
+      - name: 🧳 Get pnpm store directory
+        shell: bash
         run: |
-          echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
-      - uses: actions/cache@v3
-        name: Setup pnpm cache
-        with:
-          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-      - name: Install dependencies
-        run: pnpm install
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_ENV
 
-      - run: pnpm build
+      - name: ⚡️ Turbo cache
+        id: turbo-cache
+        uses: actions/cache@v3
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-${{ github.ref_name }}
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🧽 Prettier
+        run: pnpm run format-check
+
+      - name: 🔨 Build
+        run: pnpm run build:ci
+
+      - name: 👮🏻 Lint
+        run: pnpm run lint:ci
+
+      - name: 📋 Type check
+        run: pnpm run check-types
+
+      - name: 🧪 Test
+        run: pnpm run test:ci

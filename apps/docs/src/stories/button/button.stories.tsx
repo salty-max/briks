@@ -1,16 +1,17 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
-import type { ButtonProps } from "@briks/ui";
-import { Button } from "@briks/ui";
+import { fn } from '@storybook/test';
+
+import { Button } from '@briks/ui';
+
+import type { ButtonProps } from '@briks/ui';
+import type { Meta, StoryObj } from '@storybook/react';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta: Meta<ButtonProps> = {
-  title: "Atoms/Button",
+  title: 'Atoms/Button',
   component: Button,
   parameters: {
-    componentSubtitle:
-      "Displays a button or a component that looks like a button.",
-    layout: "centered",
+    componentSubtitle: 'Displays a button or a component that looks like a button.',
+    layout: 'centered',
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   args: {
@@ -18,26 +19,19 @@ const meta: Meta<ButtonProps> = {
   },
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {
-    icon: { control: "text" },
+    icon: { control: 'text' },
     iconPosition: {
-      control: "select",
-      options: ["left", "right"],
+      control: 'select',
+      options: ['left', 'right'],
     },
-    asChild: { control: "boolean" },
+    asChild: { control: 'boolean' },
     variant: {
-      control: "select",
-      options: [
-        "primary",
-        "destructive",
-        "outline",
-        "secondary",
-        "ghost",
-        "link",
-      ],
+      control: 'select',
+      options: ['primary', 'destructive', 'outline', 'secondary', 'ghost', 'link'],
     },
-    size: { control: "select", options: ["default", "sm", "lg", "icon"] },
+    size: { control: 'select', options: ['default', 'sm', 'lg', 'icon'] },
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
 } satisfies Meta<ButtonProps>;
 
 export default meta;
@@ -46,7 +40,7 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Basic: Story = {
   args: {
-    children: "Click me",
+    children: 'Click me',
   },
 };
 
@@ -55,10 +49,10 @@ export const Basic: Story = {
  */
 export const Variants: Story = {
   args: {
-    children: "Click me",
+    children: 'Click me',
   },
-  render: (args) => (
-    <div className='flex gap-x-2'>
+  render: args => (
+    <div className='grid gap-4'>
       <Button {...args} variant='primary'>
         Click me
       </Button>
@@ -86,8 +80,8 @@ export const Variants: Story = {
  */
 export const Sizes: Story = {
   args: {},
-  render: (args) => (
-    <div className='flex space-x-4'>
+  render: args => (
+    <div className='grid gap-4'>
       <Button {...args} size='lg'>
         Click me
       </Button>
@@ -104,7 +98,7 @@ export const Sizes: Story = {
 
 export const Loading: Story = {
   args: {
-    children: "Send",
+    children: 'Send',
     loading: true,
     disabled: true,
   },

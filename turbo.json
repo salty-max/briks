@@ -1,8 +1,5 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": [
-    "**/.env.*local"
-  ],
   "pipeline": {
     "build": {
       "outputs": [
@@ -23,31 +20,26 @@
         "^test"
       ]
     },
-    "dev": {
-      "dependsOn": [
-        "^build"
+    "test:coverage": {
+      "outputs": [
+        "coverage/**"
       ],
+      "dependsOn": []
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "preview": {
       "cache": false,
       "persistent": true
     },
     "clean": {
       "cache": false
     },
-    "build-storybook": {
-      "outputs": [
-        "storybook-static/**"
-      ],
+    "check-types": {
       "dependsOn": [
-        "^build-storybook"
-      ]
-    },
-    "preview": {
-      "cache": false,
-      "persistent": true
-    },
-    "chromatic": {
-      "dependsOn": [
-        "^chromatic"
+        "^check-types"
       ]
     }
   }
