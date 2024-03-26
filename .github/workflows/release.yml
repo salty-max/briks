@@ -1,10 +1,9 @@
 name: Release Workflow
 
 on:
-  pull_request:
+  push:
     branches:
       - main
-    types: [closed]
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
