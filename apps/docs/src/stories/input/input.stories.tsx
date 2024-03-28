@@ -16,6 +16,7 @@ import {
   Label,
   toast,
 } from '@briks/ui';
+import { fn } from '@storybook/test';
 
 const meta = {
   title: 'Atoms/Input',
@@ -24,7 +25,9 @@ const meta = {
     componentSubtitle: 'Displays a form input field or a component that looks like an input field.',
     layout: 'centered',
   },
-  args: {},
+  args: {
+    onChange: fn(),
+  },
   tags: ['autodocs'],
 } satisfies Meta<InputProps>;
 

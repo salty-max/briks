@@ -1,6 +1,6 @@
 import { cn } from '@briks/core';
-import { Slot } from '@briks/primitives';
-import React from 'react';
+import { LabelPrimitive, Slot } from '@briks/primitives';
+import * as React from 'react';
 import {
   Controller,
   ControllerProps,
@@ -14,33 +14,29 @@ import { Label } from '../label';
 
 const Form = FormProvider;
 
-interface FormFieldContextValue<
+type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-> {
+> = {
   name: TName;
-}
+};
 
 const FormFieldContext = React.createContext<FormFieldContextValue>({} as FormFieldContextValue);
-
-interface FormItemContextValue {
-  id: string;
-}
-
-const FormItemContext = React.createContext<FormItemContextValue>({} as FormItemContextValue);
 
 const FormField = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
   ...props
-}: ControllerProps<TFieldValues, TName>) => (
-  <FormFieldContext.Provider value={{ name: props.name }}>
-    <Controller {...props} />
-  </FormFieldContext.Provider>
-);
+}: ControllerProps<TFieldValues, TName>) => {
+  return (
+    <FormFieldContext.Provider value={{ name: props.name }}>
+      <Controller {...props} />
+    </FormFieldContext.Provider>
+  );
+};
 
-function useFormField() {
+const useFormField = () => {
   const fieldContext = React.useContext(FormFieldContext);
   const itemContext = React.useContext(FormItemContext);
   const { getFieldState, formState } = useFormContext();
@@ -48,7 +44,7 @@ function useFormField() {
   const fieldState = getFieldState(fieldContext.name, formState);
 
   if (!fieldContext) {
-    throw new Error('useFormField must be used within a FormField');
+    throw new Error('useFormField should be used within <FormField>');
   }
 
   const { id } = itemContext;
@@ -61,11 +57,18 @@ function useFormField() {
     formMessageId: `${id}-form-item-message`,
     ...fieldState,
   };
-}
+};
+
+type FormItemContextValue = {
+  id: string;
+};
+
+const FormItemContext = React.createContext<FormItemContextValue>({} as FormItemContextValue);
 
 const FormItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => {
     const id = React.useId();
+
     return (
       <FormItemContext.Provider value={{ id }}>
         <div ref={ref} className={cn('space-y-2', className)} {...props} />
@@ -75,20 +78,21 @@ const FormItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
 );
 FormItem.displayName = 'FormItem';
 
-const FormLabel = React.forwardRef<HTMLLabelElement, React.LabelHTMLAttributes<HTMLLabelElement>>(
-  ({ className, ...props }, ref) => {
-    const { error, formItemId } = useFormField();
+const FormLabel = React.forwardRef<
+  React.ElementRef<typeof LabelPrimitive>,
+  React.ComponentPropsWithoutRef<typeof LabelPrimitive>
+>(({ className, ...props }, ref) => {
+  const { error, formItemId } = useFormField();
 
-    return (
-      <Label
-        ref={ref}
-        className={cn(error && 'text-destructive', className)}
-        htmlFor={formItemId}
-        {...props}
-      />
-    );
-  },
-);
+  return (
+    <Label
+      ref={ref}
+      className={cn(error && 'text-destructive', className)}
+      htmlFor={formItemId}
+      {...props}
+    />
+  );
+});
 FormLabel.displayName = 'FormLabel';
 
 const FormControl = React.forwardRef<

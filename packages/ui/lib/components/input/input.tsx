@@ -7,8 +7,9 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, onChange, debounceDelay = 300, ...props }, ref) => {
-    const debounceOnChange = onChange ? useDebounce(onChange, debounceDelay) : () => {};
+  ({ className, type, onChange, debounceDelay, ...props }, ref) => {
+    const debounceOnChange =
+      onChange && debounceDelay ? useDebounce(onChange, debounceDelay) : onChange;
 
     return (
       <input

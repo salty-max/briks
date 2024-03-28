@@ -12,6 +12,7 @@ export * from './presence';
 export * as Primitive from './primitive';
 export * from './radio';
 export * as RovingFocusGroup from './roving-focus-group';
+export * as SelectPrimitive from './select';
 export * from './slot';
 export * as SwitchPrimitive from './switch';
 export * as ToastPrimitive from './toast';
