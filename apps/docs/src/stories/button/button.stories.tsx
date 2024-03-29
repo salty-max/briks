@@ -1,4 +1,4 @@
-import { fn } from '@storybook/test';
+import { fn, userEvent, within, expect } from '@storybook/test';
 
 import { Button } from '@briks/ui';
 
@@ -29,6 +29,7 @@ const meta: Meta<ButtonProps> = {
       control: 'select',
       options: ['primary', 'destructive', 'outline', 'secondary', 'ghost', 'link'],
     },
+    loading: { control: 'boolean' },
     size: { control: 'select', options: ['default', 'sm', 'lg', 'icon'] },
   },
   tags: ['autodocs'],
@@ -41,6 +42,19 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: {
     children: 'Click me',
+  },
+  render: args => <Button {...args} />,
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button');
+
+    await step('When', async () => {
+      await userEvent.click(button);
+    });
+
+    await step('Then', async () => {
+      await expect(canvas.getByText('Click me')).toBeInTheDocument();
+    });
   },
 };
 

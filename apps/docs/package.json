@@ -21,6 +21,7 @@
   "devDependencies": {
     "@briks/tailwind-config": "workspace:*",
     "@chromatic-com/storybook": "^1.2.25",
+    "@storybook/addon-a11y": "^8.0.5",
     "@storybook/addon-essentials": "^8.0.4",
     "@storybook/addon-interactions": "^8.0.4",
     "@storybook/addon-links": "^8.0.4",
