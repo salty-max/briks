@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@briks/core';
-import React, { CSSProperties } from 'react';
+import React from 'react';
 
 import {
   Button,
@@ -41,7 +41,7 @@ function Combobox({ items, value, placeholder, disabled, className, onSelect }: 
           variant='outline'
           role='combobox'
           disabled={disabled}
-          className={cn('w-full flex justify-between', className)}
+          className={cn('flex w-full justify-between', className)}
           aria-expanded={open}
         >
           {value ? items.find(item => item.value === value)?.label : placeholder || 'Select...'}

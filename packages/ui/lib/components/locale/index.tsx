@@ -40,7 +40,9 @@ function LocaleProvider({ children, locale: localeProp = 'en' }: LocaleProviderP
   }, [locale]);
 
   return (
-    <LocaleContext.Provider value={{ locale, changeLocale }}>{children}</LocaleContext.Provider>
+    <LocaleContext.Provider value={{ locale, dateLocale, changeLocale }}>
+      {children}
+    </LocaleContext.Provider>
   );
 }
 

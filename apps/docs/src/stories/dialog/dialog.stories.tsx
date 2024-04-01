@@ -20,7 +20,6 @@ const meta: Meta = {
       'A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.',
     layout: 'centered',
   },
-  tags: ['autodocs'],
 };
 
 export default meta;

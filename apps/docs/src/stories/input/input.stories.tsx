@@ -28,7 +28,6 @@ const meta = {
   args: {
     onChange: fn(),
   },
-  tags: ['autodocs'],
 } satisfies Meta<InputProps>;
 
 export default meta;
@@ -113,7 +112,7 @@ export const WithForm: StoryFn = () => {
     toast({
       title: 'Submitted',
       description: (
-        <pre className='mt-2 w-[340px] rounded-md bg-slate-950 dark:bg-slate-300 p-4'>
+        <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4 dark:bg-slate-300'>
           <code className='text-white dark:text-slate-950'>{JSON.stringify(data, null, 2)}</code>
         </pre>
       ),

@@ -4,7 +4,6 @@ import type { Meta, StoryFn } from '@storybook/react';
 
 const meta = {
   title: 'Atoms/Popover',
-  tags: ['autodocs'],
   parameters: {
     componentSubtitle: 'Displays rich content in a portal, triggered by a button.',
     layout: 'centered',

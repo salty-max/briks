@@ -31,7 +31,6 @@ const meta = {
     layout: 'centered',
   },
   args: {},
-  tags: ['autodocs'],
 } satisfies Meta;
 
 export default meta;

@@ -32,7 +32,6 @@ const meta: Meta<ButtonProps> = {
     loading: { control: 'boolean' },
     size: { control: 'select', options: ['default', 'sm', 'lg', 'icon'] },
   },
-  tags: ['autodocs'],
 } satisfies Meta<ButtonProps>;
 
 export default meta;
@@ -114,6 +113,27 @@ export const Loading: Story = {
   args: {
     children: 'Send',
     loading: true,
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    children: 'Send',
     disabled: true,
+  },
+};
+
+export const WithIcon: Story = {
+  args: {
+    children: 'Send',
+    icon: 'Send',
+  },
+};
+
+export const WithIconRight: Story = {
+  args: {
+    children: 'Send',
+    icon: 'Send',
+    iconPosition: 'right',
   },
 };

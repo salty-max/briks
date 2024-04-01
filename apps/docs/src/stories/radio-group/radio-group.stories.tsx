@@ -25,7 +25,6 @@ const meta = {
     layout: 'centered',
   },
   args: {},
-  tags: ['autodocs'],
 } satisfies Meta<typeof RadioGroup>;
 
 export default meta;

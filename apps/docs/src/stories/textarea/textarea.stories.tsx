@@ -27,7 +27,6 @@ const meta = {
   args: {
     onChange: fn(),
   },
-  tags: ['autodocs'],
 } satisfies Meta<typeof Textarea>;
 
 export default meta;
@@ -68,7 +67,7 @@ export const WithText: Story = {
     <div className='grid w-full gap-1.5'>
       <Label htmlFor={args.id}>Your message</Label>
       <Textarea {...args} />
-      <p className='text-sm text-muted-foreground'>
+      <p className='text-muted-foreground text-sm'>
         Your message will be copied to the support team.
       </p>
     </div>

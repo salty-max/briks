@@ -7,6 +7,7 @@ const meta = {
   component: DatePicker,
   parameters: {
     layout: 'centered',
+    componentSubtitle: 'A date picker component with range and presets.',
   },
 } satisfies Meta<typeof DatePicker>;
 

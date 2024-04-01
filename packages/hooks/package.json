@@ -16,9 +16,6 @@
   "main": "./dist/index.es.js",
   "module": "./dist/index.cjs.js",
   "types": "./dist/index.d.ts",
-  "sideEffects": [
-    "**/*.css"
-  ],
   "license": "MIT",
   "exports": {
     ".": {
@@ -42,7 +39,6 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@briks/tailwind-config": "workspace:*",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
     "@testing-library/user-event": "^14.5.2",
@@ -50,17 +46,16 @@
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
-    "@vitejs/plugin-react": "^4.2.1",
+    "@vitejs/plugin-react-swc": "^3.6.0",
     "eslint": "^8.57.0",
     "eslint-config-briks": "workspace:*",
     "jsdom": "^24.0.0",
     "resize-observer-polyfill": "^1.5.1",
     "rimraf": "^5.0.5",
+    "terser": "^5.30.1",
     "typescript": "^5.3.3",
     "vite": "^5.2.0",
     "vite-plugin-dts": "^3.7.3",
-    "vitest": "^1.4.0",
-    "vitest-axe": "^0.1.0",
-    "vitest-canvas-mock": "^0.3.3"
+    "vitest": "^1.4.0"
   }
 }

@@ -6,6 +6,7 @@ const meta = {
   component: Combobox,
   parameters: {
     layout: 'centered',
+    componentSubtitle: 'Autocomplete input and command palette with a list of suggestions.',
   },
 } satisfies Meta<typeof Combobox>;
 

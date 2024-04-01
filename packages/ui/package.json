@@ -56,13 +56,9 @@
     "react-hook-form": "^7.51.1",
     "react-intl": "^6.6.4",
     "tailwind-merge": "^2.2.2",
-    "tailwindcss-animate": "^1.0.7",
-    "tw-merge": "0.0.1-alpha.3"
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@briks/tailwind-config": "workspace:*",
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.0",
     "@hookform/resolvers": "^3.3.4",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
@@ -71,13 +67,11 @@
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
-    "@vitejs/plugin-react": "^4.2.1",
     "@vitejs/plugin-react-swc": "^3.6.0",
     "autoprefixer": "^10.4.19",
     "cssnano": "^6.1.1",
     "eslint": "^8.57.0",
     "eslint-config-briks": "workspace:*",
-    "glob": "^10.3.10",
     "jsdom": "^24.0.0",
     "postcss": "^8.4.38",
     "resize-observer-polyfill": "^1.5.1",

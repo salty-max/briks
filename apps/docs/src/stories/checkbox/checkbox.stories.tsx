@@ -23,7 +23,6 @@ const meta = {
     layout: 'centered',
   },
   args: {},
-  tags: ['autodocs'],
 } satisfies Meta<typeof Checkbox>;
 
 export default meta;

@@ -1,0 +1,71 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as ButtonStories from './button.stories.tsx';
+import { Button } from '@briks/ui';
+
+<Meta of={ButtonStories} />
+
+# Button
+
+Displays a button or a component that looks like a button.
+
+<Canvas of={ButtonStories.Basic} />
+
+## Variants
+
+You can change the variant of the button using the `variant` prop.
+
+```tsx
+<Button variant='destructive'>Click me</Button>
+```
+
+<Canvas of={ButtonStories.Variants} />
+
+## Sizes
+
+You can change the size of a button using the `size` prop.
+
+```tsx
+<Button size='lg'>Click me</Button>
+```
+
+<Canvas of={ButtonStories.Sizes} />
+
+## Icons
+
+You can add an icon to a button using the `icon` prop.
+By default, the icon is placed on the left side of the button. You can change this using the `iconPosition` prop.
+@briks/ui uses Lucide icons. For a complete list of available icons, visit [Lucide's website](https://lucide.dev/icons).
+
+```tsx
+<Button icon='Send'>Click me</Button>
+```
+
+<Canvas of={ButtonStories.WithIcon} />
+
+```tsx
+<Button icon='Send' iconPosition='right'>
+  Click me
+</Button>
+```
+
+<Canvas of={ButtonStories.WithIconRight} />
+
+## Loading
+
+You can show a loading spinner inside the button using the `loading` prop.
+
+```tsx
+<Button loading>Click me</Button>
+```
+
+<Canvas of={ButtonStories.Loading} />
+
+## Disabled
+
+You can disable a button using the `disabled` prop.
+
+```tsx
+<Button disabled>Click me</Button>
+```
+
+<Canvas of={ButtonStories.Disabled} />

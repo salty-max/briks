@@ -24,7 +24,6 @@ const meta = {
     layout: 'centered',
   },
   args: {},
-  tags: ['autodocs'],
 } satisfies Meta<typeof Switch>;
 
 export default meta;
