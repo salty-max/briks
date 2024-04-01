@@ -117,6 +117,7 @@ function App() {
         </RadioGroup>
         <Calendar />
         <Combobox
+          className='w-48'
           items={[
             { value: 'toto', label: 'Toto' },
             { value: 'tata', label: 'Tata' },

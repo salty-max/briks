@@ -1,17 +1,23 @@
+import { cn } from '@briks/core';
 import { format } from 'date-fns';
+import { enGB, fr } from 'date-fns/locale';
 import React from 'react';
 
 import { Button, Calendar, Icon, Popover, PopoverContent, PopoverTrigger } from '..';
+import { useLocale } from '../locale';
 
 interface DatePickerProps {
   value?: Date;
   disabled?: boolean;
   placeholder?: string;
+  className?: string;
   onChange?: (date?: Date) => void;
 }
 
-function DatePicker({ value, onChange, disabled, placeholder }: DatePickerProps) {
+function DatePicker({ value, onChange, disabled, placeholder, className }: DatePickerProps) {
   const [open, setOpen] = React.useState(false);
+
+  const { locale } = useLocale();
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -20,11 +26,15 @@ function DatePicker({ value, onChange, disabled, placeholder }: DatePickerProps)
           disabled={disabled}
           variant='outline'
           role='combobox'
-          className='w-full flex justify-start text-left font-normal'
+          className={cn('w-full flex justify-start text-left font-normal', className)}
           aria-expanded={open}
         >
           <Icon name='Calendar' className='mr-2 h-4 w-4 shrink-0 opacity-50' />
-          {value ? format(value, 'PPP') : placeholder || 'Select...'}
+          {value
+            ? format(value, 'PPP', {
+                locale: locale === 'fr' ? fr : enGB,
+              })
+            : placeholder || 'Select...'}
         </Button>
       </PopoverTrigger>
       <PopoverContent className='w-auto p-0'>

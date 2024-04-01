@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@briks/core';
-import React from 'react';
+import React, { CSSProperties } from 'react';
 
 import {
   Button,
@@ -27,10 +27,11 @@ interface ComboboxProps {
   placeholder?: string;
   value?: string;
   disabled?: boolean;
+  className?: string;
   onSelect?: (...event: any[]) => void;
 }
 
-function Combobox({ items, value, placeholder, disabled, onSelect }: ComboboxProps) {
+function Combobox({ items, value, placeholder, disabled, className, onSelect }: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -40,7 +41,7 @@ function Combobox({ items, value, placeholder, disabled, onSelect }: ComboboxPro
           variant='outline'
           role='combobox'
           disabled={disabled}
-          className='w-full flex justify-between'
+          className={cn('w-full flex justify-between', className)}
           aria-expanded={open}
         >
           {value ? items.find(item => item.value === value)?.label : placeholder || 'Select...'}

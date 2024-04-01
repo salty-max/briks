@@ -1,18 +1,32 @@
 'use client';
 
 import { cn } from '@briks/core';
-import { fr } from 'date-fns/locale';
+import { enGB, fr, ja } from 'date-fns/locale';
 import { DayPicker } from 'react-day-picker';
 
 import { Icon } from '..';
 import { buttonVariants } from '../button/helpers';
+import { useLocale } from '../locale';
 
 type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
 function Calendar({ className, classNames, showOutsideDays = true, ...props }: CalendarProps) {
+  const { locale } = useLocale();
+
+  const getLocale = () => {
+    switch (locale) {
+      case 'fr':
+        return fr;
+      case 'ja':
+        return ja;
+      default:
+        return enGB;
+    }
+  };
+
   return (
     <DayPicker
-      locale={fr}
+      locale={getLocale()}
       showOutsideDays={showOutsideDays}
       className={cn('p-3', className)}
       classNames={{
