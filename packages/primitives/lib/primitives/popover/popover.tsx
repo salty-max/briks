@@ -1,7 +1,7 @@
-import { createContextScope, type Scope } from '@briks/core';
+import { createContextScope } from '@briks/core';
 import { useComposedRefs, useControllableState, useFocusGuards, useId } from '@briks/hooks';
 import { hideOthers } from 'aria-hidden';
-import React from 'react';
+import * as React from 'react';
 import { RemoveScroll } from 'react-remove-scroll';
 
 import { DismissableLayer } from '../dismissable-layer';
@@ -14,6 +14,7 @@ import { composeEventHandlers, Primitive } from '../primitive';
 import { Slot } from '../slot';
 
 import type * as Briks from '../primitive';
+import type { Scope } from '@briks/core';
 
 /* -------------------------------------------------------------------------------------------------
  * Popover
@@ -50,14 +51,15 @@ interface PopoverProps {
   modal?: boolean;
 }
 
-const Popover: React.FC<PopoverProps> = ({
-  __scopePopover,
-  children,
-  open: openProp,
-  defaultOpen,
-  onOpenChange,
-  modal = false,
-}: ScopedProps<PopoverProps>) => {
+const Popover: React.FC<PopoverProps> = (props: ScopedProps<PopoverProps>) => {
+  const {
+    __scopePopover,
+    children,
+    open: openProp,
+    defaultOpen,
+    onOpenChange,
+    modal = false,
+  } = props;
   const popperScope = usePopperScope(__scopePopover);
   const triggerRef = React.useRef<HTMLButtonElement>(null);
   const [hasCustomAnchor, setHasCustomAnchor] = React.useState(false);
@@ -75,7 +77,7 @@ const Popover: React.FC<PopoverProps> = ({
         triggerRef={triggerRef}
         open={open}
         onOpenChange={setOpen}
-        onOpenToggle={React.useCallback(() => setOpen(open => !open), [setOpen])}
+        onOpenToggle={React.useCallback(() => setOpen(prevOpen => !prevOpen), [setOpen])}
         hasCustomAnchor={hasCustomAnchor}
         onCustomAnchorAdd={React.useCallback(() => setHasCustomAnchor(true), [])}
         onCustomAnchorRemove={React.useCallback(() => setHasCustomAnchor(false), [])}
@@ -100,7 +102,8 @@ type PopperAnchorProps = Briks.ComponentPropsWithoutRef<typeof PopperPrimitive.A
 interface PopoverAnchorProps extends PopperAnchorProps {}
 
 const PopoverAnchor = React.forwardRef<PopoverAnchorElement, PopoverAnchorProps>(
-  ({ __scopePopover, ...props }: ScopedProps<PopoverAnchorProps>, forwardedRef) => {
+  (props: ScopedProps<PopoverAnchorProps>, forwardedRef) => {
+    const { __scopePopover, ...anchorProps } = props;
     const context = usePopoverContext(ANCHOR_NAME, __scopePopover);
     const popperScope = usePopperScope(__scopePopover);
     const { onCustomAnchorAdd, onCustomAnchorRemove } = context;
@@ -110,7 +113,7 @@ const PopoverAnchor = React.forwardRef<PopoverAnchorElement, PopoverAnchorProps>
       return () => onCustomAnchorRemove();
     }, [onCustomAnchorAdd, onCustomAnchorRemove]);
 
-    return <PopperPrimitive.Anchor {...popperScope} {...props} ref={forwardedRef} />;
+    return <PopperPrimitive.Anchor {...popperScope} {...anchorProps} ref={forwardedRef} />;
   },
 );
 
@@ -127,7 +130,8 @@ type PrimitiveButtonProps = Briks.ComponentPropsWithoutRef<typeof Primitive.butt
 interface PopoverTriggerProps extends PrimitiveButtonProps {}
 
 const PopoverTrigger = React.forwardRef<PopoverTriggerElement, PopoverTriggerProps>(
-  ({ __scopePopover, ...props }: ScopedProps<PopoverTriggerProps>, forwardedRef) => {
+  (props: ScopedProps<PopoverTriggerProps>, forwardedRef) => {
+    const { __scopePopover, ...triggerProps } = props;
     const context = usePopoverContext(TRIGGER_NAME, __scopePopover);
     const popperScope = usePopperScope(__scopePopover);
     const composedTriggerRef = useComposedRefs(forwardedRef, context.triggerRef);
@@ -139,7 +143,7 @@ const PopoverTrigger = React.forwardRef<PopoverTriggerElement, PopoverTriggerPro
         aria-expanded={context.open}
         aria-controls={context.contentId}
         data-state={getState(context.open)}
-        {...props}
+        {...triggerProps}
         ref={composedTriggerRef}
         onClick={composeEventHandlers(props.onClick, context.onOpenToggle)}
       />
@@ -163,8 +167,8 @@ PopoverTrigger.displayName = TRIGGER_NAME;
 
 const PORTAL_NAME = 'PopoverPortal';
 
-type PortalConextValue = { forceMount?: true };
-const [PortalProvider, usePortalContext] = createPopoverContext<PortalConextValue>(PORTAL_NAME, {
+type PortalContextValue = { forceMount?: true };
+const [PortalProvider, usePortalContext] = createPopoverContext<PortalContextValue>(PORTAL_NAME, {
   forceMount: undefined,
 });
 
@@ -182,14 +186,9 @@ interface PopoverPortalProps {
   forceMount?: true;
 }
 
-const PopoverPortal: React.FC<PopoverPortalProps> = ({
-  __scopePopover,
-  children,
-  container,
-  forceMount,
-}: ScopedProps<PopoverPortalProps>) => {
+const PopoverPortal: React.FC<PopoverPortalProps> = (props: ScopedProps<PopoverPortalProps>) => {
+  const { __scopePopover, forceMount, children, container } = props;
   const context = usePopoverContext(PORTAL_NAME, __scopePopover);
-
   return (
     <PortalProvider scope={__scopePopover} forceMount={forceMount}>
       <Presence present={forceMount || context.open}>
@@ -222,7 +221,6 @@ const PopoverContent = React.forwardRef<PopoverContentTypeElement, PopoverConten
     const portalContext = usePortalContext(CONTENT_NAME, props.__scopePopover);
     const { forceMount = portalContext.forceMount, ...contentProps } = props;
     const context = usePopoverContext(CONTENT_NAME, props.__scopePopover);
-
     return (
       <Presence present={forceMount || context.open}>
         {context.modal ? (
@@ -261,7 +259,7 @@ const PopoverContentModal = React.forwardRef<PopoverContentTypeElement, PopoverC
         <PopoverContentImpl
           {...props}
           ref={composedRefs}
-          // We make sure we're not trapping once it's been closed
+          // we make sure we're not trapping once it's been closed
           // (closed !== unmounted when animating out)
           trapFocus={context.open}
           disableOutsidePointerEvents
@@ -280,7 +278,7 @@ const PopoverContentModal = React.forwardRef<PopoverContentTypeElement, PopoverC
             },
             { checkForDefaultPrevented: false },
           )}
-          // When focus id trapped, a `focusout` event may still happen.
+          // When focus is trapped, a `focusout` event may still happen.
           // We make sure we don't trigger our `onDismiss` in such case.
           onFocusOutside={composeEventHandlers(
             props.onFocusOutside,
@@ -322,8 +320,9 @@ const PopoverContentNonModal = React.forwardRef<PopoverContentTypeElement, Popov
 
           if (!event.defaultPrevented) {
             hasInteractedOutsideRef.current = true;
-            if (event.detail.originalEvent.type === 'pointerdown')
+            if (event.detail.originalEvent.type === 'pointerdown') {
               hasPointerDownOutsideRef.current = true;
+            }
           }
 
           // Prevent dismissing when clicking the trigger.
@@ -335,10 +334,11 @@ const PopoverContentNonModal = React.forwardRef<PopoverContentTypeElement, Popov
 
           // On Safari if the trigger is inside a container with tabIndex={0}, when clicked
           // we will get the pointer down outside event on the trigger, but then a subsequent
-          // focus outside event on the container, we ingore any focus outside event when we've
+          // focus outside event on the container, we ignore any focus outside event when we've
           // already had a pointer down outside event.
-          if (event.detail.originalEvent.type === 'focusin' && hasPointerDownOutsideRef.current)
+          if (event.detail.originalEvent.type === 'focusin' && hasPointerDownOutsideRef.current) {
             event.preventDefault();
+          }
         }}
       />
     );
@@ -374,8 +374,8 @@ interface PopoverContentImplProps
 }
 
 const PopoverContentImpl = React.forwardRef<PopoverContentImplElement, PopoverContentImplProps>(
-  (
-    {
+  (props: ScopedProps<PopoverContentImplProps>, forwardedRef) => {
+    const {
       __scopePopover,
       trapFocus,
       onOpenAutoFocus,
@@ -385,15 +385,13 @@ const PopoverContentImpl = React.forwardRef<PopoverContentImplElement, PopoverCo
       onPointerDownOutside,
       onFocusOutside,
       onInteractOutside,
-      ...props
-    }: ScopedProps<PopoverContentImplProps>,
-    forwardedRef,
-  ) => {
+      ...contentProps
+    } = props;
     const context = usePopoverContext(CONTENT_NAME, __scopePopover);
     const popperScope = usePopperScope(__scopePopover);
 
-    // Make sure the whole tree has focus guards as our `Popover` mat be
-    // the last element in the DOM (because of the `Portal`)
+    // Make sure the whole tree has focus guards as our `Popover` may be
+    // the last element in the DOM (beacuse of the `Portal`)
     useFocusGuards();
 
     return (
@@ -418,17 +416,17 @@ const PopoverContentImpl = React.forwardRef<PopoverContentImplElement, PopoverCo
             role='dialog'
             id={context.contentId}
             {...popperScope}
-            {...props}
+            {...contentProps}
             ref={forwardedRef}
             style={{
-              ...props.style,
-              // re-namespace to avoid collision
+              ...contentProps.style,
+              // re-namespace exposed content custom properties
               ...{
                 '--popover-content-transform-origin': 'var(--popper-transform-origin)',
                 '--popover-content-available-width': 'var(--popper-available-width)',
                 '--popover-content-available-height': 'var(--popper-available-height)',
-                '--popover-trigger-width': 'var(--popper-trigger-width)',
-                '--popover-trigger-height': 'var(--popper-trigger-height)',
+                '--popover-trigger-width': 'var(--popper-anchor-width)',
+                '--popover-trigger-height': 'var(--popper-anchor-height)',
               },
             }}
           />
@@ -448,16 +446,15 @@ type PopoverCloseElement = React.ElementRef<typeof Primitive.button>;
 interface PopoverCloseProps extends PrimitiveButtonProps {}
 
 const PopoverClose = React.forwardRef<PopoverCloseElement, PopoverCloseProps>(
-  ({ __scopePopover, ...props }: ScopedProps<PopoverCloseProps>, forwardedRef) => {
+  (props: ScopedProps<PopoverCloseProps>, forwardedRef) => {
+    const { __scopePopover, ...closeProps } = props;
     const context = usePopoverContext(CLOSE_NAME, __scopePopover);
-
     return (
       <Primitive.button
         type='button'
-        aria-label='Close'
-        onClick={composeEventHandlers(props.onClick, () => context.onOpenChange(false))}
-        {...props}
+        {...closeProps}
         ref={forwardedRef}
+        onClick={composeEventHandlers(props.onClick, () => context.onOpenChange(false))}
       />
     );
   },
@@ -476,10 +473,10 @@ type PopperArrowProps = Briks.ComponentPropsWithoutRef<typeof PopperPrimitive.Ar
 interface PopoverArrowProps extends PopperArrowProps {}
 
 const PopoverArrow = React.forwardRef<PopoverArrowElement, PopoverArrowProps>(
-  ({ __scopePopover, ...props }: ScopedProps<PopoverArrowProps>, forwardedRef) => {
+  (props: ScopedProps<PopoverArrowProps>, forwardedRef) => {
+    const { __scopePopover, ...arrowProps } = props;
     const popperScope = usePopperScope(__scopePopover);
-
-    return <PopperPrimitive.Arrow {...popperScope} {...props} ref={forwardedRef} />;
+    return <PopperPrimitive.Arrow {...popperScope} {...arrowProps} ref={forwardedRef} />;
   },
 );
 
@@ -518,7 +515,6 @@ export {
   Root,
   Trigger,
 };
-
 export type {
   PopoverAnchorProps,
   PopoverArrowProps,

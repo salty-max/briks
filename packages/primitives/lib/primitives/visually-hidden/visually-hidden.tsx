@@ -44,8 +44,6 @@ const VisuallyHidden = React.forwardRef<VisuallyHiddenElement, VisuallyHiddenPro
 );
 VisuallyHidden.displayName = NAME;
 
-const Root = VisuallyHidden;
-
-export { Root, VisuallyHidden };
+export { VisuallyHidden };
 
 export type { VisuallyHiddenProps };

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Text, Popover, PopoverContent, PopoverTrigger, Button, Label, Input } from '@briks/ui';
 
 import type { Meta, StoryFn } from '@storybook/react';

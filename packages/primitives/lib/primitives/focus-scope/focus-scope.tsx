@@ -376,12 +376,6 @@ function removeLinks(items: HTMLElement[]) {
 
 const focusScopesStack = createFocusScopesStack();
 
-const Root = FocusScope;
-
-export {
-  FocusScope,
-  //
-  Root,
-};
+export { FocusScope };
 
 export type { FocusScopeProps };

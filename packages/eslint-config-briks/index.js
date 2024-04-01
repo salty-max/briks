@@ -63,6 +63,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'react/no-danger': 'off',
     'react/no-this-in-sfc': 'off',
+    'react/no-unstable-nested-components': 'off',
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/require-default-props': 'off',

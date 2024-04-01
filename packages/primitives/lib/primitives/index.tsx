@@ -18,4 +18,4 @@ export * from './slot';
 export * as SwitchPrimitive from './switch';
 export * as ToastPrimitive from './toast';
 export * as TooltipPrimitive from './tooltip/tooltip';
-export * as VisuallyHidden from './visually-hidden';
+export * from './visually-hidden';

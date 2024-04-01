@@ -5,7 +5,7 @@
   "main": "src/main.tsx",
   "type": "module",
   "scripts": {
-    "dev": "storybook dev -p 6006 --no-open",
+    "dev": "storybook dev -p 6006",
     "build": "storybook build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "build-storybook": "storybook build",
@@ -14,6 +14,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@briks/core": "workspace:*",
     "@briks/ui": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -34,6 +35,7 @@
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.2.1",
+    "@vitejs/plugin-react-swc": "^3.6.0",
     "autoprefixer": "^10.4.19",
     "chromatic": "^11.2.0",
     "postcss": "^8.4.38",
@@ -42,6 +44,7 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3",
     "vite": "^5.2.0",
+    "workshop": "workspace:^",
     "zod": "^3.22.4"
   }
 }
