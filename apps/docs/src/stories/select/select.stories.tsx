@@ -22,7 +22,7 @@ import {
 } from '@briks/ui';
 
 const meta = {
-  title: 'Atoms/Select',
+  title: 'Form/Select',
   component: Select,
   parameters: {
     componentSubtitle:
@@ -35,7 +35,7 @@ const meta = {
 export default meta;
 type Story = StoryFn<typeof meta>;
 
-export const Basic: Story = () => (
+export const Default: Story = () => (
   <Select>
     <SelectTrigger className='w-[180px]'>
       <SelectValue placeholder='Select a fruit' />

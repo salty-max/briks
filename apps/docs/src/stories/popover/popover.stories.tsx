@@ -3,7 +3,7 @@ import { Text, Popover, PopoverContent, PopoverTrigger, Button, Label, Input } f
 import type { Meta, StoryFn } from '@storybook/react';
 
 const meta = {
-  title: 'Atoms/Popover',
+  title: 'Portals/Popover',
   parameters: {
     componentSubtitle: 'Displays rich content in a portal, triggered by a button.',
     layout: 'centered',
@@ -32,7 +32,7 @@ const variables: Record<string, { label: string; defaultValue: string }> = {
   },
 };
 
-export const Basic: Story = () => (
+export const Default: Story = () => (
   <Popover>
     <PopoverTrigger asChild>
       <Button variant='outline'>Open popover</Button>

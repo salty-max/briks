@@ -16,7 +16,7 @@ import {
 } from '@briks/ui';
 
 const meta: Meta = {
-  title: 'Atoms/Dialog',
+  title: 'Portals/Dialog',
   parameters: {
     componentSubtitle:
       'A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.',
@@ -27,7 +27,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryFn<typeof meta>;
 
-export const Basic: Story = () => (
+export const Default: Story = () => (
   <Dialog>
     <DialogTrigger asChild>
       <Button variant='outline'>Edit Profile</Button>

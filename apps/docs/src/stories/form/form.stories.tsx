@@ -25,7 +25,7 @@ import {
 import { Combobox } from '@briks/ui';
 
 const meta = {
-  title: 'Molecules/Form',
+  title: 'Form/Form',
   parameters: {
     componentSubtitle: 'Form builder with React Hook Form',
     layout: 'centered',
@@ -116,7 +116,7 @@ const PokemonFormSchema = z.object({
   captured: z.boolean(),
 });
 
-export const Basic: Story = () => {
+export const Default: Story = () => {
   const form = useForm<z.infer<typeof PokemonFormSchema>>({
     resolver: zodResolver(PokemonFormSchema),
     defaultValues: {
@@ -135,7 +135,7 @@ export const Basic: Story = () => {
     toast({
       title: 'Submitted',
       description: (
-        <pre className='mt-2 w-[340px] rounded-md bg-slate-950 dark:bg-slate-300 p-4'>
+        <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4 dark:bg-slate-300'>
           <code className='text-white dark:text-slate-950'>{JSON.stringify(data, null, 2)}</code>
         </pre>
       ),

@@ -6,7 +6,7 @@ import type { ButtonProps } from '@briks/ui';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<ButtonProps> = {
-  title: 'Atoms/Button',
+  title: 'Core/Button',
   component: Button,
   parameters: {
     componentSubtitle: 'Displays a button or a component that looks like a button.',
@@ -36,7 +36,7 @@ const meta: Meta<ButtonProps> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = {
+export const Default: Story = {
   args: {
     children: 'Click me',
   },

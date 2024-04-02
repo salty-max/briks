@@ -3,7 +3,7 @@ import { Skeleton } from '@briks/ui';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'Atoms/Skeleton',
+  title: 'Core/Skeleton',
   component: Skeleton,
   parameters: {
     componentSubtitle: 'Use to show a placeholder while content is loading.',
@@ -14,7 +14,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = {
+export const Default: Story = {
   render: () => (
     <div className='flex items-center space-x-4'>
       <Skeleton className='h-12 w-12 rounded-full' />

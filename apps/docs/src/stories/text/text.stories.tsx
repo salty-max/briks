@@ -4,7 +4,7 @@ import type { TextProps } from '@briks/ui';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'Atoms/Text',
+  title: 'Core/Text',
   component: Text,
   parameters: {
     componentSubtitle: 'Text component is divided in semantic variants.',

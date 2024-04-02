@@ -15,7 +15,7 @@ import {
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'Atoms/Sheet',
+  title: 'Layout/Sheet',
   parameters: {
     componentSubtitle:
       'Extends the Dialog component to display content that complements the main content of the screen.',
@@ -26,7 +26,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = {
+export const Default: Story = {
   render: () => (
     <Sheet>
       <SheetTrigger asChild>

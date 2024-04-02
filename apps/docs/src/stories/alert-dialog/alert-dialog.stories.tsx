@@ -13,7 +13,7 @@ import {
 } from '@briks/ui';
 
 const meta: Meta = {
-  title: 'Atoms/AlertDialog',
+  title: 'Portals/AlertDialog',
   parameters: {
     componentSubtitle:
       'A modal dialog that interrupts the user with important content and expects a response.',
@@ -24,7 +24,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryFn<typeof meta>;
 
-export const Basic: Story = () => (
+export const Default: Story = () => (
   <AlertDialog>
     <AlertDialogTrigger asChild>
       <Button variant='outline'>Show Dialog</Button>

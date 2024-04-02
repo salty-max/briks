@@ -1,6 +1,7 @@
 export * as AlertDialogPrimitive from './alert-dialog';
 export * as ArrowPrimitive from './arrow';
 export * as CheckboxPrimitive from './checkbox';
+export * as CollapsiblePrimitive from './collapsible';
 export * from './collection';
 export * as DialogPrimitive from './dialog';
 export * as DismissableLayer from './dismissable-layer';
@@ -16,6 +17,7 @@ export * as RovingFocusGroup from './roving-focus-group';
 export * as SelectPrimitive from './select';
 export * from './slot';
 export * as SwitchPrimitive from './switch';
+export * as TabsPrimitive from './tabs';
 export * as ToastPrimitive from './toast';
 export * as TooltipPrimitive from './tooltip/tooltip';
 export * from './visually-hidden';
