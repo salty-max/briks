@@ -1,5 +1,18 @@
 # @briks/ui
 
+## 0.2.0
+
+### Minor Changes
+
+- Form components
+
+### Patch Changes
+
+- Updated dependencies
+  - @briks/primitives@0.2.0
+  - @briks/hooks@0.2.0
+  - @briks/core@0.2.0
+
 ## 0.1.1
 
 ### Patch Changes
