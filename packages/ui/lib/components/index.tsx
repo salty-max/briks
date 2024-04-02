@@ -13,6 +13,8 @@ export * from './label';
 export * from './popover';
 export * from './radio-group';
 export * from './select';
+export * from './sheet';
+export * from './skeleton';
 export * from './switch';
 export * from './text';
 export * from './textarea';

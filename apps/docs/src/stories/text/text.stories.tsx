@@ -3,7 +3,6 @@ import { Text } from '@briks/ui';
 import type { TextProps } from '@briks/ui';
 import type { Meta, StoryObj } from '@storybook/react';
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
   title: 'Atoms/Text',
   component: Text,
@@ -11,11 +10,11 @@ const meta = {
     componentSubtitle: 'Text component is divided in semantic variants.',
     layout: 'centered',
   },
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
+
   args: {
     children: 'Lorem ipsum dolor sit amet',
   },
-  // More on argTypes: https://storybook.js.org/docs/api/argtypes
+
   argTypes: {
     variant: {
       control: 'select',
@@ -27,7 +26,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Standard: Story = {
   args: {},
 };

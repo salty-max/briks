@@ -5,7 +5,6 @@ import { Button } from '@briks/ui';
 import type { ButtonProps } from '@briks/ui';
 import type { Meta, StoryObj } from '@storybook/react';
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta: Meta<ButtonProps> = {
   title: 'Atoms/Button',
   component: Button,
@@ -13,11 +12,11 @@ const meta: Meta<ButtonProps> = {
     componentSubtitle: 'Displays a button or a component that looks like a button.',
     layout: 'centered',
   },
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
+
   args: {
     onClick: fn(),
   },
-  // More on argTypes: https://storybook.js.org/docs/api/argtypes
+
   argTypes: {
     icon: { control: 'text' },
     iconPosition: {
@@ -37,7 +36,6 @@ const meta: Meta<ButtonProps> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Basic: Story = {
   args: {
     children: 'Click me',
