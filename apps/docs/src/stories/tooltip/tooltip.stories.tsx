@@ -19,7 +19,6 @@ const decorator: Decorator = Story => (
 
 const meta = {
   title: 'Atoms/Tooltip',
-  tags: ['autodocs'],
   decorators: [decorator],
   parameters: {
     componentSubtitle:

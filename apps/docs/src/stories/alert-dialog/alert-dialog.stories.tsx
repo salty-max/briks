@@ -61,6 +61,7 @@ export const Destructive: Story = () => (
       <AlertDialogFooter>
         <AlertDialogCancel>Cancel</AlertDialogCancel>
         <AlertDialogAction
+          destructive
           // eslint-disable-next-line no-console
           onClick={() => console.log('BOOM')}
         >

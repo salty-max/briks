@@ -11,6 +11,8 @@ import {
   DialogFooter,
   DialogClose,
   Icon,
+  Label,
+  Input,
 } from '@briks/ui';
 
 const meta: Meta = {
@@ -20,7 +22,6 @@ const meta: Meta = {
       'A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.',
     layout: 'centered',
   },
-  tags: ['autodocs'],
 };
 
 export default meta;
@@ -40,16 +41,16 @@ export const Basic: Story = () => (
       </DialogHeader>
       <div className='grid gap-4 py-4'>
         <div className='grid grid-cols-4 items-center gap-4'>
-          <label htmlFor='name' className='text-right'>
+          <Label htmlFor='name' className='text-right'>
             Name
-          </label>
-          <input id='name' defaultValue='Pedro Duarte' className='col-span-3' />
+          </Label>
+          <Input id='name' defaultValue='Pedro Duarte' className='col-span-3' />
         </div>
         <div className='grid grid-cols-4 items-center gap-4'>
           <label htmlFor='username' className='text-right'>
             Username
           </label>
-          <input id='username' defaultValue='@peduarte' className='col-span-3' />
+          <Input id='username' defaultValue='@peduarte' className='col-span-3' />
         </div>
       </div>
       <DialogFooter>
@@ -71,12 +72,12 @@ export const WithCustomCloseButton: Story = () => (
       </DialogHeader>
       <div className='flex items-center space-x-2'>
         <div className='grid flex-1 gap-2'>
-          <label htmlFor='link' className='sr-only'>
+          <Label htmlFor='link' className='sr-only'>
             Link
-          </label>
-          <input id='link' defaultValue='https://ui.shadcn.com/docs/installation' readOnly />
+          </Label>
+          <Input id='link' defaultValue='https://ui.shadcn.com/docs/installation' readOnly />
         </div>
-        <Button type='submit' size='sm' className='px-3'>
+        <Button type='submit' className='px-3'>
           <span className='sr-only'>Copy</span>
           <Icon name='Copy' className='h-4 w-4' />
         </Button>

@@ -7,7 +7,6 @@ const meta = {
     componentSubtitle: 'A succinct message that is displayed temporarily.',
     layout: 'centered',
   },
-  tags: ['autodocs'],
 } satisfies Meta;
 
 export default meta;
