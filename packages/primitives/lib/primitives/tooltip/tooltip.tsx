@@ -9,7 +9,7 @@ import { Portal as PortalPrimitive } from '../portal';
 import { Presence } from '../presence';
 import { composeEventHandlers, Primitive } from '../primitive';
 import { Slottable } from '../slot';
-import * as VisuallyHiddenPrimitive from '../visually-hidden';
+import { VisuallyHidden } from '../visually-hidden';
 
 import type * as Briks from '../primitive';
 import type { Scope } from '@briks/core';
@@ -550,9 +550,9 @@ const TooltipContentImpl = React.forwardRef<TooltipContentImplElement, TooltipCo
         >
           <Slottable>{children}</Slottable>
           <VisuallyHiddenContentContextProvider scope={__scopeTooltip} isInside>
-            <VisuallyHiddenPrimitive.Root id={context.contentId} role='tooltip'>
+            <VisuallyHidden id={context.contentId} role='tooltip'>
               {ariaLabel ?? children}
-            </VisuallyHiddenPrimitive.Root>
+            </VisuallyHidden>
           </VisuallyHiddenContentContextProvider>
         </PopperPrimitive.Content>
       </DismissableLayer>

@@ -54,7 +54,7 @@ jobs:
 
       - name: 👷🏻‍♀️ Build
         id: run-build
-        run: pnpm run build:ci
+        run: pnpm run build:ci && pnpm run build --filter docs
         env:
           NODE_ENV: ${{ secrets.NODE_ENV }}
 

@@ -1,9 +1,9 @@
+import { Toaster } from '@briks/ui';
 import { withThemeByClassName } from '@storybook/addon-themes';
 import type { Decorator, Preview, ReactRenderer } from '@storybook/react';
-import { Toaster } from '@briks/ui';
-import '@briks/ui/styles';
-import '../src/style.css';
 import React from 'react';
+
+import '../src/style.css';
 
 /** @type { import('@storybook/react').Preview } */
 const preview: Preview = {

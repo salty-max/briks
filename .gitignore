@@ -27,6 +27,7 @@ out/
 build/
 dist/
 *.log
+*.config.ts.timestamp-*
 
 # Tests
 coverage/
