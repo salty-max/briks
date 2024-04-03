@@ -9,6 +9,7 @@ export * from './combobox';
 export * from './command';
 export * from './date-picker';
 export * from './dialog';
+export * from './dropdown-menu';
 export * from './form';
 export * from './icon';
 export * from './input';
