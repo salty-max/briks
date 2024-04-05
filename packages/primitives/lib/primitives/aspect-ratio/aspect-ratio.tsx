@@ -25,7 +25,7 @@ const AspectRatio = React.forwardRef<AspectRatioElement, AspectRatioProps>(
           position: 'relative',
           // Ensures padding bottom trick maths works
           width: '100%',
-          paddingBottom: `&{100 / ratio}%`,
+          paddingBottom: `${100 / ratio}%`,
         }}
         data-briks-aspect-ratio-wrapper=''
       >
