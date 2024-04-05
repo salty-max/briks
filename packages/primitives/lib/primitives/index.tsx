@@ -1,5 +1,7 @@
 export * as AlertDialogPrimitive from './alert-dialog';
 export * as ArrowPrimitive from './arrow';
+export * from './aspect-ratio';
+export * as AvatarPrimitive from './avatar';
 export * as CheckboxPrimitive from './checkbox';
 export * as CollapsiblePrimitive from './collapsible';
 export * from './collection';
