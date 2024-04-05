@@ -17,6 +17,7 @@ export * as Primitive from './primitive';
 export * from './radio';
 export * as RovingFocusGroup from './roving-focus-group';
 export * as SelectPrimitive from './select';
+export * as SeparatorPrimitive from './separator';
 export * from './slot';
 export * as SwitchPrimitive from './switch';
 export * as TabsPrimitive from './tabs';

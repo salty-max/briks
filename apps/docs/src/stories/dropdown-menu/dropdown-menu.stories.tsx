@@ -17,7 +17,7 @@ import {
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'Core/DropdownMenu',
+  title: 'Menu/DropdownMenu',
   component: DropdownMenu,
   parameters: {
     componentSubtitle:
