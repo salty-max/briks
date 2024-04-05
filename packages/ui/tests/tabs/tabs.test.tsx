@@ -1,14 +1,6 @@
 // TabsComponents.test.jsx
 import { describe, expect, it, beforeEach, afterEach } from 'vitest';
-import {
-  render,
-  fireEvent,
-  screen,
-  cleanup,
-  RenderResult,
-  act,
-  waitFor,
-} from '@testing-library/react';
+import { render, fireEvent, screen, cleanup, RenderResult, waitFor } from '@testing-library/react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../lib/components/tabs/';
 import axe from '../axe-helper';
 
@@ -67,9 +59,9 @@ describe('Tabs', () => {
 
         expect(trigger1).toHaveAttribute('data-state', 'inactive');
         expect(trigger2).toHaveAttribute('data-state', 'active');
-        expect(trigger1).toHaveAttribute('data-state', 'inactive');
+        expect(tabContent1).toHaveAttribute('data-state', 'inactive');
         expect(screen.queryByText(tabContents[0])).not.toBeInTheDocument();
-        expect(trigger2).toHaveAttribute('data-state', 'active');
+        expect(tabContent2).toHaveAttribute('data-state', 'active');
         expect(rendered.getByText(tabContents[1])).toBeInTheDocument();
       });
     });
