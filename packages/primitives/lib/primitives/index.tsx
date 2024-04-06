@@ -12,6 +12,7 @@ export * as DropdownMenuPrimitive from './dropdown-menu';
 export * from './focus-scope';
 export * from './label';
 export * as MenuPrimitive from './menu';
+export * as NavigationMenuPrimitive from './navigation-menu';
 export * as PopoverPrimitive from './popover';
 export * as PopperPrimitive from './popper';
 export * as PortalPrimitive from './portal';

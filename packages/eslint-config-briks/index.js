@@ -65,6 +65,7 @@ module.exports = {
     'react/no-danger': 'off',
     'react/no-this-in-sfc': 'off',
     'react/no-unstable-nested-components': 'off',
+    'react/no-unused-prop-types': 'off',
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/require-default-props': 'off',

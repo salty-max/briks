@@ -20,6 +20,7 @@ export * from './form';
 export * from './icon';
 export * from './input';
 export * from './label';
+export * from './navigation-menu';
 export * from './popover';
 export * from './progress';
 export * from './radio-group';
