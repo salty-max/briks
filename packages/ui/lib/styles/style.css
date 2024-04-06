@@ -18,6 +18,14 @@
     url('../assets/fonts/Nunito.ttf') format('truetype-variations');
 }
 
+@font-face {
+  font-family: 'JetBrainsMono';
+  font-display: swap;
+  src:
+    local('JetBrainsMono'),
+    url('../assets/fonts/JetBrainsMono.ttf') format('truetype-variations');
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -41,6 +49,7 @@
     --ring: 240 5.9% 10%;
     --radius: 0.5rem;
     --font-sans: 'Nunito';
+    --font-mono: 'JetBrainsMono';
   }
 
   .dark {
@@ -85,7 +94,7 @@
   }
 
   .step:before {
-    @apply font-mono absolute inline-flex h-9 w-9 items-center justify-center rounded-full border-4 border-background bg-muted text-center -indent-px text-base font-medium;
+    @apply border-background bg-muted absolute inline-flex h-9 w-9 items-center justify-center rounded-full border-4 text-center -indent-px font-mono text-base font-medium;
     @apply ml-[-50px] mt-[-4px];
     content: counter(step);
   }
