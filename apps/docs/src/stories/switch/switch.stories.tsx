@@ -16,7 +16,7 @@ import {
 } from '@briks/ui';
 
 const meta = {
-  title: 'Atoms/Switch',
+  title: 'Form/Switch',
   component: Switch,
   parameters: {
     componentSubtitle:
@@ -29,7 +29,7 @@ const meta = {
 export default meta;
 type Story = StoryFn<typeof meta>;
 
-export const Basic: Story = () => (
+export const Default: Story = () => (
   <div className='flex items-center space-x-2'>
     <Switch id='airplane-mode' />
     <Label htmlFor='airplane-mode'>Airplane Mode</Label>

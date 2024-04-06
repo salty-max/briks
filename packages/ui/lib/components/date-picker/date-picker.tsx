@@ -1,22 +1,27 @@
 import { cn } from '@briks/core';
-import { format } from 'date-fns';
+import { format, Locale } from 'date-fns';
 import React from 'react';
 
 import { Button, Calendar, Icon, Popover, PopoverContent, PopoverTrigger } from '..';
-import { useLocale } from '../locale';
 
 interface DatePickerProps {
   value?: Date;
   disabled?: boolean;
   placeholder?: string;
   className?: string;
+  locale?: Locale;
   onChange?: (date?: Date) => void;
 }
 
-function DatePicker({ value, onChange, disabled, placeholder, className }: DatePickerProps) {
+function DatePicker({
+  value,
+  onChange,
+  disabled,
+  placeholder,
+  className,
+  locale,
+}: DatePickerProps) {
   const [open, setOpen] = React.useState(false);
-
-  const { dateLocale } = useLocale();
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -31,7 +36,7 @@ function DatePicker({ value, onChange, disabled, placeholder, className }: DateP
           <Icon name='Calendar' className='mr-2 h-4 w-4 shrink-0 opacity-50' />
           {value
             ? format(value, 'PPP', {
-                locale: dateLocale,
+                locale,
               })
             : placeholder || 'Select...'}
         </Button>
@@ -39,6 +44,7 @@ function DatePicker({ value, onChange, disabled, placeholder, className }: DateP
       <PopoverContent className='w-auto p-0'>
         <Calendar
           mode='single'
+          locale={locale}
           selected={value}
           onSelect={date => {
             onChange?.(date);

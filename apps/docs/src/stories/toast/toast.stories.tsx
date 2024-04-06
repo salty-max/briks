@@ -2,7 +2,7 @@ import type { Meta, StoryFn } from '@storybook/react';
 import { Button, toast, ToastAction } from '@briks/ui';
 
 const meta = {
-  title: 'Atoms/Toast',
+  title: 'Portals/Toast',
   parameters: {
     componentSubtitle: 'A succinct message that is displayed temporarily.',
     layout: 'centered',

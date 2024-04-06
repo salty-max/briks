@@ -13,6 +13,7 @@ const NODES = [
   'h4',
   'h5',
   'h6',
+  'img',
   'p',
   'span',
   'svg',

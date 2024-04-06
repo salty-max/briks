@@ -18,7 +18,7 @@ import {
 } from '@briks/ui';
 
 const meta = {
-  title: 'Atoms/Textarea',
+  title: 'Form/Textarea',
   component: Textarea,
   parameters: {
     componentSubtitle: 'Displays a form textarea or a component that looks like a textarea.',
@@ -32,7 +32,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = {
+export const Default: Story = {
   args: {
     placeholder: 'Type your message here...',
   },
