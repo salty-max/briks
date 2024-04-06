@@ -1,6 +1,7 @@
 {
   "table": {
     "previous": "Précedent",
-    "next": "Suivant"
+    "next": "Suivant",
+    "noResults": "Pas de résultats"
   }
 }

@@ -3,7 +3,7 @@ import { Input, Label, Text } from '@briks/ui';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: 'Atoms/Label',
+  title: 'Form/Label',
   component: Label,
   parameters: {
     componentSubtitle: 'Renders an accessible label associated with controls.',

@@ -18,7 +18,7 @@ const decorator: Decorator = Story => (
 );
 
 const meta = {
-  title: 'Atoms/Tooltip',
+  title: 'Portals/Tooltip',
   decorators: [decorator],
   parameters: {
     componentSubtitle:
@@ -30,7 +30,7 @@ const meta = {
 export default meta;
 type Story = StoryFn<typeof meta>;
 
-export const Basic: Story = () => (
+export const Default: Story = () => (
   <Tooltip delayDuration={300}>
     <TooltipTrigger asChild>
       <Text>Hover or Focus me</Text>

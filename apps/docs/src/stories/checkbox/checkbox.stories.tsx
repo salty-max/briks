@@ -16,7 +16,7 @@ import {
 } from '@briks/ui';
 
 const meta = {
-  title: 'Atoms/Checkbox',
+  title: 'Form/Checkbox',
   component: Checkbox,
   parameters: {
     componentSubtitle: 'A control that allows the user to toggle between checked and not checked.',
@@ -28,7 +28,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = {
+export const Default: Story = {
   args: {},
 };
 

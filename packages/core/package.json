@@ -1,6 +1,6 @@
 {
   "name": "@briks/core",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Helpers for the @briks/ui library",
   "author": "Maxime Blanc <max@jellycat.fr>",
   "homepage": "https://github.com/salty-max/briks/blob/main/packages/ui#readme",

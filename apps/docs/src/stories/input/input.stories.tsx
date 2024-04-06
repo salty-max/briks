@@ -19,7 +19,7 @@ import {
 import { fn } from '@storybook/test';
 
 const meta = {
-  title: 'Atoms/Input',
+  title: 'Form/Input',
   component: Input,
   parameters: {
     componentSubtitle: 'Displays a form input field or a component that looks like an input field.',
@@ -33,7 +33,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = {
+export const Default: Story = {
   args: {
     type: 'email',
     placeholder: 'Email',

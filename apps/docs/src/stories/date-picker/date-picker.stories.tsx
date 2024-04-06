@@ -3,7 +3,7 @@ import { Meta, StoryFn } from '@storybook/react';
 import React from 'react';
 
 const meta = {
-  title: 'Molecules/DatePicker',
+  title: 'Form/DatePicker',
   component: DatePicker,
   parameters: {
     layout: 'centered',

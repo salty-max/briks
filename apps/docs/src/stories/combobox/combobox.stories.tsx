@@ -2,7 +2,7 @@ import { Combobox } from '@briks/ui';
 import { Meta, StoryFn } from '@storybook/react';
 
 const meta = {
-  title: 'Molecules/Combobox',
+  title: 'Form/Combobox',
   component: Combobox,
   parameters: {
     layout: 'centered',

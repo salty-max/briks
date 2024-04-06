@@ -1,6 +1,6 @@
 {
   "name": "@briks/primitives",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Primitives for the @briks/ui library",
   "author": "Maxime Blanc <max@jellycat.fr>",
   "homepage": "https://github.com/salty-max/briks/blob/main/packages/ui#readme",
@@ -48,6 +48,7 @@
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
+    "@types/resize-observer-browser": "^0.1.11",
     "@vitejs/plugin-react-swc": "^3.6.0",
     "aria-hidden": "^1.2.4",
     "eslint": "^8.57.0",

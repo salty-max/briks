@@ -17,7 +17,7 @@ import {
 } from '@briks/ui';
 
 const meta = {
-  title: 'Atoms/RadioGroup',
+  title: 'Form/RadioGroup',
   component: RadioGroup,
   parameters: {
     componentSubtitle:
@@ -30,7 +30,7 @@ const meta = {
 export default meta;
 type Story = StoryFn<typeof meta>;
 
-export const Basic: Story = () => (
+export const Default: Story = () => (
   <RadioGroup defaultValue='comfortable' className='grid space-y-0.5'>
     <div className='flex items-center space-x-2'>
       <RadioGroupItem value='default' id='r1' />
