@@ -1,3 +1,4 @@
+export * as AccordionPrimitive from './accordion';
 export * as AlertDialogPrimitive from './alert-dialog';
 export * as ArrowPrimitive from './arrow';
 export * from './aspect-ratio';
