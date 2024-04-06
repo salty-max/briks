@@ -31,6 +31,7 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
     'consistent-return': 'off',
+    'default-param-last': 'off',
     'guard-for-in': 'off',
     'import/extensions': 'off',
     'import/no-extraneous-dependencies': 'off',

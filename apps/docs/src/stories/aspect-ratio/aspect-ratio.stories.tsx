@@ -21,7 +21,7 @@ export const Default: Story = {
     <AspectRatio ratio={args.ratio} className='bg-muted'>
       <img
         src='https://source.unsplash.com/velo-de-sport-orange-et-noir-gare-sur-une-chaussee-en-beton-gris-pendant-la-journee-7GeprSfVqLQ?w=800&dpr=2&q=100'
-        alt='Photo by Drew Beamer'
+        alt='Photo by Max Itin'
         className='absolute left-0 top-0 h-full w-full rounded-md object-cover'
       />
     </AspectRatio>
